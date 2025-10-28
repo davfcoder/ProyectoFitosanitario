@@ -5,6 +5,7 @@
 package Clases.libreria;
 
 import Clases.vistas.GestionUsuarios;
+import Clases.vistas.GestionCargo;
 import Clases.vistas.Principal;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.BorderLayout;
@@ -71,13 +72,14 @@ public class Dashboard extends javax.swing.JFrame {
 
         background = new javax.swing.JPanel();
         menu = new javax.swing.JPanel();
-        btnCerrarSesion = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        btnPlaga = new javax.swing.JButton();
-        btnGestionarTecnicos = new javax.swing.JButton();
+        btnGestionarCargo = new javax.swing.JButton();
+        btnGestionarUsuarios = new javax.swing.JButton();
         btnFitosanitario = new javax.swing.JButton();
         btnProduccion = new javax.swing.JButton();
         btnReportes = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        btnCerrarSesion = new javax.swing.JButton();
         header = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
         lblBienvenida = new javax.swing.JLabel();
@@ -95,15 +97,6 @@ public class Dashboard extends javax.swing.JFrame {
         menu.setBackground(new java.awt.Color(27, 94, 32));
         menu.setPreferredSize(new java.awt.Dimension(270, 640));
 
-        btnCerrarSesion.setBackground(new java.awt.Color(255, 0, 0));
-        btnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
-        btnCerrarSesion.setText("Cerrar Sesión");
-        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesionActionPerformed(evt);
-            }
-        });
-
         jButton1.setBackground(new java.awt.Color(27, 94, 32));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Principal");
@@ -116,27 +109,27 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        btnPlaga.setBackground(new java.awt.Color(27, 94, 32));
-        btnPlaga.setForeground(new java.awt.Color(255, 255, 255));
-        btnPlaga.setText("Registrar Plaga");
-        btnPlaga.setBorder(null);
-        btnPlaga.setBorderPainted(false);
-        btnPlaga.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnPlaga.addActionListener(new java.awt.event.ActionListener() {
+        btnGestionarCargo.setBackground(new java.awt.Color(27, 94, 32));
+        btnGestionarCargo.setForeground(new java.awt.Color(255, 255, 255));
+        btnGestionarCargo.setText("Gestionar Cargos");
+        btnGestionarCargo.setBorder(null);
+        btnGestionarCargo.setBorderPainted(false);
+        btnGestionarCargo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnGestionarCargo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPlagaActionPerformed(evt);
+                btnGestionarCargoActionPerformed(evt);
             }
         });
 
-        btnGestionarTecnicos.setBackground(new java.awt.Color(27, 94, 32));
-        btnGestionarTecnicos.setForeground(new java.awt.Color(255, 255, 255));
-        btnGestionarTecnicos.setText("Gestionar Usuarios");
-        btnGestionarTecnicos.setBorder(null);
-        btnGestionarTecnicos.setBorderPainted(false);
-        btnGestionarTecnicos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnGestionarTecnicos.addActionListener(new java.awt.event.ActionListener() {
+        btnGestionarUsuarios.setBackground(new java.awt.Color(27, 94, 32));
+        btnGestionarUsuarios.setForeground(new java.awt.Color(255, 255, 255));
+        btnGestionarUsuarios.setText("Gestionar Usuarios");
+        btnGestionarUsuarios.setBorder(null);
+        btnGestionarUsuarios.setBorderPainted(false);
+        btnGestionarUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnGestionarUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGestionarTecnicosActionPerformed(evt);
+                btnGestionarUsuariosActionPerformed(evt);
             }
         });
 
@@ -176,19 +169,51 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(27, 94, 32));
+
+        btnCerrarSesion.setBackground(new java.awt.Color(255, 0, 0));
+        btnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        btnCerrarSesion.setText("Cerrar Sesión");
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesionActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+
         javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
         menu.setLayout(menuLayout);
         menuLayout.setHorizontalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(btnGestionarTecnicos, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(btnPlaga, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(btnProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(btnFitosanitario, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(menuLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGestionarUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGestionarCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFitosanitario, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(menuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         menuLayout.setVerticalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,16 +223,17 @@ public class Dashboard extends javax.swing.JFrame {
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(menuLayout.createSequentialGroup()
                         .addGap(47, 47, 47)
-                        .addComponent(btnGestionarTecnicos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addComponent(btnPlaga, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnGestionarUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(btnGestionarCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnFitosanitario, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(113, 113, 113)
-                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         header.setBackground(new java.awt.Color(255, 255, 255));
@@ -285,7 +311,7 @@ public class Dashboard extends javax.swing.JFrame {
                 .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 753, Short.MAX_VALUE))
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -328,19 +354,19 @@ public class Dashboard extends javax.swing.JFrame {
                 break;
             case "Propietario":
                 btnFitosanitario.setVisible(false);
-                btnGestionarTecnicos.setVisible(false);
+                btnGestionarUsuarios.setVisible(false);
                 btnProduccion.setVisible(false);
                 break;
             case "Productor":
                 btnFitosanitario.setVisible(false);
                 btnProduccion.setVisible(false);
-                btnGestionarTecnicos.setVisible(false);
+                btnGestionarUsuarios.setVisible(false);
                 btnReportes.setVisible(false);
                 break;
             case "Asistente Técnico":
                 btnFitosanitario.setVisible(false);
                 btnReportes.setVisible(false);
-                btnGestionarTecnicos.setVisible(false);
+                btnGestionarUsuarios.setVisible(false);
                 break;
         }
     }
@@ -357,9 +383,9 @@ public class Dashboard extends javax.swing.JFrame {
         ShowJPanel(new Principal());        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void btnGestionarTecnicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionarTecnicosActionPerformed
+    private void btnGestionarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionarUsuariosActionPerformed
         ShowJPanel(new GestionUsuarios());        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGestionarTecnicosActionPerformed
+    }//GEN-LAST:event_btnGestionarUsuariosActionPerformed
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
         int respuesta = JOptionPane.showConfirmDialog(this,
@@ -374,10 +400,10 @@ public class Dashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
-    private void btnPlagaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlagaActionPerformed
+    private void btnGestionarCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionarCargoActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "🚀 La sección de Registrar Plaga estará disponible próximamente.", "En desarrollo", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_btnPlagaActionPerformed
+        ShowJPanel(new GestionCargo()); 
+    }//GEN-LAST:event_btnGestionarCargoActionPerformed
 
     private void btnFitosanitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFitosanitarioActionPerformed
         // TODO add your handling code here:
@@ -403,14 +429,15 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel background;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnFitosanitario;
-    private javax.swing.JButton btnGestionarTecnicos;
-    private javax.swing.JButton btnPlaga;
+    private javax.swing.JButton btnGestionarCargo;
+    private javax.swing.JButton btnGestionarUsuarios;
     private javax.swing.JButton btnProduccion;
     private javax.swing.JButton btnReportes;
     private static javax.swing.JPanel content;
     private javax.swing.JPanel header;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblBienvenida;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblTitulo;
