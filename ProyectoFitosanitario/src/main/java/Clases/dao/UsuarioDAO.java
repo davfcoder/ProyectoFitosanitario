@@ -14,7 +14,7 @@ public class UsuarioDAO {
     public UsuarioDAO() {
         this.conexion = new CConexion();
     }
-    
+
     // ✅ CREATE - Insertar usuario (no se modifica)
     public boolean insertar(Usuarios usuario) {
         try {
@@ -102,37 +102,70 @@ public class UsuarioDAO {
         }
     }
 
-    // ✅ DELETE - Eliminar usuario
+// ✅ DELETE - Eliminar usuario usando procedimiento almacenado
     public boolean eliminar(String id) {
-        String sql = "DELETE FROM Usuarios WHERE id_usuario = ?";
+        Connection con = null;
+        CallableStatement cs = null;
 
-        try (Connection con = conexion.estableceConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+        try {
+            con = conexion.estableceConexion();
 
-            ps.setString(1, id);
-            int resultado = ps.executeUpdate();
-            return resultado > 0;
+            // Llamada al procedimiento almacenado
+            String sql = "{call sp_eliminar_usuario(?)}";
+            cs = con.prepareCall(sql);
+
+            // Parámetro de entrada
+            cs.setString(1, id);
+
+            // Ejecutar el procedimiento
+            cs.execute();
+
+            return true; // Eliminación exitosa
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al eliminar usuario: " + e.getMessage());
             return false;
+        } finally {
+            try {
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
 // ✅ OBTENER UN USUARIO POR SU ID
-    public Usuarios getUserById(String idUsuario) throws Exception {
-        String sql = "SELECT * FROM Usuarios WHERE id_usuario = ?";
+    public Usuarios getUserById(String idUsuario) {
         Usuarios usuario = null;
-
         Connection con = null;
-        PreparedStatement ps = null;
+        CallableStatement cs = null;
         ResultSet rs = null;
 
         try {
             con = conexion.estableceConexion();
-            ps = con.prepareStatement(sql);
-            ps.setString(1, idUsuario);
-            rs = ps.executeQuery();
 
+            // Llamada al procedimiento almacenado
+            String sql = "{call sp_buscar_usuario_por_id(?, ?)}";
+            cs = con.prepareCall(sql);
+
+            // Parámetro de entrada
+            cs.setString(1, idUsuario);
+
+            // Parámetro de salida (el cursor)
+            cs.registerOutParameter(2, oracle.jdbc.OracleTypes.CURSOR);
+
+            // Ejecutar
+            cs.execute();
+
+            // Obtener el cursor como ResultSet
+            rs = (ResultSet) cs.getObject(2);
+
+            // Procesar resultados
             if (rs.next()) {
                 usuario = new Usuarios();
                 usuario.setIdUsuario(rs.getString("id_usuario"));
@@ -150,16 +183,20 @@ public class UsuarioDAO {
             }
 
         } catch (SQLException e) {
-            throw new Exception("Error al obtener el usuario por ID: " + e.getMessage(), e);
+            JOptionPane.showMessageDialog(null, "Error al buscar usuario: " + e.getMessage());
         } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (ps != null) {
-                ps.close();
-            }
-            if (con != null) {
-                con.close();
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
 
