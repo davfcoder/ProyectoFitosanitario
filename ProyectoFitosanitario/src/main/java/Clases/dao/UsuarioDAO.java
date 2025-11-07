@@ -15,42 +15,75 @@ public class UsuarioDAO {
         this.conexion = new CConexion();
     }
 
-    // ✅ CREATE - Insertar usuario (no se modifica)
+// ✅ CREATE - Insertar usuario usando procedimiento almacenado
     public boolean insertar(Usuarios usuario) {
+        Connection con = null;
+        CallableStatement cs = null;
+
         try {
-            String sql = "INSERT INTO Usuarios (id_usuario, num_identificacion, nombres, apellidos, direccion, telefono, correo_electronico, ingreso_usuario, ingreso_contrasenia, nro_registro_ica, tarjeta_profesional, id_cargo) "
-                    + "VALUES (SEQ_USUARIOS.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement ps = conexion.estableceConexion().prepareStatement(sql);
+            con = conexion.estableceConexion();
 
-            ps.setString(1, usuario.getNumIdentificacion());
-            ps.setString(2, usuario.getNombres());
-            ps.setString(3, usuario.getApellidos());
-            ps.setString(4, usuario.getDireccion());
-            ps.setString(5, usuario.getTelefono());
-            ps.setString(6, usuario.getCorreoElectronico());
-            ps.setString(7, usuario.getIngresoUsuario());
-            ps.setString(8, usuario.getIngresoContrasenia());
-            ps.setString(9, usuario.getNroRegistroICA());
-            ps.setString(10, usuario.getTarjetaProfesional());
-            ps.setString(11, usuario.getIdCargo());
+            // Llamada al procedimiento almacenado
+            String sql = "{call sp_insertar_usuario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+            cs = con.prepareCall(sql);
 
-            int resultado = ps.executeUpdate();
-            ps.close();
-            return resultado > 0;
+            // Asignar parámetros (deben coincidir con el orden del procedimiento)
+            cs.setString(1, usuario.getNumIdentificacion());
+            cs.setString(2, usuario.getNombres());
+            cs.setString(3, usuario.getApellidos());
+            cs.setString(4, usuario.getDireccion());
+            cs.setString(5, usuario.getTelefono());
+            cs.setString(6, usuario.getCorreoElectronico());
+            cs.setString(7, usuario.getIngresoUsuario());
+            cs.setString(8, usuario.getIngresoContrasenia());
+            cs.setString(9, usuario.getNroRegistroICA());
+            cs.setString(10, usuario.getTarjetaProfesional());
+            cs.setString(11, usuario.getIdCargo());
+
+            // Ejecutar el procedimiento
+            cs.execute();
+
+            return true;
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al insertar usuario: " + e.getMessage());
             return false;
+        } finally {
+            try {
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    // ✅ READ - Listar usuarios
+// ✅ READ - Listar usuarios usando procedimiento almacenado
     public List<Usuarios> listarTodos() {
         List<Usuarios> lista = new ArrayList<>();
-        String sql = "SELECT * FROM Usuarios ORDER BY id_usuario";
+        Connection con = null;
+        CallableStatement cs = null;
+        ResultSet rs = null;
 
-        try (Connection con = conexion.estableceConexion(); Statement st = con.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+        try {
+            con = conexion.estableceConexion();
 
+            // Llamar al procedimiento con un parámetro OUT tipo cursor
+            String sql = "{call sp_listar_usuarios(?)}";
+            cs = con.prepareCall(sql);
+            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR); // Importante: usar OracleTypes
+
+            // Ejecutar el procedimiento
+            cs.execute();
+
+            // Recuperar el cursor
+            rs = (ResultSet) cs.getObject(1);
+
+            // Recorrer los resultados
             while (rs.next()) {
                 Usuarios u = new Usuarios();
                 u.setIdUsuario(rs.getString("id_usuario"));
@@ -70,35 +103,70 @@ public class UsuarioDAO {
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al listar usuarios: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
         return lista;
     }
 
-    // ✅ UPDATE - Actualizar usuario
+// ✅ UPDATE - Actualizar usuario usando procedimiento almacenado
     public boolean actualizar(Usuarios usuario) {
-        String sql = "UPDATE Usuarios SET num_identificacion=?, nombres=?, apellidos=?, direccion=?, telefono=?, correo_electronico=?, ingreso_usuario=?, ingreso_contrasenia=?, nro_registro_ica=?, tarjeta_profesional=?, id_cargo=? WHERE id_usuario=?";
+        Connection con = null;
+        CallableStatement cs = null;
 
-        try (Connection con = conexion.estableceConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+        try {
+            con = conexion.estableceConexion();
 
-            ps.setString(1, usuario.getNumIdentificacion());
-            ps.setString(2, usuario.getNombres());
-            ps.setString(3, usuario.getApellidos());
-            ps.setString(4, usuario.getDireccion());
-            ps.setString(5, usuario.getTelefono());
-            ps.setString(6, usuario.getCorreoElectronico());
-            ps.setString(7, usuario.getIngresoUsuario());
-            ps.setString(8, usuario.getIngresoContrasenia());
-            ps.setString(9, usuario.getNroRegistroICA());
-            ps.setString(10, usuario.getTarjetaProfesional());
-            ps.setString(11, usuario.getIdCargo());
-            ps.setString(12, usuario.getIdUsuario());
+            // Llamada al procedimiento almacenado
+            String sql = "{call sp_actualizar_usuario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+            cs = con.prepareCall(sql);
 
-            int resultado = ps.executeUpdate();
-            return resultado > 0;
+            // Asignar parámetros (deben coincidir con el orden del procedimiento)
+            cs.setString(1, usuario.getIdUsuario());
+            cs.setString(2, usuario.getNumIdentificacion());
+            cs.setString(3, usuario.getNombres());
+            cs.setString(4, usuario.getApellidos());
+            cs.setString(5, usuario.getDireccion());
+            cs.setString(6, usuario.getTelefono());
+            cs.setString(7, usuario.getCorreoElectronico());
+            cs.setString(8, usuario.getIngresoUsuario());
+            cs.setString(9, usuario.getIngresoContrasenia());
+            cs.setString(10, usuario.getNroRegistroICA());
+            cs.setString(11, usuario.getTarjetaProfesional());
+            cs.setString(12, usuario.getIdCargo());
+
+            // Ejecutar el procedimiento
+            cs.execute();
+
+            return true; // si no lanza error, fue exitoso
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al actualizar usuario: " + e.getMessage());
             return false;
+        } finally {
+            try {
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -205,17 +273,42 @@ public class UsuarioDAO {
 
     // ✅ GENERADOR DE ID
     public String generarSiguienteId() {
-        String sql = "SELECT MAX(TO_NUMBER(id_usuario)) FROM Usuarios";
-        try (Connection con = conexion.estableceConexion(); Statement st = con.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+        String siguienteId = "1";
+        Connection con = null;
+        CallableStatement cs = null;
 
-            if (rs.next()) {
-                int ultimoNumero = rs.getInt(1);
-                return String.valueOf(ultimoNumero + 1);
-            }
+        try {
+            con = conexion.estableceConexion();
+
+            // Llamada a la función PL/SQL (devuelve un valor)
+            String sql = "{ ? = call fn_generar_sig_id_usuario }";
+            cs = con.prepareCall(sql);
+
+            // Registrar el parámetro de salida (tipo VARCHAR)
+            cs.registerOutParameter(1, java.sql.Types.VARCHAR);
+
+            // Ejecutar
+            cs.execute();
+
+            // Obtener el valor devuelto
+            siguienteId = cs.getString(1);
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al generar ID: " + e.getMessage());
+        } finally {
+            try {
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-        return "1"; // si no hay registros, el primero será "1"
+
+        return siguienteId;
     }
+
 }
