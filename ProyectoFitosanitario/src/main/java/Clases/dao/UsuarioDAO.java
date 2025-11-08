@@ -27,7 +27,7 @@ public class UsuarioDAO {
             String sql = "{call sp_insertar_usuario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
             cs = con.prepareCall(sql);
 
-            // Asignar parámetros (deben coincidir con el orden del procedimiento)
+            // Asignar parámetros 
             cs.setString(1, usuario.getNumIdentificacion());
             cs.setString(2, usuario.getNombres());
             cs.setString(3, usuario.getApellidos());
