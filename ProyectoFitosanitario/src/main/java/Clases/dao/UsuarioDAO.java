@@ -271,44 +271,4 @@ public class UsuarioDAO {
         return usuario;
     }
 
-    // ✅ GENERADOR DE ID
-    public String generarSiguienteId() {
-        String siguienteId = "1";
-        Connection con = null;
-        CallableStatement cs = null;
-
-        try {
-            con = conexion.estableceConexion();
-
-            // Llamada a la función PL/SQL (devuelve un valor)
-            String sql = "{ ? = call fn_generar_sig_id_usuario }";
-            cs = con.prepareCall(sql);
-
-            // Registrar el parámetro de salida (tipo VARCHAR)
-            cs.registerOutParameter(1, java.sql.Types.VARCHAR);
-
-            // Ejecutar
-            cs.execute();
-
-            // Obtener el valor devuelto
-            siguienteId = cs.getString(1);
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al generar ID: " + e.getMessage());
-        } finally {
-            try {
-                if (cs != null) {
-                    cs.close();
-                }
-                if (con != null) {
-                    con.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return siguienteId;
-    }
-
 }

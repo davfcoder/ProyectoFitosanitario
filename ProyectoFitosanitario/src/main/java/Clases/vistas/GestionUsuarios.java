@@ -76,9 +76,17 @@ public class GestionUsuarios extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Identificación", "Nombres", "Apellidos", "Teléfono", "Correo Electronico", "Cargo"
+                "Id", "Nombres", "Apellidos", "Identificación", "Teléfono", "Correo Electronico", "Cargo"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, true, true, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("+ Nuevo usuario");

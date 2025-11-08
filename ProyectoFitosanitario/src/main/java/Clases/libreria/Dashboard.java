@@ -111,7 +111,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         btnGestionarCargo.setBackground(new java.awt.Color(27, 94, 32));
         btnGestionarCargo.setForeground(new java.awt.Color(255, 255, 255));
-        btnGestionarCargo.setText("Gestionar Cargos");
+        btnGestionarCargo.setText("Roles");
         btnGestionarCargo.setBorder(null);
         btnGestionarCargo.setBorderPainted(false);
         btnGestionarCargo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -123,7 +123,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         btnGestionarUsuarios.setBackground(new java.awt.Color(27, 94, 32));
         btnGestionarUsuarios.setForeground(new java.awt.Color(255, 255, 255));
-        btnGestionarUsuarios.setText("Gestionar Usuarios");
+        btnGestionarUsuarios.setText("Usuarios");
         btnGestionarUsuarios.setBorder(null);
         btnGestionarUsuarios.setBorderPainted(false);
         btnGestionarUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
