@@ -5,9 +5,9 @@
 package Clases.vistas;
 
 import Clases.modelo.Usuarios;
-import Clases.dao.CargoDAO;
+import Clases.dao.RolesDAO;
 import Clases.libreria.Dashboard;
-import Clases.modelo.Cargo;
+import Clases.modelo.Roles;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -22,7 +22,7 @@ public class UpUsers extends javax.swing.JPanel {
      */
     public UpUsers() {
         initComponents();
-        cargarComboCargos();
+        cargarComboRoles();
 
     }
 
@@ -37,27 +37,27 @@ public class UpUsers extends javax.swing.JPanel {
         txtContrasena.setText("");
         txtRegistroICA.setText("");
         txtTarjetaProf.setText("");
-        cmbCargo.setSelectedIndex(0);
+        cmbRoles.setSelectedIndex(0);
     }
 
-    private void cargarComboCargos() {
+    private void cargarComboRoles() {
         try {
-            cmbCargo.removeAllItems();
-            CargoDAO cargoDAO = new CargoDAO();
-            List<Cargo> listaCargos = cargoDAO.listarTodos();
+            cmbRoles.removeAllItems();
+            RolesDAO rolesDAO = new RolesDAO();
+            List<Roles> listaRoles = rolesDAO.listarTodos();
 
-            if (listaCargos == null || listaCargos.isEmpty()) {
-                cmbCargo.addItem("Sin cargos"); // evita combo vacío
+            if (listaRoles == null || listaRoles.isEmpty()) {
+                cmbRoles.addItem("Sin roles"); // evita combo vacío
                 return;
             }
 
-            for (Cargo cargo : listaCargos) {
+            for (Roles roles : listaRoles) {
                 // mostramos "id - nombre" (porque tu combo es JComboBox<String>)
-                cmbCargo.addItem(cargo.getIdCargo() + " - " + cargo.getNomCargo());
+                cmbRoles.addItem(roles.getIdRol() + " - " + roles.getNomRol());
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar cargos: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al cargar roles: " + e.getMessage());
         }
     }
 
@@ -85,7 +85,7 @@ public class UpUsers extends javax.swing.JPanel {
         btnCancelar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         txtTarjetaProf = new javax.swing.JTextField();
-        cmbCargo = new javax.swing.JComboBox<>();
+        cmbRoles = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -140,14 +140,14 @@ public class UpUsers extends javax.swing.JPanel {
             }
         });
 
-        cmbCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbCargo.addActionListener(new java.awt.event.ActionListener() {
+        cmbRoles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbRoles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbCargoActionPerformed(evt);
+                cmbRolesActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("Cargo");
+        jLabel3.setText("Rol");
 
         jLabel4.setText("Nombres");
 
@@ -209,7 +209,7 @@ public class UpUsers extends javax.swing.JPanel {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(cmbCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(cmbRoles, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(txtRegistroICA)
                                     .addComponent(jLabel11)
                                     .addComponent(jLabel9)
@@ -237,7 +237,7 @@ public class UpUsers extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(txtIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cmbCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbRoles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -296,9 +296,9 @@ public class UpUsers extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cmbCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCargoActionPerformed
+    private void cmbRolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRolesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbCargoActionPerformed
+    }//GEN-LAST:event_cmbRolesActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         if (txtIdentificacion.getText().trim().isEmpty()
@@ -317,9 +317,9 @@ public class UpUsers extends javax.swing.JPanel {
             return; // no continúa si falta información
         }
         try {
-            // Obtener el ID del cargo seleccionado
-            String itemSeleccionado = (String) cmbCargo.getSelectedItem();
-            String idCargo = itemSeleccionado.split(" - ")[0].trim();
+            // Obtener el ID del rol seleccionado
+            String itemSeleccionado = (String) cmbRoles.getSelectedItem();
+            String idRol = itemSeleccionado.split(" - ")[0].trim();
 
             // Crear el objeto usuario con los datos del formulario
             Usuarios usuario = new Usuarios();
@@ -333,7 +333,7 @@ public class UpUsers extends javax.swing.JPanel {
             usuario.setCorreoElectronico(txtCorreo.getText());
             usuario.setNroRegistroICA(txtRegistroICA.getText());
             usuario.setTarjetaProfesional(txtTarjetaProf.getText());
-            usuario.setIdCargo(idCargo);
+            usuario.setIdRol(idRol);
 
             // Llamar al DAO para guardar en BD
             Clases.dao.UsuarioDAO usuarioDAO = new Clases.dao.UsuarioDAO();
@@ -370,7 +370,7 @@ public class UpUsers extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JComboBox<String> cmbCargo;
+    private javax.swing.JComboBox<String> cmbRoles;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

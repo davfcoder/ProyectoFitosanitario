@@ -104,7 +104,7 @@
                           <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
                           <Component id="jButton1" alignment="0" pref="270" max="32767" attributes="0"/>
                           <Component id="btnGestionarUsuarios" alignment="0" pref="270" max="32767" attributes="0"/>
-                          <Component id="btnGestionarCargo" alignment="0" pref="270" max="32767" attributes="0"/>
+                          <Component id="btnGestionarRoles" alignment="0" pref="270" max="32767" attributes="0"/>
                           <Component id="btnProduccion" alignment="0" pref="270" max="32767" attributes="0"/>
                           <Component id="btnFitosanitario" alignment="0" pref="270" max="32767" attributes="0"/>
                           <Component id="btnReportes" alignment="0" pref="270" max="32767" attributes="0"/>
@@ -124,7 +124,7 @@
                               <Component id="btnGestionarUsuarios" min="-2" pref="50" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="btnGestionarCargo" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="btnGestionarRoles" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                       <Component id="btnProduccion" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
@@ -160,7 +160,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnGestionarCargo">
+            <Component class="javax.swing.JButton" name="btnGestionarRoles">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="20" green="5e" red="1b" type="rgb"/>
@@ -178,7 +178,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGestionarCargoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGestionarRolesActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnGestionarUsuarios">
@@ -210,7 +210,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Informe Fitosanitario"/>
+                <Property name="text" type="java.lang.String" value="Municipio"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
@@ -231,7 +231,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Informe Produccion"/>
+                <Property name="text" type="java.lang.String" value="Departamento"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
@@ -252,7 +252,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Reportes"/>
+                <Property name="text" type="java.lang.String" value="Vereda"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
@@ -326,9 +326,9 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lblTitulo" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lblBienvenida" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblCargo" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblRol" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="406" max="32767" attributes="0"/>
+                      <EmptySpace pref="399" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -340,7 +340,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="lblBienvenida" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblCargo" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblRol" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="19" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -352,7 +352,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="24" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Sistema de Gesti&#xf3;n Agr&#xed;cola"/>
+                <Property name="text" type="java.lang.String" value="Software de Gesti&#xf3;n Agr&#xed;cola"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblBienvenida">
@@ -363,7 +363,7 @@
                 <Property name="text" type="java.lang.String" value="Bienvenido: Usuario"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblCargo">
+            <Component class="javax.swing.JLabel" name="lblRol">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="0"/>
@@ -386,34 +386,15 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" pref="80" max="-2" attributes="0"/>
-                      <EmptySpace pref="97" max="32767" attributes="0"/>
-                  </Group>
+                  <EmptySpace min="0" pref="270" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="68" max="32767" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-                  </Group>
+                  <EmptySpace min="0" pref="135" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel1">
-              <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="LOGO"/>
-              </Properties>
-            </Component>
-          </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="content">
           <Properties>

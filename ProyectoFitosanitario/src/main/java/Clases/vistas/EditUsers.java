@@ -5,8 +5,8 @@
 package Clases.vistas;
 
 import Clases.modelo.Usuarios;
-import Clases.dao.CargoDAO;
-import Clases.modelo.Cargo;
+import Clases.dao.RolesDAO;
+import Clases.modelo.Roles;
 import Clases.dao.UsuarioDAO;
 import Clases.libreria.Dashboard;
 import java.util.List;
@@ -22,26 +22,26 @@ public class EditUsers extends javax.swing.JPanel {
 
     public EditUsers() {
         initComponents();
-        cargarComboCargos();
+        cargarComboRoles();
     }
     
-    private void cargarComboCargos() {
+    private void cargarComboRoles() {
         try {
-            cmbCargo.removeAllItems();
-            CargoDAO cargoDAO = new CargoDAO();
-            List<Cargo> listaCargos = cargoDAO.listarTodos();
+            cmbRoles.removeAllItems();
+            RolesDAO rolesDAO = new RolesDAO();
+            List<Roles> listaRoles = rolesDAO.listarTodos();
 
-            if (listaCargos == null || listaCargos.isEmpty()) {
-                cmbCargo.addItem("Sin cargos");
+            if (listaRoles == null || listaRoles.isEmpty()) {
+                cmbRoles.addItem("Sin roles");
                 return;
             }
 
-            for (Cargo cargo : listaCargos) {
-                cmbCargo.addItem(cargo.getIdCargo() + " - " + cargo.getNomCargo());
+            for (Roles roles : listaRoles) {
+                cmbRoles.addItem(roles.getIdRol() + " - " + roles.getNomRol());
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar cargos: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al cargar roles: " + e.getMessage());
         }
     }
     
@@ -59,11 +59,11 @@ public class EditUsers extends javax.swing.JPanel {
         txtRegistroICA.setText(usuario.getNroRegistroICA());
         txtTarjetaProf.setText(usuario.getTarjetaProfesional());
 
-        // Selecciona el cargo correspondiente en el combo
-        for (int i = 0; i < cmbCargo.getItemCount(); i++) {
-            String item = cmbCargo.getItemAt(i);
-            if (item.startsWith(usuario.getIdCargo() + " ")) {
-                cmbCargo.setSelectedIndex(i);
+        // Selecciona el rol correspondiente en el combo
+        for (int i = 0; i < cmbRoles.getItemCount(); i++) {
+            String item = cmbRoles.getItemAt(i);
+            if (item.startsWith(usuario.getIdRol() + " ")) {
+                cmbRoles.setSelectedIndex(i);
                 break;
             }
         }
@@ -83,7 +83,7 @@ public class EditUsers extends javax.swing.JPanel {
         txtContrasena.setText("");
         txtRegistroICA.setText("");
         txtTarjetaProf.setText("");
-        cmbCargo.setSelectedIndex(0);
+        cmbRoles.setSelectedIndex(0);
     }
 
     @SuppressWarnings("unchecked")
@@ -105,7 +105,7 @@ public class EditUsers extends javax.swing.JPanel {
         btnCancelar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         txtTarjetaProf = new javax.swing.JTextField();
-        cmbCargo = new javax.swing.JComboBox<>();
+        cmbRoles = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -127,6 +127,12 @@ public class EditUsers extends javax.swing.JPanel {
         jLabel1.setText("Editar Usuario Existente: ");
 
         jLabel2.setText("Número de identificación");
+
+        txtIdentificacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdentificacionActionPerformed(evt);
+            }
+        });
 
         txtNombres.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,15 +166,15 @@ public class EditUsers extends javax.swing.JPanel {
             }
         });
 
-        cmbCargo.setMaximumRowCount(50);
-        cmbCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbCargo.addActionListener(new java.awt.event.ActionListener() {
+        cmbRoles.setMaximumRowCount(50);
+        cmbRoles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbRoles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbCargoActionPerformed(evt);
+                cmbRolesActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("Cargo");
+        jLabel3.setText("Rol");
 
         jLabel4.setText("Nombres");
 
@@ -195,51 +201,49 @@ public class EditUsers extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
-                            .addComponent(txtNombres)
-                            .addComponent(txtIdentificacion)
-                            .addComponent(txtDireccion)
-                            .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel8)
+                                .addComponent(jLabel10)
+                                .addComponent(jLabel12)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel6)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addGap(257, 257, 257)
+                                    .addComponent(jLabel3)))
+                            .addGap(231, 231, 231))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                                .addComponent(txtNombres)
+                                .addComponent(txtIdentificacion)
+                                .addComponent(txtDireccion)
+                                .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addGap(142, 142, 142)
+                            .addComponent(cmbRoles, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel12)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGap(343, 343, 343)
-                                        .addComponent(jLabel5))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addGap(343, 343, 343)
-                                        .addComponent(jLabel7))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(257, 257, 257)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel3)
-                                            .addComponent(cmbCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtTarjetaProf)
-                                .addGap(145, 145, 145)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(btnCancelar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                                        .addComponent(jButton2))
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel11)
-                                    .addComponent(txtContrasena)
-                                    .addComponent(txtRegistroICA))))
-                        .addGap(90, 90, 90))))
+                            .addComponent(jLabel7)
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtTarjetaProf, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(btnCancelar)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton2))
+                                .addComponent(jLabel11)
+                                .addComponent(txtRegistroICA)
+                                .addComponent(txtContrasena, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(90, 90, 90))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,7 +257,7 @@ public class EditUsers extends javax.swing.JPanel {
                 .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbRoles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -347,8 +351,8 @@ public class EditUsers extends javax.swing.JPanel {
         }
 
         try {
-            String itemSeleccionado = (String) cmbCargo.getSelectedItem();
-            String idCargo = itemSeleccionado.split(" - ")[0].trim();
+            String itemSeleccionado = (String) cmbRoles.getSelectedItem();
+            String idRol = itemSeleccionado.split(" - ")[0].trim();
 
             // Actualizar los valores en el objeto usuarioActual
             usuarioActual.setNombres(txtNombres.getText());
@@ -360,7 +364,7 @@ public class EditUsers extends javax.swing.JPanel {
             usuarioActual.setCorreoElectronico(txtCorreo.getText());
             usuarioActual.setNroRegistroICA(txtRegistroICA.getText());
             usuarioActual.setTarjetaProfesional(txtTarjetaProf.getText());
-            usuarioActual.setIdCargo(idCargo);
+            usuarioActual.setIdRol(idRol);
 
             // Llamar al DAO para actualizar en BD
             UsuarioDAO usuarioDAO = new UsuarioDAO();
@@ -380,14 +384,18 @@ public class EditUsers extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void cmbCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCargoActionPerformed
+    private void cmbRolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRolesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbCargoActionPerformed
+    }//GEN-LAST:event_cmbRolesActionPerformed
+
+    private void txtIdentificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdentificacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdentificacionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JComboBox<String> cmbCargo;
+    private javax.swing.JComboBox<String> cmbRoles;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

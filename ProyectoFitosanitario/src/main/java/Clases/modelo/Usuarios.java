@@ -5,6 +5,7 @@
 package Clases.modelo;
 
 public class Usuarios {
+
     private String idUsuario;
     private String numIdentificacion;
     private String nombres;
@@ -16,18 +17,18 @@ public class Usuarios {
     private String ingresoContrasenia;
     private String nroRegistroICA;
     private String tarjetaProfesional;
-    private String idCargo;
-    
+    private String idRol;
+
     // Constructor vacío
     public Usuarios() {
     }
-    
+
     // Constructor completo
-    public Usuarios(String idUsuario, String numIdentificacion, String nombres, 
-                   String apellidos, String direccion, String telefono, 
-                   String correoElectronico, String ingresoUsuario, 
-                   String ingresoContrasenia, String nroRegistroICA,
-                   String tarjetaProfesional, String idCargo) {
+    public Usuarios(String idUsuario, String numIdentificacion, String nombres,
+            String apellidos, String direccion, String telefono,
+            String correoElectronico, String ingresoUsuario,
+            String ingresoContrasenia, String nroRegistroICA,
+            String tarjetaProfesional, String idRol) {
         this.idUsuario = idUsuario;
         this.numIdentificacion = numIdentificacion;
         this.nombres = nombres;
@@ -39,7 +40,7 @@ public class Usuarios {
         this.ingresoContrasenia = ingresoContrasenia;
         this.nroRegistroICA = nroRegistroICA;
         this.tarjetaProfesional = tarjetaProfesional;
-        this.idCargo = idCargo;
+        this.idRol = idRol;
     }
 
     // Getters y Setters
@@ -115,19 +116,19 @@ public class Usuarios {
         this.ingresoContrasenia = ingresoContrasenia;
     }
 
-    public String getIdCargo() {
-        return idCargo;
+    public String getIdRol() {
+        return idRol;
     }
 
-    public void setIdCargo(String idCargo) {
-        this.idCargo = idCargo;
+    public void setIdRol(String idRol) {
+        this.idRol = idRol;
     }
-    
+
     public String getNroRegistroICA() {
         return nroRegistroICA;
     }
 
-    public void setNroRegistroICA (String nroRegistroICA) {
+    public void setNroRegistroICA(String nroRegistroICA) {
         this.nroRegistroICA = nroRegistroICA;
     }
 
@@ -135,11 +136,23 @@ public class Usuarios {
         return tarjetaProfesional;
     }
 
-    public void setTarjetaProfesional (String tarjetaProfesional) {
+    public void setTarjetaProfesional(String tarjetaProfesional) {
         this.tarjetaProfesional = tarjetaProfesional;
     }
-    
+
     public String getNombreCompleto() {
         return nombres + " " + apellidos;
     }
+    // En la parte de atributos (junto con los demás campos)
+    private String nomRol;  // 🔹 Nuevo atributo para almacenar el nombre del rol
+
+// Debajo de los getters y setters existentes, agrega estos:
+    public String getNomRol() {
+        return nomRol;
+    }
+
+    public void setNomRol(String nomRol) {
+        this.nomRol = nomRol;
+    }
+
 }

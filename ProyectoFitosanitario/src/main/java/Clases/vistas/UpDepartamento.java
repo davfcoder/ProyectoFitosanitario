@@ -4,8 +4,8 @@
  */
 package Clases.vistas;
 
-import Clases.modelo.Cargo;
-import Clases.dao.CargoDAO;
+import Clases.modelo.Departamento;
+import Clases.dao.DepartamentoDAO;
 import Clases.libreria.Dashboard;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -14,18 +14,18 @@ import javax.swing.JOptionPane;
  *
  * @author ricar
  */
-public class UpCargos extends javax.swing.JPanel {
+public class UpDepartamento extends javax.swing.JPanel {
 
     /**
      * Creates new form Principal
      */
-    public UpCargos() {
+    public UpDepartamento() {
         initComponents();
     }
 
     private void limpiarCampos() {
-        txtNomCargo.setText("");
-        txtDescripcion.setText("");
+        txtCodigoDane.setText("");
+        txtNombre.setText("");
     }
 
     /**
@@ -40,8 +40,8 @@ public class UpCargos extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtNomCargo = new javax.swing.JTextField();
-        txtDescripcion = new javax.swing.JTextField();
+        txtCodigoDane = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -53,13 +53,19 @@ public class UpCargos extends javax.swing.JPanel {
         jPanel1.setPreferredSize(new java.awt.Dimension(750, 430));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("Nuevo Cargo:");
+        jLabel1.setText("Nuevo Departamento:");
 
-        jLabel2.setText("Nombre del Cargo");
+        jLabel2.setText("Codigo Dane");
 
-        txtDescripcion.addActionListener(new java.awt.event.ActionListener() {
+        txtCodigoDane.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDescripcionActionPerformed(evt);
+                txtCodigoDaneActionPerformed(evt);
+            }
+        });
+
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
             }
         });
 
@@ -76,14 +82,14 @@ public class UpCargos extends javax.swing.JPanel {
         btnGuardar.setBackground(new java.awt.Color(51, 153, 0));
         btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
-        btnGuardar.setText("Guardar cargo");
+        btnGuardar.setText("Guardar Departamento");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
             }
         });
 
-        jLabel4.setText("Descripción");
+        jLabel4.setText("Nombre");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -92,6 +98,8 @@ public class UpCargos extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtCodigoDane)
+                    .addComponent(txtNombre)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -99,14 +107,9 @@ public class UpCargos extends javax.swing.JPanel {
                             .addComponent(jLabel4))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnCancelar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                                .addComponent(btnGuardar))
-                            .addComponent(txtNomCargo)
-                            .addComponent(txtDescripcion))
-                        .addContainerGap(461, Short.MAX_VALUE))))
+                        .addComponent(btnCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 433, Short.MAX_VALUE)
+                        .addComponent(btnGuardar))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,16 +119,16 @@ public class UpCargos extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addGap(6, 6, 6)
-                .addComponent(txtNomCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCodigoDane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addComponent(jLabel4)
-                .addGap(6, 6, 6)
-                .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnGuardar))
-                .addGap(202, 202, 202))
+                .addGap(236, 236, 236))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -143,8 +146,8 @@ public class UpCargos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        if (txtNomCargo.getText().trim().isEmpty()
-            || txtDescripcion.getText().trim().isEmpty()) {
+        if (txtCodigoDane.getText().trim().isEmpty()
+            || txtNombre.getText().trim().isEmpty()) {
 
             JOptionPane.showMessageDialog(this,
                 "Por favor, complete todos los campos antes de guardar.",
@@ -154,20 +157,20 @@ public class UpCargos extends javax.swing.JPanel {
         }
         try {
             // Crear el objeto usuario con los datos del formulario
-            Cargo cargo = new Cargo();
-            cargo.setNomCargo(txtNomCargo.getText());
-            cargo.setDescripcion(txtDescripcion.getText());
+            Departamento departamento = new Departamento();
+            departamento.setCodigoDane(txtCodigoDane.getText());
+            departamento.setNombre(txtNombre.getText());
 
             // Llamar al DAO para guardar en BD
-            Clases.dao.CargoDAO cargoDAO = new Clases.dao.CargoDAO();
-            boolean guardado = cargoDAO.insertar(cargo);
+            Clases.dao.DepartamentoDAO departamentoDAO = new Clases.dao.DepartamentoDAO();
+            boolean guardado = departamentoDAO.insertar(departamento);
 
             if (guardado) {
-                JOptionPane.showMessageDialog(this, "Cargo guardado correctamente");
+                JOptionPane.showMessageDialog(this, "Departamento guardado correctamente");
                 limpiarCampos();
-                Dashboard.ShowJPanel(new GestionCargo());
+                Dashboard.ShowJPanel(new GestionDepartamentos());
             } else {
-                JOptionPane.showMessageDialog(this, "No se pudo guardar el cargo");
+                JOptionPane.showMessageDialog(this, "No se pudo guardar el Departamento");
             }
 
         } catch (Exception e) {
@@ -178,12 +181,16 @@ public class UpCargos extends javax.swing.JPanel {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         limpiarCampos();
-        Dashboard.ShowJPanel(new GestionUsuarios());
+        Dashboard.ShowJPanel(new GestionDepartamentos());
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void txtDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionActionPerformed
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDescripcionActionPerformed
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void txtCodigoDaneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoDaneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoDaneActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -193,7 +200,7 @@ public class UpCargos extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtDescripcion;
-    private javax.swing.JTextField txtNomCargo;
+    private javax.swing.JTextField txtCodigoDane;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

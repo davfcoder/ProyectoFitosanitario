@@ -1,178 +1,275 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Clases.dao;
 
 import Clases.db.CConexion;
-import Clases.modelo.Predio;
+import Clases.modelo.Usuarios;
+import Clases.modelo.Roles;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
 public class PredioDAO {
-    
-    private CConexion conexion;
-    
+
+    private final CConexion conexion;
+
     public PredioDAO() {
         this.conexion = new CConexion();
     }
-    
-    // CREATE - Insertar predio
-    public boolean insertar(Predio predio) {
+
+// CREATE - Insertar usuario usando procedimiento almacenado
+    public boolean insertar(Usuarios usuario) {
+        Connection con = null;
+        CallableStatement cs = null;
+
         try {
-            String sql = "INSERT INTO predio (id_predio, num_predial, nom_predio, id_vereda, direccion, cx, cy, area_total, id_usuario, nro_registro_ica) "
-                       + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement ps = conexion.estableceConexion().prepareStatement(sql);
-            
-            ps.setString(1, predio.getIdPredio());
-            ps.setString(2, predio.getNumPredial());
-            ps.setString(3, predio.getNomPredio());
-            ps.setString(4, predio.getIdVereda());
-            ps.setString(5, predio.getDireccion());
-            ps.setString(6, predio.getCx());
-            ps.setString(7, predio.getCy());
-            ps.setDouble(8, predio.getAreaTotal());
-            ps.setString(9, predio.getIdUsuario());
-            ps.setString(10, predio.getNroRegistroIca());
-            
-            int resultado = ps.executeUpdate();
-            ps.close();
-            return resultado > 0;
-            
+            con = conexion.estableceConexion();
+
+            // Llamada al procedimiento almacenado
+            String sql = "{call pro_incUsuario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+            cs = con.prepareCall(sql);
+
+            // Asignar parámetros 
+            cs.setString(1, usuario.getNumIdentificacion());
+            cs.setString(2, usuario.getNombres());
+            cs.setString(3, usuario.getApellidos());
+            cs.setString(4, usuario.getDireccion());
+            cs.setString(5, usuario.getTelefono());
+            cs.setString(6, usuario.getCorreoElectronico());
+            cs.setString(7, usuario.getIngresoUsuario());
+            cs.setString(8, usuario.getIngresoContrasenia());
+            cs.setString(9, usuario.getNroRegistroICA());
+            cs.setString(10, usuario.getTarjetaProfesional());
+            cs.setString(11, usuario.getIdRol());
+
+            // Ejecutar el procedimiento
+            cs.execute();
+
+            return true;
+
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al insertar predio: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al insertar usuario: " + e.getMessage());
             return false;
+        } finally {
+            try {
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
-    
-    // READ - Listar todos los predios
-    public List<Predio> listarTodos() {
-        List<Predio> lista = new ArrayList<>();
+
+// READ - Listar usuarios usando procedimiento almacenado
+    public List<Usuarios> listarTodos() {
+        List<Usuarios> lista = new ArrayList<>();
+        Connection con = null;
+        CallableStatement cs = null;
+        ResultSet rs = null;
+
         try {
-            String sql = "SELECT * FROM predio ORDER BY nom_predio";
-            Statement st = conexion.estableceConexion().createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            
+            con = conexion.estableceConexion();
+
+            // Llamar al procedimiento almacenado
+            String sql = "{call pro_listarUsuarios(?)}";
+            cs = con.prepareCall(sql);
+            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR); // Salida tipo cursor
+
+            // Ejecutar el procedimiento
+            cs.execute();
+
+            // Recuperar el cursor como ResultSet
+            rs = (ResultSet) cs.getObject(1);
+
+            // Recorrer los resultados
             while (rs.next()) {
-                Predio p = new Predio();
-                p.setIdPredio(rs.getString("id_predio"));
-                p.setNumPredial(rs.getString("num_predial"));
-                p.setNomPredio(rs.getString("nom_predio"));
-                p.setIdVereda(rs.getString("id_vereda"));
-                p.setDireccion(rs.getString("direccion"));
-                p.setCx(rs.getString("cx"));
-                p.setCy(rs.getString("cy"));
-                p.setAreaTotal(rs.getDouble("area_total"));
-                p.setIdUsuario(rs.getString("id_usuario"));
-                p.setNroRegistroIca(rs.getString("nro_registro_ica"));
-                lista.add(p);
+                Usuarios u = new Usuarios();
+                u.setIdUsuario(rs.getString("id_usuario"));
+                u.setNumIdentificacion(rs.getString("num_identificacion"));
+                u.setNombres(rs.getString("nombres"));
+                u.setApellidos(rs.getString("apellidos"));
+                u.setDireccion(rs.getString("direccion"));
+                u.setTelefono(rs.getString("telefono"));
+                u.setCorreoElectronico(rs.getString("correo_electronico"));
+                u.setIngresoUsuario(rs.getString("ingreso_usuario"));
+                u.setIngresoContrasenia(rs.getString("ingreso_contrasenia"));
+                u.setNroRegistroICA(rs.getString("nro_registro_ica"));
+                u.setTarjetaProfesional(rs.getString("tarjeta_profesional"));
+                u.setNomRol(rs.getString("nom_rol"));
+                lista.add(u);
             }
-            rs.close();
-            st.close();
-            
+
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al listar predios: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al listar usuarios: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
         return lista;
     }
-    
-    // READ - Listar por usuario (propietario)
-    public List<Predio> listarPorUsuario(String idUsuario) {
-        List<Predio> lista = new ArrayList<>();
+
+//  UPDATE - Actualizar usuario usando procedimiento almacenado
+    public boolean actualizar(Usuarios usuario) {
+        Connection con = null;
+        CallableStatement cs = null;
+
         try {
-            String sql = "SELECT * FROM predio WHERE id_usuario = ? ORDER BY nom_predio";
-            PreparedStatement ps = conexion.estableceConexion().prepareStatement(sql);
-            ps.setString(1, idUsuario);
-            ResultSet rs = ps.executeQuery();
-            
-            while (rs.next()) {
-                Predio p = new Predio();
-                p.setIdPredio(rs.getString("id_predio"));
-                p.setNumPredial(rs.getString("num_predial"));
-                p.setNomPredio(rs.getString("nom_predio"));
-                p.setIdVereda(rs.getString("id_vereda"));
-                p.setDireccion(rs.getString("direccion"));
-                p.setCx(rs.getString("cx"));
-                p.setCy(rs.getString("cy"));
-                p.setAreaTotal(rs.getDouble("area_total"));
-                p.setIdUsuario(rs.getString("id_usuario"));
-                p.setNroRegistroIca(rs.getString("nro_registro_ica"));
-                lista.add(p);
-            }
-            rs.close();
-            ps.close();
-            
+            con = conexion.estableceConexion();
+
+            // Llamada al procedimiento almacenado
+            String sql = "{call pro_actUsuario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+            cs = con.prepareCall(sql);
+
+            // Asignar parámetros (deben coincidir con el orden del procedimiento)
+            cs.setString(1, usuario.getIdUsuario());
+            cs.setString(2, usuario.getNumIdentificacion());
+            cs.setString(3, usuario.getNombres());
+            cs.setString(4, usuario.getApellidos());
+            cs.setString(5, usuario.getDireccion());
+            cs.setString(6, usuario.getTelefono());
+            cs.setString(7, usuario.getCorreoElectronico());
+            cs.setString(8, usuario.getIngresoUsuario());
+            cs.setString(9, usuario.getIngresoContrasenia());
+            cs.setString(10, usuario.getNroRegistroICA());
+            cs.setString(11, usuario.getTarjetaProfesional());
+            cs.setString(12, usuario.getIdRol());
+
+            // Ejecutar el procedimiento
+            cs.execute();
+
+            return true; // si no lanza error, fue exitoso
+
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al listar predios por usuario: " + e.getMessage());
-        }
-        return lista;
-    }
-    
-    // UPDATE - Actualizar predio
-    public boolean actualizar(Predio predio) {
-        try {
-            String sql = "UPDATE predio SET num_predial = ?, nom_predio = ?, id_vereda = ?, direccion = ?, "
-                       + "cx = ?, cy = ?, area_total = ?, id_usuario = ?, nro_registro_ica = ? "
-                       + "WHERE id_predio = ?";
-            PreparedStatement ps = conexion.estableceConexion().prepareStatement(sql);
-            
-            ps.setString(1, predio.getNumPredial());
-            ps.setString(2, predio.getNomPredio());
-            ps.setString(3, predio.getIdVereda());
-            ps.setString(4, predio.getDireccion());
-            ps.setString(5, predio.getCx());
-            ps.setString(6, predio.getCy());
-            ps.setDouble(7, predio.getAreaTotal());
-            ps.setString(8, predio.getIdUsuario());
-            ps.setString(9, predio.getNroRegistroIca());
-            ps.setString(10, predio.getIdPredio());
-            
-            int resultado = ps.executeUpdate();
-            ps.close();
-            return resultado > 0;
-            
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar predio: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al actualizar usuario: " + e.getMessage());
             return false;
+        } finally {
+            try {
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
-    
-    // DELETE - Eliminar predio
+
+// ✅ DELETE - Eliminar usuario usando procedimiento almacenado
     public boolean eliminar(String id) {
+        Connection con = null;
+        CallableStatement cs = null;
+
         try {
-            String sql = "DELETE FROM predio WHERE id_predio = ?";
-            PreparedStatement ps = conexion.estableceConexion().prepareStatement(sql);
-            ps.setString(1, id);
-            
-            int resultado = ps.executeUpdate();
-            ps.close();
-            return resultado > 0;
-            
+            con = conexion.estableceConexion();
+
+            // Llamada al procedimiento almacenado
+            String sql = "{call pro_elimUsuario(?)}";
+            cs = con.prepareCall(sql);
+
+            // Parámetro de entrada
+            cs.setString(1, id);
+
+            // Ejecutar el procedimiento
+            cs.execute();
+
+            return true; // Eliminación exitosa
+
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al eliminar predio: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al eliminar usuario: " + e.getMessage());
             return false;
-        }
-    }
-    
-    // Generar siguiente ID (si no se usa la secuencia directamente)
-    public String generarSiguienteId() {
-        try {
-            String sql = "SELECT MAX(CAST(id_predio AS INT)) FROM predio";
-            Statement st = conexion.estableceConexion().createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            
-            if (rs.next()) {
-                int ultimoNumero = rs.getInt(1);
-                return String.valueOf(ultimoNumero + 1);
+        } finally {
+            try {
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-            rs.close();
-            st.close();
-            
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al generar ID: " + e.getMessage());
         }
-        return "1";
     }
+
+//  OBTENER UN USUARIO POR SU ID
+    public Usuarios getUserById(String idUsuario) {
+        Usuarios usuario = null;
+        Connection con = null;
+        CallableStatement cs = null;
+        ResultSet rs = null;
+
+        try {
+            con = conexion.estableceConexion();
+
+            // Llamada al procedimiento almacenado
+            String sql = "{call pro_buscarUsuarioPorId(?, ?)}";
+            cs = con.prepareCall(sql);
+
+            // Parámetro de entrada
+            cs.setString(1, idUsuario);
+
+            // Parámetro de salida (el cursor)
+            cs.registerOutParameter(2, oracle.jdbc.OracleTypes.CURSOR);
+
+            // Ejecutar
+            cs.execute();
+
+            // Obtener el cursor como ResultSet
+            rs = (ResultSet) cs.getObject(2);
+
+            // Procesar resultados
+            if (rs.next()) {
+                usuario = new Usuarios();
+                usuario.setIdUsuario(rs.getString("id_usuario"));
+                usuario.setNumIdentificacion(rs.getString("num_identificacion"));
+                usuario.setNombres(rs.getString("nombres"));
+                usuario.setApellidos(rs.getString("apellidos"));
+                usuario.setDireccion(rs.getString("direccion"));
+                usuario.setTelefono(rs.getString("telefono"));
+                usuario.setCorreoElectronico(rs.getString("correo_electronico"));
+                usuario.setIngresoUsuario(rs.getString("ingreso_usuario"));
+                usuario.setIngresoContrasenia(rs.getString("ingreso_contrasenia"));
+                usuario.setNroRegistroICA(rs.getString("nro_registro_ica"));
+                usuario.setTarjetaProfesional(rs.getString("tarjeta_profesional"));
+                usuario.setIdRol(rs.getString("id_rol"));
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al buscar usuario: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return usuario;
+    }
+
 }

@@ -187,7 +187,7 @@
               <Color blue="80" green="72" red="6b" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="&#xa9; 2025 Sistema de Gesti&#xf3;n Agr&#xed;cola - UDI"/>
+            <Property name="text" type="java.lang.String" value="&#xa9; 2025 Sistemas - UDI"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -204,7 +204,7 @@
               <Color blue="32" green="7d" red="2e" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Sistema de Gesti&#xf3;n"/>
+            <Property name="text" type="java.lang.String" value="Software de Gesti&#xf3;n"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

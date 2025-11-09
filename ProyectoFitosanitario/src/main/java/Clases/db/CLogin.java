@@ -4,8 +4,8 @@
  */
 package Clases.db;
 
-import Clases.dao.CargoDAO;
-import Clases.modelo.Cargo;
+import Clases.dao.RolesDAO;
+import Clases.modelo.Roles;
 import Clases.libreria.FormLogin;
 import Clases.libreria.Dashboard;
 import java.sql.ResultSet;
@@ -22,10 +22,10 @@ public class CLogin {
             PreparedStatement ps = null;
             
             CConexion objetoConexion = new CConexion();
-            CargoDAO cargoDAO = new CargoDAO();
+            RolesDAO rolesDAO = new RolesDAO();
             
-            // ✅ Consulta ajustada a la nueva estructura SQL (todo en minúsculas)
-            String consulta = "SELECT id_usuario, nombres, apellidos, id_cargo " +
+            // Consulta ajustada a la nueva estructura SQL (todo en minúsculas)
+            String consulta = "SELECT id_usuario, nombres, apellidos, id_rol " +
                               "FROM usuarios " +
                               "WHERE ingreso_usuario = ? AND ingreso_contrasenia = ?";
             
@@ -42,21 +42,21 @@ public class CLogin {
                 String idUsuario = rs.getString("id_usuario");
                 String nombres = rs.getString("nombres");
                 String apellidos = rs.getString("apellidos");
-                String idCargo = rs.getString("id_cargo");
+                String idCargo = rs.getString("id_rol");
                 
-                // ✅ Obtener el nombre del cargo actualizado desde CargoDAO
-                Cargo cargo = cargoDAO.buscarPorId(idCargo);
-                String nombreCargo = (cargo != null) ? cargo.getNomCargo() : "Sin cargo";
+                // Obtener el nombre del cargo actualizado desde RolesDAO
+                Roles rol = rolesDAO.buscarPorId(idCargo);
+                String nombreRol = (rol != null) ? rol.getNomRol() : "Sin Rol";
                 
                 String nombreCompleto = nombres + " " + apellidos;
                 
                 JOptionPane.showMessageDialog(null, 
-                    "¡Bienvenido " + nombreCompleto + "!\nCargo: " + nombreCargo,
-                    "Login Exitoso",
+                    "¡Bienvenido " + nombreCompleto + "!\nCargo: " + nombreRol,
+                    "Ingreso Exitoso",
                     JOptionPane.INFORMATION_MESSAGE);
                 
-                // ✅ Abrir menú principal con los datos del usuario
-                Dashboard objetoMenu = new Dashboard(idUsuario, nombreCompleto, nombreCargo);
+                // Abrir menú principal con los datos del usuario
+                Dashboard objetoMenu = new Dashboard(idUsuario, nombreCompleto, nombreRol);
                 objetoMenu.setVisible(true);
                 
                 // Cerrar formulario de login

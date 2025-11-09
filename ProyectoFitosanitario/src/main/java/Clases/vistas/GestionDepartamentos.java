@@ -4,55 +4,48 @@
  */
 package Clases.vistas;
 
-import Clases.dao.UsuarioDAO;
-import Clases.modelo.Usuarios;
+import Clases.dao.DepartamentoDAO;
+import Clases.modelo.Departamento;
 import Clases.libreria.Dashboard;
 import javax.swing.JOptionPane;
-import Clases.vistas.UpUsers;
+import Clases.vistas.UpDepartamento;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author ricar
  */
-public class GestionUsuarios extends javax.swing.JPanel {
+public class GestionDepartamentos extends javax.swing.JPanel {
 
     /**
      * Creates new form Principal
      */
-    public GestionUsuarios() {
+    public GestionDepartamentos() {
         initComponents();
-        LoadUsers();
+        LoadDepartamento();
     }
 
-    private void LoadUsers() {
+    private void LoadDepartamento() {
         try {
-            UsuarioDAO dao = new UsuarioDAO();
+            DepartamentoDAO dao = new DepartamentoDAO();
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0); // limpia la tabla
 
-            // Limpiar la tabla antes de cargar nuevos datos
-            model.setRowCount(0);
-
-            // Llenar el modelo con los datos
             dao.listarTodos().forEach((u) -> {
                 model.addRow(new Object[]{
-                    u.getIdUsuario(), // 🔹 ID oculto
-                    u.getNumIdentificacion(),
-                    u.getNombres(),
-                    u.getApellidos(),
-                    u.getTelefono(),
-                    u.getCorreoElectronico(),
-                    u.getNomRol()
+                    u.getIdDepartamento(), // 🔹 ID oculto
+                    u.getCodigoDane(),
+                    u.getNombre()
                 });
             });
 
-            // 🔹 Ocultar la primera columna (id_usuario)
+            // 🔹 Ocultar la primera columna (ID)
             jTable1.getColumnModel().getColumn(0).setMinWidth(0);
             jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
             jTable1.getColumnModel().getColumn(0).setWidth(0);
 
         } catch (Exception e) {
-            System.out.println("Error al cargar usuarios: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
@@ -69,7 +62,7 @@ public class GestionUsuarios extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnNuevoDepartamento = new javax.swing.JButton();
         btnbuscar = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
@@ -80,30 +73,31 @@ public class GestionUsuarios extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Gestión de Usuarios:");
+        jLabel1.setText("Gestión de Departamentos:");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Identificación", "Nombres", "Apellidos", "Teléfono", "Correo Electronico", "Rol"
+                "id", "Codigo Dane", "Nombre"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                true, true, false, true, true, true, true
-            };
+        ));
+        jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
+        }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        btnNuevoDepartamento.setText("+ Nuevo departamento");
+        btnNuevoDepartamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoDepartamentoActionPerformed(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setText("+ Nuevo usuario");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnbuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnbuscarActionPerformed(evt);
             }
         });
 
@@ -138,14 +132,14 @@ public class GestionUsuarios extends javax.swing.JPanel {
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 284, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
                         .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnNuevoDepartamento)
                 .addGap(40, 40, 40)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
@@ -164,7 +158,7 @@ public class GestionUsuarios extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnNuevoDepartamento)
                     .addComponent(btnEditar)
                     .addComponent(btnBorrar))
                 .addGap(93, 93, 93))
@@ -182,26 +176,21 @@ public class GestionUsuarios extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Dashboard.ShowJPanel(new UpUsers());
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnNuevoDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoDepartamentoActionPerformed
+        Dashboard.ShowJPanel(new UpDepartamento());
+    }//GEN-LAST:event_btnNuevoDepartamentoActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        UsuarioDAO dao = new UsuarioDAO();
+        DepartamentoDAO dao = new DepartamentoDAO();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
         int[] selected = jTable1.getSelectedRows();
         if (selected.length < 1) {
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Debes seleccionar uno o más usuarios para eliminar.",
-                    "AVISO",
-                    JOptionPane.WARNING_MESSAGE
-            );
+            JOptionPane.showMessageDialog(this, "Debes seleccionar uno o más Departamentos para eliminar.", "AVISO", JOptionPane.WARNING_MESSAGE);
         } else {
             int confirmacion = JOptionPane.showConfirmDialog(
                     this,
-                    "¿Está seguro de eliminar los usuarios seleccionados?",
+                    "¿Está seguro de eliminar los departamentos seleccionados?",
                     "Confirmar eliminación",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE
@@ -209,32 +198,30 @@ public class GestionUsuarios extends javax.swing.JPanel {
 
             if (confirmacion == JOptionPane.YES_OPTION) {
                 int eliminados = 0;
-                // Iterar de atrás hacia adelante para evitar desajustes al eliminar filas
+                // Iterar de atrás hacia adelante para evitar desajustes de índices al remover filas
                 java.util.Arrays.sort(selected);
                 for (int idx = selected.length - 1; idx >= 0; idx--) {
                     int row = selected[idx];
                     try {
-                        // Se asume que la primera columna (0) contiene el id_usuario oculto
-                        String idUsuario = jTable1.getValueAt(row, 0).toString();
-                        boolean ok = dao.eliminar(idUsuario);
-
+                        String idDepartamento = jTable1.getValueAt(row, 0).toString();
+                        boolean ok = dao.eliminar(idDepartamento);
                         if (ok) {
                             model.removeRow(row);
                             eliminados++;
                         } else {
+                            // No se eliminó: informar al usuario por cada fila fallida (opcional)
                             JOptionPane.showMessageDialog(
                                     this,
-                                    "No se pudo eliminar el usuario con ID: " + idUsuario,
+                                    "No se pudo eliminar el departamento con ID: " + idDepartamento,
                                     "Error",
                                     JOptionPane.ERROR_MESSAGE
                             );
                         }
-
                     } catch (Exception e) {
                         e.printStackTrace();
                         JOptionPane.showMessageDialog(
                                 this,
-                                "Error inesperado al eliminar el usuario en la fila " + row + ": " + e.getMessage(),
+                                "Error inesperado al eliminar la fila " + row + ": " + e.getMessage(),
                                 "Error",
                                 JOptionPane.ERROR_MESSAGE
                         );
@@ -242,22 +229,12 @@ public class GestionUsuarios extends javax.swing.JPanel {
                 }
 
                 if (eliminados > 0) {
-                    JOptionPane.showMessageDialog(
-                            this,
-                            eliminados + " usuario(s) eliminado(s) correctamente."
-                    );
+                    JOptionPane.showMessageDialog(this, eliminados + " Departamento(s) eliminados correctamente.");
                 } else {
-                    JOptionPane.showMessageDialog(
-                            this,
-                            "No se eliminó ningún usuario."
-                    );
+                    JOptionPane.showMessageDialog(this, "No se eliminó ningún departamento.");
                 }
-
             } else {
-                JOptionPane.showMessageDialog(
-                        this,
-                        "Eliminación cancelada por el usuario."
-                );
+                JOptionPane.showMessageDialog(this, "Eliminación cancelada por el usuario.");
             }
         }
 
@@ -267,33 +244,33 @@ public class GestionUsuarios extends javax.swing.JPanel {
         int fila = jTable1.getSelectedRow();
 
         if (fila == -1) {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione un usuario de la tabla.");
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un departamento de la tabla para editarlo.");
             return;
         }
 
         // Supongamos que la columna 0 tiene el número de identificación
-        String idUser = jTable1.getValueAt(fila, 0).toString();
+        String idDepartamento = jTable1.getValueAt(fila, 0).toString();
 
-        // Buscar el usuario en la BD
+        // Buscar el Departamento en la BD
         try {
-            // Buscar el usuario en la BD
-            Clases.dao.UsuarioDAO buscarId = new Clases.dao.UsuarioDAO();
-            Clases.modelo.Usuarios usuario = buscarId.getUserById(idUser);
+            // Buscar el departamento en la BD
+            Clases.dao.DepartamentoDAO buscarId = new Clases.dao.DepartamentoDAO();
+            Clases.modelo.Departamento departamento = buscarId.buscarPorId(idDepartamento);
 
-            if (usuario != null) {
-                // Crear el panel EditUsers y pasarle el usuario
-                EditUsers panelEditar = new EditUsers();
-                panelEditar.setUsuario(usuario);
+            if (departamento != null) {
+                // Crear el panel EditDepartamento y pasarle el departamento
+                EditDepartamento panelEditar = new EditDepartamento();
+                panelEditar.setDepartamento(departamento);
 
                 // Mostrar el panel en el Dashboard
                 Dashboard.ShowJPanel(panelEditar);
             } else {
-                JOptionPane.showMessageDialog(this, "No se encontró el usuario seleccionado.");
+                JOptionPane.showMessageDialog(this, "No se encontró el departamento seleccionado.");
             }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
-                    "Error al obtener el usuario: " + e.getMessage(),
+                    "Error al obtener el departamento: " + e.getMessage(),
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
@@ -304,13 +281,17 @@ public class GestionUsuarios extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSearchActionPerformed
 
+    private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnbuscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnNuevoDepartamento;
     private javax.swing.JButton btnSearch;
     private javax.swing.JTextField btnbuscar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

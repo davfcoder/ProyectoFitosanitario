@@ -2,6 +2,7 @@ package Clases.dao;
 
 import Clases.db.CConexion;
 import Clases.modelo.Usuarios;
+import Clases.modelo.Roles;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ public class UsuarioDAO {
         this.conexion = new CConexion();
     }
 
-// ✅ CREATE - Insertar usuario usando procedimiento almacenado
+// CREATE - Insertar usuario usando procedimiento almacenado
     public boolean insertar(Usuarios usuario) {
         Connection con = null;
         CallableStatement cs = null;
@@ -24,7 +25,7 @@ public class UsuarioDAO {
             con = conexion.estableceConexion();
 
             // Llamada al procedimiento almacenado
-            String sql = "{call sp_insertar_usuario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+            String sql = "{call pro_incUsuario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
             cs = con.prepareCall(sql);
 
             // Asignar parámetros 
@@ -38,7 +39,7 @@ public class UsuarioDAO {
             cs.setString(8, usuario.getIngresoContrasenia());
             cs.setString(9, usuario.getNroRegistroICA());
             cs.setString(10, usuario.getTarjetaProfesional());
-            cs.setString(11, usuario.getIdCargo());
+            cs.setString(11, usuario.getIdRol());
 
             // Ejecutar el procedimiento
             cs.execute();
@@ -62,7 +63,7 @@ public class UsuarioDAO {
         }
     }
 
-// ✅ READ - Listar usuarios usando procedimiento almacenado
+// READ - Listar usuarios usando procedimiento almacenado
     public List<Usuarios> listarTodos() {
         List<Usuarios> lista = new ArrayList<>();
         Connection con = null;
@@ -72,15 +73,15 @@ public class UsuarioDAO {
         try {
             con = conexion.estableceConexion();
 
-            // Llamar al procedimiento con un parámetro OUT tipo cursor
-            String sql = "{call sp_listar_usuarios(?)}";
+            // Llamar al procedimiento almacenado
+            String sql = "{call pro_listarUsuarios(?)}";
             cs = con.prepareCall(sql);
-            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR); // Importante: usar OracleTypes
+            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR); // Salida tipo cursor
 
             // Ejecutar el procedimiento
             cs.execute();
 
-            // Recuperar el cursor
+            // Recuperar el cursor como ResultSet
             rs = (ResultSet) cs.getObject(1);
 
             // Recorrer los resultados
@@ -97,7 +98,7 @@ public class UsuarioDAO {
                 u.setIngresoContrasenia(rs.getString("ingreso_contrasenia"));
                 u.setNroRegistroICA(rs.getString("nro_registro_ica"));
                 u.setTarjetaProfesional(rs.getString("tarjeta_profesional"));
-                u.setIdCargo(rs.getString("id_cargo"));
+                u.setNomRol(rs.getString("nom_rol"));
                 lista.add(u);
             }
 
@@ -122,7 +123,7 @@ public class UsuarioDAO {
         return lista;
     }
 
-// ✅ UPDATE - Actualizar usuario usando procedimiento almacenado
+//  UPDATE - Actualizar usuario usando procedimiento almacenado
     public boolean actualizar(Usuarios usuario) {
         Connection con = null;
         CallableStatement cs = null;
@@ -131,7 +132,7 @@ public class UsuarioDAO {
             con = conexion.estableceConexion();
 
             // Llamada al procedimiento almacenado
-            String sql = "{call sp_actualizar_usuario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+            String sql = "{call pro_actUsuario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
             cs = con.prepareCall(sql);
 
             // Asignar parámetros (deben coincidir con el orden del procedimiento)
@@ -146,7 +147,7 @@ public class UsuarioDAO {
             cs.setString(9, usuario.getIngresoContrasenia());
             cs.setString(10, usuario.getNroRegistroICA());
             cs.setString(11, usuario.getTarjetaProfesional());
-            cs.setString(12, usuario.getIdCargo());
+            cs.setString(12, usuario.getIdRol());
 
             // Ejecutar el procedimiento
             cs.execute();
@@ -179,7 +180,7 @@ public class UsuarioDAO {
             con = conexion.estableceConexion();
 
             // Llamada al procedimiento almacenado
-            String sql = "{call sp_eliminar_usuario(?)}";
+            String sql = "{call pro_elimUsuario(?)}";
             cs = con.prepareCall(sql);
 
             // Parámetro de entrada
@@ -207,7 +208,7 @@ public class UsuarioDAO {
         }
     }
 
-// ✅ OBTENER UN USUARIO POR SU ID
+//  OBTENER UN USUARIO POR SU ID
     public Usuarios getUserById(String idUsuario) {
         Usuarios usuario = null;
         Connection con = null;
@@ -218,7 +219,7 @@ public class UsuarioDAO {
             con = conexion.estableceConexion();
 
             // Llamada al procedimiento almacenado
-            String sql = "{call sp_buscar_usuario_por_id(?, ?)}";
+            String sql = "{call pro_buscarUsuarioPorId(?, ?)}";
             cs = con.prepareCall(sql);
 
             // Parámetro de entrada
@@ -247,7 +248,7 @@ public class UsuarioDAO {
                 usuario.setIngresoContrasenia(rs.getString("ingreso_contrasenia"));
                 usuario.setNroRegistroICA(rs.getString("nro_registro_ica"));
                 usuario.setTarjetaProfesional(rs.getString("tarjeta_profesional"));
-                usuario.setIdCargo(rs.getString("id_cargo"));
+                usuario.setIdRol(rs.getString("id_rol"));
             }
 
         } catch (SQLException e) {

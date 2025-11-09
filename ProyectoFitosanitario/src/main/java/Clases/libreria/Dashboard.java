@@ -5,7 +5,8 @@
 package Clases.libreria;
 
 import Clases.vistas.GestionUsuarios;
-import Clases.vistas.GestionCargo;
+import Clases.vistas.GestionRoles;
+import Clases.vistas.GestionDepartamentos;
 import Clases.vistas.Principal;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.BorderLayout;
@@ -20,17 +21,17 @@ public class Dashboard extends javax.swing.JFrame {
 
     private String idUsuario;
     private String nombreUsuario;
-    private String nombreCargo;
+    private String nombreRol;
 
     // Constructor con datos del usuario
-    public Dashboard(String idUsuario, String nombreUsuario, String nombreCargo) {
+    public Dashboard(String idUsuario, String nombreUsuario, String nombreRol) {
         this.idUsuario = idUsuario;
         this.nombreUsuario = nombreUsuario;
-        this.nombreCargo = nombreCargo;
+        this.nombreRol = nombreRol;
 
         initComponents();
         InitContent();
-        configurarMenuSegunCargo();
+        configurarMenuSegunRol();
         setLocationRelativeTo(null);
     }
 
@@ -73,7 +74,7 @@ public class Dashboard extends javax.swing.JFrame {
         background = new javax.swing.JPanel();
         menu = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        btnGestionarCargo = new javax.swing.JButton();
+        btnGestionarRoles = new javax.swing.JButton();
         btnGestionarUsuarios = new javax.swing.JButton();
         btnFitosanitario = new javax.swing.JButton();
         btnProduccion = new javax.swing.JButton();
@@ -83,9 +84,8 @@ public class Dashboard extends javax.swing.JFrame {
         header = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
         lblBienvenida = new javax.swing.JLabel();
-        lblCargo = new javax.swing.JLabel();
+        lblRol = new javax.swing.JLabel();
         logo = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -109,15 +109,15 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        btnGestionarCargo.setBackground(new java.awt.Color(27, 94, 32));
-        btnGestionarCargo.setForeground(new java.awt.Color(255, 255, 255));
-        btnGestionarCargo.setText("Roles");
-        btnGestionarCargo.setBorder(null);
-        btnGestionarCargo.setBorderPainted(false);
-        btnGestionarCargo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnGestionarCargo.addActionListener(new java.awt.event.ActionListener() {
+        btnGestionarRoles.setBackground(new java.awt.Color(27, 94, 32));
+        btnGestionarRoles.setForeground(new java.awt.Color(255, 255, 255));
+        btnGestionarRoles.setText("Roles");
+        btnGestionarRoles.setBorder(null);
+        btnGestionarRoles.setBorderPainted(false);
+        btnGestionarRoles.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnGestionarRoles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGestionarCargoActionPerformed(evt);
+                btnGestionarRolesActionPerformed(evt);
             }
         });
 
@@ -135,7 +135,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         btnFitosanitario.setBackground(new java.awt.Color(27, 94, 32));
         btnFitosanitario.setForeground(new java.awt.Color(255, 255, 255));
-        btnFitosanitario.setText("Informe Fitosanitario");
+        btnFitosanitario.setText("Municipio");
         btnFitosanitario.setBorder(null);
         btnFitosanitario.setBorderPainted(false);
         btnFitosanitario.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -147,7 +147,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         btnProduccion.setBackground(new java.awt.Color(27, 94, 32));
         btnProduccion.setForeground(new java.awt.Color(255, 255, 255));
-        btnProduccion.setText("Informe Produccion");
+        btnProduccion.setText("Departamento");
         btnProduccion.setBorder(null);
         btnProduccion.setBorderPainted(false);
         btnProduccion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -159,7 +159,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         btnReportes.setBackground(new java.awt.Color(27, 94, 32));
         btnReportes.setForeground(new java.awt.Color(255, 255, 255));
-        btnReportes.setText("Reportes");
+        btnReportes.setText("Vereda");
         btnReportes.setBorder(null);
         btnReportes.setBorderPainted(false);
         btnReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -206,7 +206,7 @@ public class Dashboard extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                     .addComponent(btnGestionarUsuarios, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                    .addComponent(btnGestionarCargo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                    .addComponent(btnGestionarRoles, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                     .addComponent(btnProduccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                     .addComponent(btnFitosanitario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                     .addComponent(btnReportes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
@@ -221,7 +221,7 @@ public class Dashboard extends javax.swing.JFrame {
                     .addGroup(menuLayout.createSequentialGroup()
                         .addGap(47, 47, 47)
                         .addComponent(btnGestionarUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addComponent(btnGestionarCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnGestionarRoles, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -236,13 +236,13 @@ public class Dashboard extends javax.swing.JFrame {
         header.setBackground(new java.awt.Color(255, 255, 255));
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblTitulo.setText("Sistema de Gestión Agrícola");
+        lblTitulo.setText("Software de Gestión Agrícola");
 
         lblBienvenida.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblBienvenida.setText("Bienvenido: Usuario");
 
-        lblCargo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblCargo.setText("Rol: ADMINISTRADOR");
+        lblRol.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblRol.setText("Rol: ADMINISTRADOR");
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
@@ -253,8 +253,8 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTitulo)
                     .addComponent(lblBienvenida)
-                    .addComponent(lblCargo))
-                .addContainerGap(406, Short.MAX_VALUE))
+                    .addComponent(lblRol))
+                .addContainerGap(399, Short.MAX_VALUE))
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,32 +264,22 @@ public class Dashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblBienvenida)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblCargo)
+                .addComponent(lblRol)
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
         logo.setBackground(new java.awt.Color(27, 94, 32));
         logo.setPreferredSize(new java.awt.Dimension(270, 135));
 
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("LOGO");
-
         javax.swing.GroupLayout logoLayout = new javax.swing.GroupLayout(logo);
         logo.setLayout(logoLayout);
         logoLayout.setHorizontalGroup(
             logoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(logoLayout.createSequentialGroup()
-                .addGap(93, 93, 93)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(97, Short.MAX_VALUE))
+            .addGap(0, 270, Short.MAX_VALUE)
         );
         logoLayout.setVerticalGroup(
             logoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logoLayout.createSequentialGroup()
-                .addContainerGap(68, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(51, 51, 51))
+            .addGap(0, 135, Short.MAX_VALUE)
         );
 
         content.setBackground(new java.awt.Color(255, 255, 255));
@@ -341,12 +331,12 @@ public class Dashboard extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    // Control de visibilidad según cargo
-    private void configurarMenuSegunCargo() {
+    // Control de visibilidad según Rol
+    private void configurarMenuSegunRol() {
         lblBienvenida.setText("Bienvenido: " + nombreUsuario);
-        lblCargo.setText("Cargo: " + nombreCargo);
+        lblRol.setText("Rol: " + nombreRol);
 
-        switch (nombreCargo) {
+        switch (nombreRol) {
             case "Administrador ICA":
                 break;
             case "Propietario":
@@ -368,12 +358,11 @@ public class Dashboard extends javax.swing.JFrame {
         }
     }
     private void btnProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProduccionActionPerformed
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "🚀 La sección de informes de producción estará disponible próximamente.", "En desarrollo", JOptionPane.INFORMATION_MESSAGE);
+        ShowJPanel(new GestionDepartamentos());         // TODO add your handling code here:
     }//GEN-LAST:event_btnProduccionActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
-        JOptionPane.showMessageDialog(this, "🚀 La sección de reportes estará disponible próximamente.", "En desarrollo", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "La sección de reportes estará disponible próximamente.", "En desarrollo", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnReportesActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -397,10 +386,10 @@ public class Dashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
-    private void btnGestionarCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionarCargoActionPerformed
+    private void btnGestionarRolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionarRolesActionPerformed
         // TODO add your handling code here:
-        ShowJPanel(new GestionCargo()); 
-    }//GEN-LAST:event_btnGestionarCargoActionPerformed
+        ShowJPanel(new GestionRoles()); 
+    }//GEN-LAST:event_btnGestionarRolesActionPerformed
 
     private void btnFitosanitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFitosanitarioActionPerformed
         // TODO add your handling code here:
@@ -426,17 +415,16 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel background;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnFitosanitario;
-    private javax.swing.JButton btnGestionarCargo;
+    private javax.swing.JButton btnGestionarRoles;
     private javax.swing.JButton btnGestionarUsuarios;
     private javax.swing.JButton btnProduccion;
     private javax.swing.JButton btnReportes;
     private static javax.swing.JPanel content;
     private javax.swing.JPanel header;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblBienvenida;
-    private javax.swing.JLabel lblCargo;
+    private javax.swing.JLabel lblRol;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel logo;
     private javax.swing.JPanel menu;

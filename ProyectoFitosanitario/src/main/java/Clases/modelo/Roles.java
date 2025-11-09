@@ -4,34 +4,34 @@
  */
 package Clases.modelo;
 
-public class Cargo {
-    private String idCargo;
-    private String nomCargo;
+public class Roles {
+    private String idRol;
+    private String nomRol;
     private String descripcion;
     
-    public Cargo() {
+    public Roles() {
     }
     
-    public Cargo(String idCargo, String nomCargo, String descripcion) {
-        this.idCargo = idCargo;
-        this.nomCargo = nomCargo;
+    public Roles(String idRol, String nomRol, String descripcion) {
+        this.idRol = idRol;
+        this.nomRol = nomRol;
         this.descripcion = descripcion;
     }
 
-    public String getIdCargo() {
-        return idCargo;
+    public String getIdRol() {
+        return idRol;
     }
 
-    public void setIdCargo(String idCargo) {
-        this.idCargo = idCargo;
+    public void setIdRol(String idRol) {
+        this.idRol = idRol;
     }
 
-    public String getNomCargo() {
-        return nomCargo;
+    public String getNomRol() {
+        return nomRol;
     }
 
-    public void setNomCargo(String nomCargo) {
-        this.nomCargo = nomCargo;
+    public void setNomRol(String nomRol) {
+        this.nomRol = nomRol;
     }
 
     public String getDescripcion() {
@@ -44,6 +44,6 @@ public class Cargo {
     
     @Override
     public String toString() {
-        return nomCargo;
+        return nomRol;
     }
 }

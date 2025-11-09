@@ -4,7 +4,8 @@
  */
 package Clases.libreria;
 
-
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 public class FormLogin extends javax.swing.JFrame {
     
@@ -109,13 +110,13 @@ public class FormLogin extends javax.swing.JFrame {
         jLabel3.setBackground(new java.awt.Color(0, 7, 119));
         jLabel3.setForeground(new java.awt.Color(107, 114, 128));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("© 2025 Sistema de Gestión Agrícola - UDI");
+        jLabel3.setText("© 2025 Sistemas - UDI");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 448, 414, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(46, 125, 50));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Sistema de Gestión");
+        jLabel4.setText("Software de Gestión");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 34, 414, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -156,7 +157,12 @@ public class FormLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtContraseniaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+             JOptionPane.showMessageDialog(
+            this,
+            "Por favor comunicate con el administrador",
+            "Mensaje",
+            JOptionPane.INFORMATION_MESSAGE
+        );
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

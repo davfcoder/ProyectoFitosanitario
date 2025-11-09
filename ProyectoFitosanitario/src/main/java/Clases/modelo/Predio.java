@@ -5,7 +5,7 @@
 package Clases.modelo;
 
 public class Predio {
-    
+
     private String idPredio;
     private String numPredial;
     private String nomPredio;
@@ -13,18 +13,15 @@ public class Predio {
     private String direccion;
     private String cx;
     private String cy;
-    private double areaTotal;
-    private String idUsuario;
-    private String nroRegistroIca;
-    
+    private Double areaTotal;
+    private String idUsuarioPropietario;
+    private String nroRegistroICA;
+
     // Constructor vacío
     public Predio() {
     }
 
-    // Constructor completo
-    public Predio(String idPredio, String numPredial, String nomPredio, String idVereda,
-                  String direccion, String cx, String cy, double areaTotal,
-                  String idUsuario, String nroRegistroIca) {
+    public Predio(String idPredio, String numPredial, String nomPredio, String idVereda, String direccion, String cx, String cy, Double areaTotal, String idUsuarioPropietario, String nroRegistroICA) {
         this.idPredio = idPredio;
         this.numPredial = numPredial;
         this.nomPredio = nomPredio;
@@ -33,11 +30,10 @@ public class Predio {
         this.cx = cx;
         this.cy = cy;
         this.areaTotal = areaTotal;
-        this.idUsuario = idUsuario;
-        this.nroRegistroIca = nroRegistroIca;
+        this.idUsuarioPropietario = idUsuarioPropietario;
+        this.nroRegistroICA = nroRegistroICA;
     }
 
-    // Getters y Setters
     public String getIdPredio() {
         return idPredio;
     }
@@ -94,32 +90,30 @@ public class Predio {
         this.cy = cy;
     }
 
-    public double getAreaTotal() {
+    public Double getAreaTotal() {
         return areaTotal;
     }
 
-    public void setAreaTotal(double areaTotal) {
+    public void setAreaTotal(Double areaTotal) {
         this.areaTotal = areaTotal;
     }
 
-    public String getIdUsuario() {
-        return idUsuario;
+    public String getIdUsuarioPropietario() {
+        return idUsuarioPropietario;
     }
 
-    public void setIdUsuario(String idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setIdUsuarioPropietario(String idUsuarioPropietario) {
+        this.idUsuarioPropietario = idUsuarioPropietario;
     }
 
-    public String getNroRegistroIca() {
-        return nroRegistroIca;
+    public String getNroRegistroICA() {
+        return nroRegistroICA;
     }
 
-    public void setNroRegistroIca(String nroRegistroIca) {
-        this.nroRegistroIca = nroRegistroIca;
+    public void setNroRegistroICA(String nroRegistroICA) {
+        this.nroRegistroICA = nroRegistroICA;
     }
 
-    @Override
-    public String toString() {
-        return nomPredio + " (" + numPredial + ")";
-    }
+
+
 }
