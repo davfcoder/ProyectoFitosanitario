@@ -185,7 +185,7 @@ public class DepartamentoDAO {
         }
     }
 
-    // READ - Buscar departamento por ID
+    // READ - Buscar departamento por ID para abrir edit
     public Departamento buscarPorId(String id) {
         Departamento dep = null;
         Connection con = null;
@@ -233,18 +233,30 @@ public class DepartamentoDAO {
         return dep;
     }
 
+//PENDIENTE REVISAR
     public List<String> listarNombresDepartamentos() {
         List<String> lista = new ArrayList<>();
         Connection con = null;
-        PreparedStatement ps = null;
+        CallableStatement cs = null;
         ResultSet rs = null;
 
         try {
             con = conexion.estableceConexion();
-            String sql = "SELECT nombre FROM departamento ORDER BY nombre";
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
 
+            // Llamar a la función que devuelve un SYS_REFCURSOR
+            String sql = "{? = call fn_listarNombresDepartamentos()}";
+            cs = con.prepareCall(sql);
+
+            // Registrar el parámetro de salida (cursor)
+            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+
+            // Ejecutar
+            cs.execute();
+
+            // Obtener el cursor como ResultSet
+            rs = (ResultSet) cs.getObject(1);
+
+            // Recorrer resultados
             while (rs.next()) {
                 lista.add(rs.getString("nombre"));
             }
@@ -256,8 +268,8 @@ public class DepartamentoDAO {
                 if (rs != null) {
                     rs.close();
                 }
-                if (ps != null) {
-                    ps.close();
+                if (cs != null) {
+                    cs.close();
                 }
                 if (con != null) {
                     con.close();
@@ -266,36 +278,41 @@ public class DepartamentoDAO {
                 e.printStackTrace();
             }
         }
+
         return lista;
     }
 
-// 🔹 Obtener ID por nombre seleccionado
+// 🔹 Obtener ID para que me traiga el nombre
     public String obtenerIdPorNombre(String nombreDepartamento) {
         String idDepartamento = null;
         Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
+        CallableStatement cs = null;
 
         try {
             con = conexion.estableceConexion();
-            String sql = "SELECT id_departamento FROM departamento WHERE LOWER(nombre) = LOWER(?)";
-            ps = con.prepareStatement(sql);
-            ps.setString(1, nombreDepartamento);
-            rs = ps.executeQuery();
 
-            if (rs.next()) {
-                idDepartamento = rs.getString("id_departamento");
-            }
+            // Llamar a la función que devuelve un valor
+            String sql = "{? = call fn_obtenerIdDepartamento(?)}";
+            cs = con.prepareCall(sql);
+
+            // Registrar el parámetro de salida (valor devuelto por la función)
+            cs.registerOutParameter(1, java.sql.Types.VARCHAR);
+
+            // Asignar el parámetro de entrada
+            cs.setString(2, nombreDepartamento);
+
+            // Ejecutar
+            cs.execute();
+
+            // Obtener el valor retornado por la función
+            idDepartamento = cs.getString(1);
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al buscar ID de departamento: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al obtener ID de departamento: " + e.getMessage());
         } finally {
             try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (ps != null) {
-                    ps.close();
+                if (cs != null) {
+                    cs.close();
                 }
                 if (con != null) {
                     con.close();
@@ -304,6 +321,7 @@ public class DepartamentoDAO {
                 e.printStackTrace();
             }
         }
+
         return idDepartamento;
     }
 
