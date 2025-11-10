@@ -52,5 +52,16 @@ public class Municipio {
         this.idDepartamento = idDepartamento;
     }
 
-    
+    // En la parte de atributos (junto con los demás campos)
+    private String nombreDepartamento;
+
+// Debajo de los getters y setters existentes, agrega estos:
+    public String getNombreDepartamento() {
+        return nombreDepartamento;
+    }
+
+    public void setNombreDepartamento(String nomRol) {
+        this.nombreDepartamento = nomRol;
+    }
+
 }

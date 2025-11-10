@@ -38,7 +38,7 @@ public class Departamento {
         return nombre;
     }
 
-    public void setNombreDepartamento(String nombreDepartamento) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 

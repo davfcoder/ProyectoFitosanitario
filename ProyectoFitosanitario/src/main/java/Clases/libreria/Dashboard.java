@@ -7,6 +7,7 @@ package Clases.libreria;
 import Clases.vistas.GestionUsuarios;
 import Clases.vistas.GestionRoles;
 import Clases.vistas.GestionDepartamentos;
+import Clases.vistas.GestionMunicipios;
 import Clases.vistas.Principal;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.BorderLayout;
@@ -388,12 +389,11 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void btnGestionarRolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionarRolesActionPerformed
         // TODO add your handling code here:
-        ShowJPanel(new GestionRoles()); 
+        ShowJPanel(new GestionRoles());
     }//GEN-LAST:event_btnGestionarRolesActionPerformed
 
     private void btnFitosanitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFitosanitarioActionPerformed
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "🚀 La sección de informe fitosanitario estará disponible próximamente.", "En desarrollo", JOptionPane.INFORMATION_MESSAGE);
+        ShowJPanel(new GestionMunicipios()); // TODO add your handling code here:
     }//GEN-LAST:event_btnFitosanitarioActionPerformed
 
     /**

@@ -6,7 +6,6 @@ package Clases.dao;
 
 import Clases.db.CConexion;
 import Clases.modelo.Municipio;
-import Clases.modelo.Departamento;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,8 +73,8 @@ public class MunicipioDAO {
                 Municipio m = new Municipio();
                 m.setIdMunicipio(rs.getString("id_municipio"));
                 m.setCodigoDane(rs.getString("codigo_dane"));
-                m.setNombre(rs.getString("nombre"));
-                m.setNombre(rs.getString("nombre"));
+                m.setNombre(rs.getString("nombre_municipio"));
+                m.setNombreDepartamento(rs.getString("nombre_departamento"));
                 lista.add(m);
             }
 
@@ -200,7 +199,7 @@ public class MunicipioDAO {
                 municipio.setIdMunicipio(rs.getString("id_municipio"));
                 municipio.setCodigoDane(rs.getString("codigo_dane"));
                 municipio.setNombre(rs.getString("nombre"));
-                municipio.setNombreDepartamento(rs.getString("nombre_departamento"));
+                municipio.setNombre(rs.getString("nombre"));
             }
 
         } catch (SQLException e) {

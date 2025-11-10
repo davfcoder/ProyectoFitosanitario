@@ -2,7 +2,6 @@ package Clases.dao;
 
 import Clases.db.CConexion;
 import Clases.modelo.Usuarios;
-import Clases.modelo.Roles;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +75,7 @@ public class UsuarioDAO {
             // Llamar al procedimiento almacenado
             String sql = "{call pro_listarUsuarios(?)}";
             cs = con.prepareCall(sql);
-            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR); // Salida tipo cursor
+            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR); 
 
             // Ejecutar el procedimiento
             cs.execute();

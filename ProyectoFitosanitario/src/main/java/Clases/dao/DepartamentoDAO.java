@@ -44,8 +44,12 @@ public class DepartamentoDAO {
             return false;
         } finally {
             try {
-                if (cs != null) cs.close();
-                if (con != null) con.close();
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -82,9 +86,15 @@ public class DepartamentoDAO {
             JOptionPane.showMessageDialog(null, "Error al listar departamentos: " + e.getMessage());
         } finally {
             try {
-                if (rs != null) rs.close();
-                if (cs != null) cs.close();
-                if (con != null) con.close();
+                if (rs != null) {
+                    rs.close();
+                }
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -116,8 +126,12 @@ public class DepartamentoDAO {
             return false;
         } finally {
             try {
-                if (cs != null) cs.close();
-                if (con != null) con.close();
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -149,7 +163,9 @@ public class DepartamentoDAO {
 
         } catch (SQLException e) {
             try {
-                if (con != null) con.rollback();
+                if (con != null) {
+                    con.rollback();
+                }
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -157,8 +173,12 @@ public class DepartamentoDAO {
             return false;
         } finally {
             try {
-                if (cs != null) cs.close();
-                if (con != null) con.close();
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -196,15 +216,95 @@ public class DepartamentoDAO {
             JOptionPane.showMessageDialog(null, "Error al buscar departamento: " + e.getMessage());
         } finally {
             try {
-                if (rs != null) rs.close();
-                if (cs != null) cs.close();
-                if (con != null) con.close();
+                if (rs != null) {
+                    rs.close();
+                }
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
 
         return dep;
+    }
+
+    public List<String> listarNombresDepartamentos() {
+        List<String> lista = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            con = conexion.estableceConexion();
+            String sql = "SELECT nombre FROM departamento ORDER BY nombre";
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                lista.add(rs.getString("nombre"));
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al listar departamentos: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return lista;
+    }
+
+// 🔹 Obtener ID por nombre seleccionado
+    public String obtenerIdPorNombre(String nombreDepartamento) {
+        String idDepartamento = null;
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            con = conexion.estableceConexion();
+            String sql = "SELECT id_departamento FROM departamento WHERE LOWER(nombre) = LOWER(?)";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, nombreDepartamento);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                idDepartamento = rs.getString("id_departamento");
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al buscar ID de departamento: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return idDepartamento;
     }
 
 }

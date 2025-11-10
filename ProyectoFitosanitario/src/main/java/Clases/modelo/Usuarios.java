@@ -144,7 +144,7 @@ public class Usuarios {
         return nombres + " " + apellidos;
     }
     // En la parte de atributos (junto con los demás campos)
-    private String nomRol;  // 🔹 Nuevo atributo para almacenar el nombre del rol
+    private String nomRol;
 
 // Debajo de los getters y setters existentes, agrega estos:
     public String getNomRol() {
