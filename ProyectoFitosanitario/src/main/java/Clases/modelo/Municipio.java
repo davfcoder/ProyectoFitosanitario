@@ -60,8 +60,8 @@ public class Municipio {
         return nombreDepartamento;
     }
 
-    public void setNombreDepartamento(String nomRol) {
-        this.nombreDepartamento = nomRol;
+    public void setNombreDepartamento(String nombreDepartamento) {
+        this.nombreDepartamento = nombreDepartamento;
     }
 
 }

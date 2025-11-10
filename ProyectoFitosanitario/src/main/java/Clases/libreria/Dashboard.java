@@ -8,6 +8,7 @@ import Clases.vistas.GestionUsuarios;
 import Clases.vistas.GestionRoles;
 import Clases.vistas.GestionDepartamentos;
 import Clases.vistas.GestionMunicipios;
+import Clases.vistas.GestionVeredas;
 import Clases.vistas.Principal;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.BorderLayout;
@@ -363,7 +364,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProduccionActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
-        JOptionPane.showMessageDialog(this, "La sección de reportes estará disponible próximamente.", "En desarrollo", JOptionPane.INFORMATION_MESSAGE);
+         ShowJPanel(new GestionVeredas());
     }//GEN-LAST:event_btnReportesActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
