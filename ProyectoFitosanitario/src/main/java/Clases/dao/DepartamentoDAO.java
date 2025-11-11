@@ -246,55 +246,7 @@ public class DepartamentoDAO {
         return dep;
     }
 
-//PENDIENTE REVISAR
-    public List<String> listarNombresDepartamentos() {
-        List<String> lista = new ArrayList<>();
-        Connection con = null;
-        CallableStatement cs = null;
-        ResultSet rs = null;
 
-        try {
-            con = conexion.estableceConexion();
-
-            // Llamar a la función que devuelve un SYS_REFCURSOR
-            String sql = "{? = call fun_lstarNombresDepartamentos()}";
-            ////PRUEBA SI NO FUNCIONA
-            cs = con.prepareCall(sql);
-
-            // Registrar el parámetro de salida (cursor)
-            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
-
-            // Ejecutar
-            cs.execute();
-
-            // Obtener el cursor como ResultSet
-            rs = (ResultSet) cs.getObject(1);
-
-            // Recorrer resultados
-            while (rs.next()) {
-                lista.add(rs.getString("nombre"));
-            }
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al listar departamentos: " + e.getMessage());
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (cs != null) {
-                    cs.close();
-                }
-                if (con != null) {
-                    con.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return lista;
-    }
 // 🔹 Obtener NOMBRE del departamento por su ID para autorrellenable de vista municipio
     public String obtenerIdPorNombre(String idDepartamento) {
         String nombreDepartamento = null;

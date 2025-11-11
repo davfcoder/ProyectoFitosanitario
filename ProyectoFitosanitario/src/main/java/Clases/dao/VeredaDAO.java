@@ -53,7 +53,7 @@ public class VeredaDAO {
         }
     }
 
-    // READ - Listar todos los vereda
+// ✅ READ - Listar todas las veredas (usando función almacenada)
     public List<Vereda> listarTodos() {
         List<Vereda> lista = new ArrayList<>();
         Connection con = null;
@@ -62,20 +62,28 @@ public class VeredaDAO {
 
         try {
             con = conexion.estableceConexion();
-            String sql = "{call fun_listarVeredas(?)}";
+
+            // ✅ Llamada correcta a la función que devuelve un SYS_REFCURSOR
+            String sql = "{ ? = call fun_listarVeredas() }";
             cs = con.prepareCall(sql);
+
+            // ✅ Registrar el parámetro de salida (el cursor devuelto por la función)
             cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
 
+            // ✅ Ejecutar la función
             cs.execute();
+
+            // ✅ Obtener el cursor como ResultSet
             rs = (ResultSet) cs.getObject(1);
 
+            // ✅ Recorrer resultados y llenar la lista
             while (rs.next()) {
-                Vereda m = new Vereda();
-                m.setIdVereda(rs.getString("id_vereda"));
-                m.setCodigoDane(rs.getString("codigo_dane"));
-                m.setNombre(rs.getString("nombre_vereda")); //alias creado 
-                m.setNombreMunicipio(rs.getString("nombre_municipio"));//alias creado
-                lista.add(m);
+                Vereda v = new Vereda();
+                v.setIdVereda(rs.getString("id_vereda"));
+                v.setCodigoDane(rs.getString("codigo_dane"));
+                v.setNombre(rs.getString("nombre_vereda"));        // Alias creado en SQL
+                v.setNombreMunicipio(rs.getString("nombre_municipio")); // Alias creado en SQL
+                lista.add(v);
             }
 
         } catch (SQLException e) {

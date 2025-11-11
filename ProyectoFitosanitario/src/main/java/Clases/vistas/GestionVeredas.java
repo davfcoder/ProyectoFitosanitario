@@ -4,11 +4,11 @@
  */
 package Clases.vistas;
 
-import Clases.dao.MunicipioDAO;
-import Clases.modelo.Municipio;
+import Clases.dao.VeredaDAO;
+import Clases.modelo.Vereda;
 import Clases.libreria.Dashboard;
 import javax.swing.JOptionPane;
-import Clases.vistas.UpMunicipio;
+import Clases.vistas.UpVereda;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -23,12 +23,12 @@ public class GestionVeredas extends javax.swing.JPanel {
      */
     public GestionVeredas() {
         initComponents();
-        LoadMunicipio();
+        LoadVereda();
     }
 
-    private void LoadMunicipio() {
+    private void LoadVereda() {
         try {
-            MunicipioDAO dao = new MunicipioDAO();
+            VeredaDAO dao = new VeredaDAO();
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0); // limpia la tabla
 
@@ -37,7 +37,7 @@ public class GestionVeredas extends javax.swing.JPanel {
                     u.getIdMunicipio(), 
                     u.getCodigoDane(),
                     u.getNombre(),
-                    u.getNombreDepartamento(),
+                    u.getNombreMunicipio(),
                 });
             });
 
@@ -64,7 +64,7 @@ public class GestionVeredas extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        btnNuevoMunicipio = new javax.swing.JButton();
+        btnNuevaVereda = new javax.swing.JButton();
         btnbuscar = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
@@ -75,14 +75,14 @@ public class GestionVeredas extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Gestión de Municipios:");
+        jLabel1.setText("Gestión de Veredas:");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "id", "Codigo Dane", "Nombre", "Departamento"
+                "id", "Codigo Dane", "Nombre", "Municipio"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -90,10 +90,10 @@ public class GestionVeredas extends javax.swing.JPanel {
             jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
         }
 
-        btnNuevoMunicipio.setText("+ Nuevo municipio");
-        btnNuevoMunicipio.addActionListener(new java.awt.event.ActionListener() {
+        btnNuevaVereda.setText("+ Nueva vereda");
+        btnNuevaVereda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoMunicipioActionPerformed(evt);
+                btnNuevaVeredaActionPerformed(evt);
             }
         });
 
@@ -134,14 +134,14 @@ public class GestionVeredas extends javax.swing.JPanel {
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 265, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 289, Short.MAX_VALUE)
                         .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnNuevoMunicipio)
+                .addComponent(btnNuevaVereda)
                 .addGap(40, 40, 40)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
@@ -160,7 +160,7 @@ public class GestionVeredas extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNuevoMunicipio)
+                    .addComponent(btnNuevaVereda)
                     .addComponent(btnEditar)
                     .addComponent(btnBorrar))
                 .addGap(93, 93, 93))
@@ -178,21 +178,21 @@ public class GestionVeredas extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnNuevoMunicipioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoMunicipioActionPerformed
-        Dashboard.ShowJPanel(new UpMunicipio());
-    }//GEN-LAST:event_btnNuevoMunicipioActionPerformed
+    private void btnNuevaVeredaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaVeredaActionPerformed
+        Dashboard.ShowJPanel(new UpVereda());
+    }//GEN-LAST:event_btnNuevaVeredaActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        MunicipioDAO dao = new MunicipioDAO();
+        VeredaDAO dao = new VeredaDAO();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
         int[] selected = jTable1.getSelectedRows();
         if (selected.length < 1) {
-            JOptionPane.showMessageDialog(this, "Debes seleccionar uno o más Municipios para eliminar.", "AVISO", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debes seleccionar uno o más Veredas para eliminar.", "AVISO", JOptionPane.WARNING_MESSAGE);
         } else {
             int confirmacion = JOptionPane.showConfirmDialog(
                     this,
-                    "¿Está seguro de eliminar los municipios seleccionados?",
+                    "¿Está seguro de eliminar los veredas seleccionados?",
                     "Confirmar eliminación",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE
@@ -205,8 +205,8 @@ public class GestionVeredas extends javax.swing.JPanel {
                 for (int idx = selected.length - 1; idx >= 0; idx--) {
                     int row = selected[idx];
                     try {
-                        String idMunicipio = jTable1.getValueAt(row, 0).toString();
-                        boolean ok = dao.eliminar(idMunicipio);
+                        String idVereda = jTable1.getValueAt(row, 0).toString();
+                        boolean ok = dao.eliminar(idVereda);
                         if (ok) {
                             model.removeRow(row);
                             eliminados++;
@@ -214,7 +214,7 @@ public class GestionVeredas extends javax.swing.JPanel {
                             // No se eliminó: informar al usuario por cada fila fallida (opcional)
                             JOptionPane.showMessageDialog(
                                     this,
-                                    "No se pudo eliminar el municipio con ID: " + idMunicipio,
+                                    "No se pudo eliminar el vereda con ID: " + idVereda,
                                     "Error",
                                     JOptionPane.ERROR_MESSAGE
                             );
@@ -231,9 +231,9 @@ public class GestionVeredas extends javax.swing.JPanel {
                 }
 
                 if (eliminados > 0) {
-                    JOptionPane.showMessageDialog(this, eliminados + " Municipio(s) eliminados correctamente.");
+                    JOptionPane.showMessageDialog(this, eliminados + " Vereda(s) eliminados correctamente.");
                 } else {
-                    JOptionPane.showMessageDialog(this, "No se eliminó ningún municipio.");
+                    JOptionPane.showMessageDialog(this, "No se eliminó ningún vereda.");
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Eliminación cancelada por el usuario.");
@@ -246,33 +246,33 @@ public class GestionVeredas extends javax.swing.JPanel {
         int fila = jTable1.getSelectedRow();
 
         if (fila == -1) {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione un municipio de la tabla para editarlo.");
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un vereda de la tabla para editarlo.");
             return;
         }
 
         // Supongamos que la columna 0 tiene el número de identificación
-        String idMunicipio = jTable1.getValueAt(fila, 0).toString();
+        String idVereda = jTable1.getValueAt(fila, 0).toString();
 
-        // Buscar el Municipio en la BD
+        // Buscar el Vereda en la BD
         try {
-            // Buscar el municipio en la BD
-            Clases.dao.MunicipioDAO buscarId = new Clases.dao.MunicipioDAO();
-            Clases.modelo.Municipio municipio = buscarId.buscarPorId(idMunicipio);
+            // Buscar el vereda en la BD
+            Clases.dao.VeredaDAO buscarId = new Clases.dao.VeredaDAO();
+            Clases.modelo.Vereda vereda = buscarId.buscarPorId(idVereda);
 
-            if (municipio != null) {
-                // Crear el panel EditMunicipio y pasarle el municipio
-                EditMunicipio panelEditar = new EditMunicipio();
-                panelEditar.setMunicipio(municipio);
+            if (vereda != null) {
+                // Crear el panel EditVereda y pasarle el vereda
+                EditVereda panelEditar = new EditVereda();
+                panelEditar.setVereda(vereda);
 
                 // Mostrar el panel en el Dashboard
                 Dashboard.ShowJPanel(panelEditar);
             } else {
-                JOptionPane.showMessageDialog(this, "No se encontró el municipio seleccionado.");
+                JOptionPane.showMessageDialog(this, "No se encontró el vereda seleccionado.");
             }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
-                    "Error al obtener el municipio: " + e.getMessage(),
+                    "Error al obtener el vereda: " + e.getMessage(),
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
@@ -291,7 +291,7 @@ public class GestionVeredas extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnEditar;
-    private javax.swing.JButton btnNuevoMunicipio;
+    private javax.swing.JButton btnNuevaVereda;
     private javax.swing.JButton btnSearch;
     private javax.swing.JTextField btnbuscar;
     private javax.swing.JLabel jLabel1;
