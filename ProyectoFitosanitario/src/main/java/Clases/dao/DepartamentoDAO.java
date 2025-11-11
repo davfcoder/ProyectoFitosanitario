@@ -56,7 +56,7 @@ public class DepartamentoDAO {
         }
     }
 
-    // READ - Listar todos los departamentos
+// 🔹 READ - Listar todos los departamentos usando FUNCTION almacenada
     public List<Departamento> listarTodos() {
         List<Departamento> lista = new ArrayList<>();
         Connection con = null;
@@ -66,14 +66,20 @@ public class DepartamentoDAO {
         try {
             con = conexion.estableceConexion();
 
-            String sql = "{call pro_listarDepartamentos(?)}";
+            // ✅ Llamar a la función que devuelve un SYS_REFCURSOR
+            String sql = "{ ? = call fun_listarDepartamentos() }";
             cs = con.prepareCall(sql);
+
+            // ✅ Registrar el parámetro de salida (el valor retornado por la función)
             cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
 
+            // ✅ Ejecutar la función
             cs.execute();
 
+            // ✅ Obtener el cursor como ResultSet
             rs = (ResultSet) cs.getObject(1);
 
+            // ✅ Recorrer los resultados
             while (rs.next()) {
                 Departamento dep = new Departamento();
                 dep.setIdDepartamento(rs.getString("id_departamento"));
@@ -185,7 +191,7 @@ public class DepartamentoDAO {
         }
     }
 
-    // READ - Buscar departamento por ID para abrir edit
+// 🔹 READ - Buscar departamento por ID usando FUNCTION almacenada para edit
     public Departamento buscarPorId(String id) {
         Departamento dep = null;
         Connection con = null;
@@ -195,16 +201,23 @@ public class DepartamentoDAO {
         try {
             con = conexion.estableceConexion();
 
-            String sql = "{call pro_buscarDepartamentoPorId(?, ?)}";
+            // ✅ Llamar a la función que devuelve un SYS_REFCURSOR
+            String sql = "{ ? = call fun_buscarDepartamentoPorId(?) }";
             cs = con.prepareCall(sql);
 
-            cs.setString(1, id);
-            cs.registerOutParameter(2, oracle.jdbc.OracleTypes.CURSOR);
+            // ✅ Registrar el parámetro de salida (el cursor devuelto por la función)
+            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
 
+            // ✅ Establecer el parámetro de entrada (ID del departamento)
+            cs.setString(2, id);
+
+            // ✅ Ejecutar la función
             cs.execute();
 
-            rs = (ResultSet) cs.getObject(2);
+            // ✅ Recuperar el cursor como ResultSet
+            rs = (ResultSet) cs.getObject(1);
 
+            // ✅ Procesar los resultados
             if (rs.next()) {
                 dep = new Departamento();
                 dep.setIdDepartamento(rs.getString("id_departamento"));
@@ -244,7 +257,8 @@ public class DepartamentoDAO {
             con = conexion.estableceConexion();
 
             // Llamar a la función que devuelve un SYS_REFCURSOR
-            String sql = "{? = call fn_listarNombresDepartamentos()}";
+            String sql = "{? = call fun_lstarNombresDepartamentos()}";
+            ////PRUEBA SI NO FUNCIONA
             cs = con.prepareCall(sql);
 
             // Registrar el parámetro de salida (cursor)
@@ -281,34 +295,33 @@ public class DepartamentoDAO {
 
         return lista;
     }
-
-// 🔹 Obtener ID para que me traiga el nombre
-    public String obtenerIdPorNombre(String nombreDepartamento) {
-        String idDepartamento = null;
+// 🔹 Obtener NOMBRE del departamento por su ID para autorrellenable de vista municipio
+    public String obtenerIdPorNombre(String idDepartamento) {
+        String nombreDepartamento = null;
         Connection con = null;
         CallableStatement cs = null;
 
         try {
             con = conexion.estableceConexion();
 
-            // Llamar a la función que devuelve un valor
-            String sql = "{? = call fn_obtenerIdDepartamento(?)}";
+            // ✅ Llamar a la función que devuelve el nombre del departamento
+            String sql = "{ ? = call fun_obtenerNombreDepartamento(?) }";
             cs = con.prepareCall(sql);
 
-            // Registrar el parámetro de salida (valor devuelto por la función)
+            // ✅ Registrar el parámetro de salida (valor devuelto)
             cs.registerOutParameter(1, java.sql.Types.VARCHAR);
 
-            // Asignar el parámetro de entrada
-            cs.setString(2, nombreDepartamento);
+            // ✅ Asignar el parámetro de entrada (ID del departamento)
+            cs.setString(2, idDepartamento);
 
-            // Ejecutar
+            // ✅ Ejecutar la función
             cs.execute();
 
-            // Obtener el valor retornado por la función
-            idDepartamento = cs.getString(1);
+            // ✅ Obtener el nombre devuelto por la función
+            nombreDepartamento = cs.getString(1);
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener ID de departamento: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al obtener nombre del departamento: " + e.getMessage());
         } finally {
             try {
                 if (cs != null) {
@@ -322,7 +335,7 @@ public class DepartamentoDAO {
             }
         }
 
-        return idDepartamento;
+        return nombreDepartamento;
     }
 
 }

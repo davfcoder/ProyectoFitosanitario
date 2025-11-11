@@ -26,7 +26,7 @@ public class VeredaDAO {
 
         try {
             con = conexion.estableceConexion();
-            String sql = "{call pro_incMunicipio(?, ?, ?)}";
+            String sql = "{call pro_incVereda(?, ?, ?)}";
             cs = con.prepareCall(sql);
 
             cs.setString(1, vereda.getCodigoDane());
@@ -62,7 +62,7 @@ public class VeredaDAO {
 
         try {
             con = conexion.estableceConexion();
-            //String sql = "{call pro_listarMunicipios(?)}";
+            String sql = "{call fun_listarVeredas(?)}";
             cs = con.prepareCall(sql);
             cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
 
@@ -106,7 +106,7 @@ public class VeredaDAO {
 
         try {
             con = conexion.estableceConexion();
-            //String sql = "{call pro_actMunicipio(?, ?, ?, ?)}";
+            String sql = "{call pro_actVereda(?, ?, ?, ?)}";
             cs = con.prepareCall(sql);
 
             cs.setString(1, vereda.getIdVereda());
@@ -142,7 +142,7 @@ public class VeredaDAO {
             con = conexion.estableceConexion();
             con.setAutoCommit(false);
             //llamo el procedimiento 
-            //String sql = "{call pro_elimMunicipio(?)}";
+            String sql = "{call pro_elimMunicipio(?)}";
             cs = con.prepareCall(sql);
 
             cs.setString(1, id);
@@ -184,7 +184,7 @@ public class VeredaDAO {
 
         try {
             con = conexion.estableceConexion();
-            //String sql = "{call pro_buscarMunicipioPorId(?, ?)}";
+            String sql = "{call fun_buscarVeredaPorId(?, ?)}";
             cs = con.prepareCall(sql);
 
             cs.setString(1, id);
@@ -197,8 +197,8 @@ public class VeredaDAO {
                 vereda = new Vereda();
                 vereda.setIdVereda(rs.getString("id_vereda"));
                 vereda.setCodigoDane(rs.getString("codigo_dane"));
-                vereda.setNombre(rs.getString("nombre"));
-                vereda.setNombre(rs.getString("nombre_departamento"));
+                vereda.setNombre(rs.getString("nombre_vereda"));
+                vereda.setNombre(rs.getString("nombre_municipio"));
             }
 
         } catch (SQLException e) {

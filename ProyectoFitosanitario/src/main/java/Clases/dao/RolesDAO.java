@@ -57,53 +57,58 @@ public class RolesDAO {
         }
     }
 
-// READ - Listar todos los roles Gestionroles (solo nombre y descripción) usando procedimiento almacenado
-public List<Roles> listarTodos() {
-    List<Roles> lista = new ArrayList<>();
-    Connection con = null;
-    CallableStatement cs = null;
-    ResultSet rs = null;
+// 🔹 READ - Listar todos los roles usando FUNCTION almacenada
+    public List<Roles> listarTodos() {
+        List<Roles> lista = new ArrayList<>();
+        Connection con = null;
+        CallableStatement cs = null;
+        ResultSet rs = null;
 
-    try {
-        con = conexion.estableceConexion();
-
-        // Llamar al procedimiento almacenado
-        String sql = "{call pro_listarRoles(?)}";
-        cs = con.prepareCall(sql);
-
-        // Registrar el parámetro de salida (cursor)
-        cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
-
-        // Ejecutar
-        cs.execute();
-
-        // Recuperar el cursor como ResultSet
-        rs = (ResultSet) cs.getObject(1);
-
-        // Recorrer resultados
-        while (rs.next()) {
-            Roles rol = new Roles();
-            rol.setIdRol(rs.getString("id_rol"));   // 🔹 Nuevo: capturar el ID
-            rol.setNomRol(rs.getString("nom_rol"));
-            rol.setDescripcion(rs.getString("descripcion"));
-            lista.add(rol);
-        }
-
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error al listar roles: " + e.getMessage());
-    } finally {
         try {
-            if (rs != null) rs.close();
-            if (cs != null) cs.close();
-            if (con != null) con.close();
+            con = conexion.estableceConexion();
+
+            // ✅ Llamada a la función que devuelve un SYS_REFCURSOR
+            String sql = "{ ? = call fun_listarRoles() }";
+            cs = con.prepareCall(sql);
+
+            // ✅ Registrar el parámetro de salida (el valor que devuelve la función)
+            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+
+            // ✅ Ejecutar la función
+            cs.execute();
+
+            // ✅ Obtener el cursor como ResultSet
+            rs = (ResultSet) cs.getObject(1);
+
+            // ✅ Recorrer resultados
+            while (rs.next()) {
+                Roles rol = new Roles();
+                rol.setIdRol(rs.getString("id_rol"));
+                rol.setNomRol(rs.getString("nom_rol"));
+                rol.setDescripcion(rs.getString("descripcion"));
+                lista.add(rol);
+            }
+
         } catch (SQLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al listar roles: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
+        return lista;
     }
-
-    return lista;
-}
-
 
 // UPDATE - Actualizar rol usando procedimiento almacenado
     public boolean actualizar(Roles rol) {
@@ -203,21 +208,17 @@ public List<Roles> listarTodos() {
         try {
             con = conexion.estableceConexion();
 
-            // Llamada al procedimiento almacenado
-            String sql = "{call pro_buscarRolPorId(?, ?)}";
+            // ✅ Llamada correcta a la función
+            String sql = "{ ? = call fun_buscarRolPorId(?) }";
             cs = con.prepareCall(sql);
 
-            // Asignar parámetros
-            cs.setString(1, id);
-            cs.registerOutParameter(2, oracle.jdbc.OracleTypes.CURSOR);
+            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR); // valor retornado
+            cs.setString(2, id); // parámetro de entrada
 
-            // Ejecutar procedimiento
             cs.execute();
 
-            // Obtener el cursor como ResultSet
-            rs = (ResultSet) cs.getObject(2);
+            rs = (ResultSet) cs.getObject(1); // obtener el cursor
 
-            // Si hay resultado, crear objeto Rol
             if (rs.next()) {
                 rol = new Roles();
                 rol.setIdRol(rs.getString("id_rol"));

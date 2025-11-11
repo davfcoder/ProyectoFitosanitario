@@ -53,7 +53,7 @@ public class MunicipioDAO {
         }
     }
 
-    // READ - Listar todos los municipios
+// 🔹 READ - Listar todos los municipios usando FUNCTION almacenada
     public List<Municipio> listarTodos() {
         List<Municipio> lista = new ArrayList<>();
         Connection con = null;
@@ -62,13 +62,21 @@ public class MunicipioDAO {
 
         try {
             con = conexion.estableceConexion();
-            String sql = "{call pro_listarMunicipios(?)}";
+
+            // ✅ Llamada a la función almacenada que devuelve un SYS_REFCURSOR
+            String sql = "{ ? = call fun_listarMunicipios() }";
             cs = con.prepareCall(sql);
+
+            // ✅ Registrar el parámetro de salida (el cursor devuelto por la función)
             cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
 
+            // ✅ Ejecutar la función
             cs.execute();
+
+            // ✅ Obtener el cursor como ResultSet
             rs = (ResultSet) cs.getObject(1);
 
+            // ✅ Recorrer resultados
             while (rs.next()) {
                 Municipio m = new Municipio();
                 m.setIdMunicipio(rs.getString("id_municipio"));
@@ -185,7 +193,7 @@ public class MunicipioDAO {
 
         try {
             con = conexion.estableceConexion();
-            String sql = "{call pro_buscarMunicipioPorId(?, ?)}";
+            String sql = "{call fun_buscarMunicipioPorId(?, ?)}";
             cs = con.prepareCall(sql);
 
             cs.setString(1, id);
@@ -221,6 +229,49 @@ public class MunicipioDAO {
         }
 
         return municipio;
+    }
+
+    //  Obtener ID para que me traiga el nombre
+    public String obtenerIdPorNombre(String nombreMunicipio) {
+        String idMunicipio = null;
+        Connection con = null;
+        CallableStatement cs = null;
+
+        try {
+            con = conexion.estableceConexion();
+
+            // Llamar a la función que devuelve un valor
+            String sql = "{? = call fun_obtenerIdMunicipio(?)}";
+            cs = con.prepareCall(sql);
+
+            // Registrar el parámetro de salida (valor devuelto por la función)
+            cs.registerOutParameter(1, java.sql.Types.VARCHAR);
+
+            // Asignar el parámetro de entrada
+            cs.setString(2, nombreMunicipio);
+
+            // Ejecutar
+            cs.execute();
+
+            // Obtener el valor retornado por la función
+            idMunicipio = cs.getString(1);
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener ID de municipio: " + e.getMessage());
+        } finally {
+            try {
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return idMunicipio;
     }
 
 }

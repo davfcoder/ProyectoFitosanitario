@@ -62,7 +62,7 @@ public class UsuarioDAO {
         }
     }
 
-// READ - Listar usuarios usando procedimiento almacenado
+// READ - Listar usuarios usando Function almacenada
     public List<Usuarios> listarTodos() {
         List<Usuarios> lista = new ArrayList<>();
         Connection con = null;
@@ -72,18 +72,20 @@ public class UsuarioDAO {
         try {
             con = conexion.estableceConexion();
 
-            // Llamar al procedimiento almacenado
-            String sql = "{call pro_listarUsuarios(?)}";
+            // ✅ Llamar a la FUNCIÓN almacenada (no procedimiento)
+            String sql = "{ ? = call fun_listarUsuarios() }";
             cs = con.prepareCall(sql);
-            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR); 
 
-            // Ejecutar el procedimiento
+            // ✅ Registrar el parámetro de salida (la función retorna el cursor)
+            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+
+            // ✅ Ejecutar la función
             cs.execute();
 
-            // Recuperar el cursor como ResultSet
+            // ✅ Obtener el cursor como ResultSet
             rs = (ResultSet) cs.getObject(1);
 
-            // Recorrer los resultados
+            // ✅ Recorrer los resultados
             while (rs.next()) {
                 Usuarios u = new Usuarios();
                 u.setIdUsuario(rs.getString("id_usuario"));
@@ -207,7 +209,7 @@ public class UsuarioDAO {
         }
     }
 
-//  OBTENER UN USUARIO POR SU ID
+// 🔹 OBTENER UN USUARIO POR SU ID usando FUNCTION almacenada
     public Usuarios getUserById(String idUsuario) {
         Usuarios usuario = null;
         Connection con = null;
@@ -217,23 +219,23 @@ public class UsuarioDAO {
         try {
             con = conexion.estableceConexion();
 
-            // Llamada al procedimiento almacenado
-            String sql = "{call pro_buscarUsuarioPorId(?, ?)}";
+            // ✅ Llamada a la FUNCIÓN (no procedimiento)
+            String sql = "{ ? = call fun_buscarUsuarioPorId(?) }";
             cs = con.prepareCall(sql);
 
-            // Parámetro de entrada
-            cs.setString(1, idUsuario);
+            // ✅ Registrar el parámetro de salida (la función devuelve un cursor)
+            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
 
-            // Parámetro de salida (el cursor)
-            cs.registerOutParameter(2, oracle.jdbc.OracleTypes.CURSOR);
+            // ✅ Parámetro de entrada: ID del usuario
+            cs.setString(2, idUsuario);
 
-            // Ejecutar
+            // ✅ Ejecutar
             cs.execute();
 
-            // Obtener el cursor como ResultSet
-            rs = (ResultSet) cs.getObject(2);
+            // ✅ Obtener el cursor como ResultSet
+            rs = (ResultSet) cs.getObject(1);
 
-            // Procesar resultados
+            // ✅ Procesar resultados
             if (rs.next()) {
                 usuario = new Usuarios();
                 usuario.setIdUsuario(rs.getString("id_usuario"));

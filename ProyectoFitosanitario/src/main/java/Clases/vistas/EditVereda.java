@@ -4,9 +4,9 @@
  */
 package Clases.vistas;
 
+import Clases.dao.VeredaDAO;
+import Clases.modelo.Vereda;
 import Clases.dao.MunicipioDAO;
-import Clases.modelo.Municipio;
-import Clases.dao.DepartamentoDAO;
 import Clases.libreria.Dashboard;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -18,25 +18,25 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  */
 public class EditVereda extends javax.swing.JPanel {
 
-    private Municipio municipioActual;
+    private Vereda veredaActual;
 
     public EditVereda() {
         initComponents();
-        cargarDepartamentos();
+        cargarMunicipios();
     }
 
-    public void setMunicipio(Municipio municipio) {
-        this.municipioActual = municipio;
+    public void setVereda(Vereda vereda) {
+        this.veredaActual = vereda;
 
         // Rellenar los campos de texto
-        txtCodigoDane.setText(municipio.getCodigoDane());
-        txtNombre.setText(municipio.getNombre());
+        txtCodigoDane.setText(vereda.getCodigoDane());
+        txtNombre.setText(vereda.getNombre());
 
-        // Seleccionar el departamento correspondiente en el combo
-        if (municipio.getNombreDepartamento() != null) {
-            jBoxMunicipio.setSelectedItem(municipio.getNombreDepartamento());
+        // Seleccionar el municipio correspondiente en el combo
+        if (vereda.getNombreMunicipio() != null) {
+            jBoxMunicipio.setSelectedItem(vereda.getNombreMunicipio());
         } else {
-            jBoxMunicipio.setSelectedIndex(0); // Selecciona "Seleccione un departamento" o el primero
+            jBoxMunicipio.setSelectedIndex(0); // Selecciona "Seleccione un municipio" o el primero
         }
     }
 
@@ -46,11 +46,11 @@ public class EditVereda extends javax.swing.JPanel {
         jBoxMunicipio.setSelectedIndex(0);
     }
 
-    private void cargarDepartamentos() {
+    private void cargarMunicipios() {
         try {
-            DepartamentoDAO dao = new DepartamentoDAO();
+            MunicipioDAO dao = new MunicipioDAO();
             jBoxMunicipio.removeAllItems();
-            jBoxMunicipio.addItem("Seleccione un departamento");
+            jBoxMunicipio.addItem("Seleccione un municipio");
 
             dao.listarTodos().forEach(dep -> jBoxMunicipio.addItem(dep.getNombre()));
 
@@ -58,7 +58,7 @@ public class EditVereda extends javax.swing.JPanel {
             AutoCompleteDecorator.decorate(jBoxMunicipio);
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar departamentos: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al cargar municipios: " + e.getMessage());
         }
     }
 
@@ -183,8 +183,8 @@ public class EditVereda extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-        if (municipioActual == null) {
-            JOptionPane.showMessageDialog(this, "No hay un Municipio cargado para actualizar.");
+        if (veredaActual == null) {
+            JOptionPane.showMessageDialog(this, "No hay una Vereda cargada para actualizar.");
             return;
         }
 
@@ -200,30 +200,30 @@ public class EditVereda extends javax.swing.JPanel {
         }
 
         try {
-            // Crear DAO de departamentos para obtener el ID según el nombre seleccionado
-            DepartamentoDAO depDAO = new DepartamentoDAO();
-            String nombreDep = jBoxMunicipio.getSelectedItem().toString();
-            String idDep = depDAO.obtenerIdPorNombre(nombreDep); // método que debes tener en tu DAO
+            // Crear DAO de municipios para obtener el ID según el nombre seleccionado
+            MunicipioDAO munDAO = new MunicipioDAO();
+            String nombreMunpo = jBoxMunicipio.getSelectedItem().toString();
+            String idMunpo = munDAO.obtenerIdPorNombre(nombreMunpo); // método que debes tener en tu DAO
 
-            if (idDep == null) {
-                JOptionPane.showMessageDialog(this, "No se encontró el departamento seleccionado.");
+            if (idMunpo == null) {
+                JOptionPane.showMessageDialog(this, "No se encontró el municipio seleccionado.");
                 return;
             }
 
             // Actualizar valores del municipio
-            municipioActual.setCodigoDane(txtCodigoDane.getText());
-            municipioActual.setNombre(txtNombre.getText());
-            municipioActual.setIdDepartamento(idDep); // 👈 ahora se actualiza correctamente
+            veredaActual.setCodigoDane(txtCodigoDane.getText());
+            veredaActual.setNombre(txtNombre.getText());
+            veredaActual.setIdMunicipio(idMunpo); // 👈 ahora se actualiza correctamente
 
             // Llamar al DAO para actualizar en BD
-            MunicipioDAO municipioDAO = new MunicipioDAO();
-            boolean actualizado = municipioDAO.actualizar(municipioActual);
+            VeredaDAO veredaDAO = new VeredaDAO();
+            boolean actualizado = veredaDAO.actualizar(veredaActual);
 
             if (actualizado) {
-                JOptionPane.showMessageDialog(this, "Municipio actualizado correctamente.");
-                Dashboard.ShowJPanel(new GestionMunicipios());
+                JOptionPane.showMessageDialog(this, "Vereda actualizada correctamente.");
+                Dashboard.ShowJPanel(new GestionVeredas());
             } else {
-                JOptionPane.showMessageDialog(this, "No se pudo actualizar el Municipio.");
+                JOptionPane.showMessageDialog(this, "No se pudo actualizar la Vereda.");
             }
 
         } catch (Exception e) {

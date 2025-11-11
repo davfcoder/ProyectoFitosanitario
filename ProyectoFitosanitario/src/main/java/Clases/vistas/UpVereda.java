@@ -191,13 +191,13 @@ public class UpVereda extends javax.swing.JPanel {
 
         try {
             // 🔹 Obtener el nombre seleccionado
-            String nombreMunicipio = (String) jBoxMunicipio.getSelectedItem();
+            String nombreMunpo = (String) jBoxMunicipio.getSelectedItem();
 
-            // 🔹 Buscar ID del Municipio
-            Clases.dao.MunicipioDAO depDAO = new Clases.dao.MunicipioDAO();
-            String idDepto = depDAO.obtenerIdPorNombre(nombreMunicipio);
+            // 🔹 Buscar ID del municipio
+            Clases.dao.MunicipioDAO munDAO = new Clases.dao.MunicipioDAO();
+            String idMunpo = munDAO.obtenerIdPorNombre(nombreMunpo);
 
-            if (idDepto == null) {
+            if (idMunpo == null) {
                 JOptionPane.showMessageDialog(this,
                         "No se encontró el ID del municipio seleccionado.",
                         "Error",
@@ -205,22 +205,22 @@ public class UpVereda extends javax.swing.JPanel {
                 return;
             }
 
-            // 🔹 Crear municipio con el ID correcto
-            Municipio municipio = new Municipio();
-            municipio.setCodigoDane(txtCodigoDane.getText());
-            municipio.setNombre(txtNombre.getText());
-            municipio.setIdDepartamento(idDepto); // ✅ Guardamos el ID real
+            // 🔹 Crear vereda con el ID correcto
+            Vereda vereda = new Vereda();
+            vereda.setCodigoDane(txtCodigoDane.getText());
+            vereda.setNombre(txtNombre.getText());
+            vereda.setIdMunicipio(idMunpo); // ✅ Guardamos el ID real
 
             // 🔹 Insertar en la BD
-            Clases.dao.MunicipioDAO municipioDAO = new Clases.dao.MunicipioDAO();
-            boolean guardado = municipioDAO.insertar(municipio);
+            Clases.dao.VeredaDAO veredaDAO = new Clases.dao.VeredaDAO();
+            boolean guardado = veredaDAO.insertar(vereda);
 
             if (guardado) {
-                JOptionPane.showMessageDialog(this, "Municipio guardado correctamente");
+                JOptionPane.showMessageDialog(this, "Vereda guardado correctamente");
                 limpiarCampos();
                 Dashboard.ShowJPanel(new GestionMunicipios());
             } else {
-                JOptionPane.showMessageDialog(this, "No se pudo guardar el Municipio");
+                JOptionPane.showMessageDialog(this, "No se pudo guardar la Vereda");
             }
 
         } catch (Exception e) {
@@ -228,12 +228,11 @@ public class UpVereda extends javax.swing.JPanel {
             e.printStackTrace();
         }
 
-
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         limpiarCampos();
-        Dashboard.ShowJPanel(new GestionMunicipios());
+        Dashboard.ShowJPanel(new GestionVeredas());
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
