@@ -192,7 +192,7 @@ public class GestionVeredas extends javax.swing.JPanel {
         } else {
             int confirmacion = JOptionPane.showConfirmDialog(
                     this,
-                    "¿Está seguro de eliminar los veredas seleccionados?",
+                    "¿Está seguro de eliminar las veredas seleccionados?",
                     "Confirmar eliminación",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE

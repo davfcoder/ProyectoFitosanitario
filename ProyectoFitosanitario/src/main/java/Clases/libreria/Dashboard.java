@@ -76,11 +76,11 @@ public class Dashboard extends javax.swing.JFrame {
         background = new javax.swing.JPanel();
         menu = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        btnGestionarRoles = new javax.swing.JButton();
-        btnGestionarUsuarios = new javax.swing.JButton();
-        btnFitosanitario = new javax.swing.JButton();
-        btnProduccion = new javax.swing.JButton();
-        btnReportes = new javax.swing.JButton();
+        btnGestionRol = new javax.swing.JButton();
+        btnGestionUsuario = new javax.swing.JButton();
+        btnGestionMunicipio = new javax.swing.JButton();
+        btnGestionarDepartamentos = new javax.swing.JButton();
+        btnGestionVereda = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         btnCerrarSesion = new javax.swing.JButton();
         header = new javax.swing.JPanel();
@@ -111,63 +111,63 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        btnGestionarRoles.setBackground(new java.awt.Color(27, 94, 32));
-        btnGestionarRoles.setForeground(new java.awt.Color(255, 255, 255));
-        btnGestionarRoles.setText("Roles");
-        btnGestionarRoles.setBorder(null);
-        btnGestionarRoles.setBorderPainted(false);
-        btnGestionarRoles.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnGestionarRoles.addActionListener(new java.awt.event.ActionListener() {
+        btnGestionRol.setBackground(new java.awt.Color(27, 94, 32));
+        btnGestionRol.setForeground(new java.awt.Color(255, 255, 255));
+        btnGestionRol.setText("Roles");
+        btnGestionRol.setBorder(null);
+        btnGestionRol.setBorderPainted(false);
+        btnGestionRol.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnGestionRol.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGestionarRolesActionPerformed(evt);
+                btnGestionRolActionPerformed(evt);
             }
         });
 
-        btnGestionarUsuarios.setBackground(new java.awt.Color(27, 94, 32));
-        btnGestionarUsuarios.setForeground(new java.awt.Color(255, 255, 255));
-        btnGestionarUsuarios.setText("Usuarios");
-        btnGestionarUsuarios.setBorder(null);
-        btnGestionarUsuarios.setBorderPainted(false);
-        btnGestionarUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnGestionarUsuarios.addActionListener(new java.awt.event.ActionListener() {
+        btnGestionUsuario.setBackground(new java.awt.Color(27, 94, 32));
+        btnGestionUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        btnGestionUsuario.setText("Usuarios");
+        btnGestionUsuario.setBorder(null);
+        btnGestionUsuario.setBorderPainted(false);
+        btnGestionUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnGestionUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGestionarUsuariosActionPerformed(evt);
+                btnGestionUsuarioActionPerformed(evt);
             }
         });
 
-        btnFitosanitario.setBackground(new java.awt.Color(27, 94, 32));
-        btnFitosanitario.setForeground(new java.awt.Color(255, 255, 255));
-        btnFitosanitario.setText("Municipio");
-        btnFitosanitario.setBorder(null);
-        btnFitosanitario.setBorderPainted(false);
-        btnFitosanitario.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnFitosanitario.addActionListener(new java.awt.event.ActionListener() {
+        btnGestionMunicipio.setBackground(new java.awt.Color(27, 94, 32));
+        btnGestionMunicipio.setForeground(new java.awt.Color(255, 255, 255));
+        btnGestionMunicipio.setText("Municipio");
+        btnGestionMunicipio.setBorder(null);
+        btnGestionMunicipio.setBorderPainted(false);
+        btnGestionMunicipio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnGestionMunicipio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFitosanitarioActionPerformed(evt);
+                btnGestionMunicipioActionPerformed(evt);
             }
         });
 
-        btnProduccion.setBackground(new java.awt.Color(27, 94, 32));
-        btnProduccion.setForeground(new java.awt.Color(255, 255, 255));
-        btnProduccion.setText("Departamento");
-        btnProduccion.setBorder(null);
-        btnProduccion.setBorderPainted(false);
-        btnProduccion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnProduccion.addActionListener(new java.awt.event.ActionListener() {
+        btnGestionarDepartamentos.setBackground(new java.awt.Color(27, 94, 32));
+        btnGestionarDepartamentos.setForeground(new java.awt.Color(255, 255, 255));
+        btnGestionarDepartamentos.setText("Departamento");
+        btnGestionarDepartamentos.setBorder(null);
+        btnGestionarDepartamentos.setBorderPainted(false);
+        btnGestionarDepartamentos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnGestionarDepartamentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProduccionActionPerformed(evt);
+                btnGestionarDepartamentosActionPerformed(evt);
             }
         });
 
-        btnReportes.setBackground(new java.awt.Color(27, 94, 32));
-        btnReportes.setForeground(new java.awt.Color(255, 255, 255));
-        btnReportes.setText("Vereda");
-        btnReportes.setBorder(null);
-        btnReportes.setBorderPainted(false);
-        btnReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnReportes.addActionListener(new java.awt.event.ActionListener() {
+        btnGestionVereda.setBackground(new java.awt.Color(27, 94, 32));
+        btnGestionVereda.setForeground(new java.awt.Color(255, 255, 255));
+        btnGestionVereda.setText("Vereda");
+        btnGestionVereda.setBorder(null);
+        btnGestionVereda.setBorderPainted(false);
+        btnGestionVereda.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnGestionVereda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportesActionPerformed(evt);
+                btnGestionVeredaActionPerformed(evt);
             }
         });
 
@@ -207,11 +207,11 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                    .addComponent(btnGestionarUsuarios, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                    .addComponent(btnGestionarRoles, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                    .addComponent(btnProduccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                    .addComponent(btnFitosanitario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                    .addComponent(btnReportes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
+                    .addComponent(btnGestionUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                    .addComponent(btnGestionRol, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                    .addComponent(btnGestionarDepartamentos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                    .addComponent(btnGestionMunicipio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                    .addComponent(btnGestionVereda, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         menuLayout.setVerticalGroup(
@@ -222,14 +222,14 @@ public class Dashboard extends javax.swing.JFrame {
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(menuLayout.createSequentialGroup()
                         .addGap(47, 47, 47)
-                        .addComponent(btnGestionarUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addComponent(btnGestionarRoles, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnGestionUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(btnGestionRol, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(btnProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnGestionarDepartamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(btnFitosanitario, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnGestionMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnGestionVereda, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -342,38 +342,38 @@ public class Dashboard extends javax.swing.JFrame {
             case "Administrador ICA":
                 break;
             case "Propietario":
-                btnFitosanitario.setVisible(false);
-                btnGestionarUsuarios.setVisible(false);
-                btnProduccion.setVisible(false);
+                btnGestionMunicipio.setVisible(false);
+                btnGestionUsuario.setVisible(false);
+                btnGestionarDepartamentos.setVisible(false);
                 break;
             case "Productor":
-                btnFitosanitario.setVisible(false);
-                btnProduccion.setVisible(false);
-                btnGestionarUsuarios.setVisible(false);
-                btnReportes.setVisible(false);
+                btnGestionMunicipio.setVisible(false);
+                btnGestionarDepartamentos.setVisible(false);
+                btnGestionUsuario.setVisible(false);
+                btnGestionVereda.setVisible(false);
                 break;
             case "Asistente Técnico":
-                btnFitosanitario.setVisible(false);
-                btnReportes.setVisible(false);
-                btnGestionarUsuarios.setVisible(false);
+                btnGestionMunicipio.setVisible(false);
+                btnGestionVereda.setVisible(false);
+                btnGestionUsuario.setVisible(false);
                 break;
         }
     }
-    private void btnProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProduccionActionPerformed
+    private void btnGestionarDepartamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionarDepartamentosActionPerformed
         ShowJPanel(new GestionDepartamentos());         // TODO add your handling code here:
-    }//GEN-LAST:event_btnProduccionActionPerformed
+    }//GEN-LAST:event_btnGestionarDepartamentosActionPerformed
 
-    private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
+    private void btnGestionVeredaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionVeredaActionPerformed
          ShowJPanel(new GestionVeredas());
-    }//GEN-LAST:event_btnReportesActionPerformed
+    }//GEN-LAST:event_btnGestionVeredaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ShowJPanel(new Principal());        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void btnGestionarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionarUsuariosActionPerformed
+    private void btnGestionUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionUsuarioActionPerformed
         ShowJPanel(new GestionUsuarios());        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGestionarUsuariosActionPerformed
+    }//GEN-LAST:event_btnGestionUsuarioActionPerformed
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
         int respuesta = JOptionPane.showConfirmDialog(this,
@@ -388,14 +388,14 @@ public class Dashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
-    private void btnGestionarRolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionarRolesActionPerformed
+    private void btnGestionRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionRolActionPerformed
         // TODO add your handling code here:
         ShowJPanel(new GestionRoles());
-    }//GEN-LAST:event_btnGestionarRolesActionPerformed
+    }//GEN-LAST:event_btnGestionRolActionPerformed
 
-    private void btnFitosanitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFitosanitarioActionPerformed
+    private void btnGestionMunicipioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionMunicipioActionPerformed
         ShowJPanel(new GestionMunicipios()); // TODO add your handling code here:
-    }//GEN-LAST:event_btnFitosanitarioActionPerformed
+    }//GEN-LAST:event_btnGestionMunicipioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -415,11 +415,11 @@ public class Dashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
     private javax.swing.JButton btnCerrarSesion;
-    private javax.swing.JButton btnFitosanitario;
-    private javax.swing.JButton btnGestionarRoles;
-    private javax.swing.JButton btnGestionarUsuarios;
-    private javax.swing.JButton btnProduccion;
-    private javax.swing.JButton btnReportes;
+    private javax.swing.JButton btnGestionMunicipio;
+    private javax.swing.JButton btnGestionRol;
+    private javax.swing.JButton btnGestionUsuario;
+    private javax.swing.JButton btnGestionVereda;
+    private javax.swing.JButton btnGestionarDepartamentos;
     private static javax.swing.JPanel content;
     private javax.swing.JPanel header;
     private javax.swing.JButton jButton1;

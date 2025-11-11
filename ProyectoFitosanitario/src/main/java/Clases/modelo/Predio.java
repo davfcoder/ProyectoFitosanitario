@@ -8,30 +8,34 @@ public class Predio {
 
     private String idPredio;
     private String numPredial;
+    private String nroRegistroICA;
     private String nomPredio;
-    private String idVereda;
     private String direccion;
+    private String idDepartamento;
+    private String idMunicipio;
+    private String idVereda;
     private String cx;
     private String cy;
-    private Double areaTotal;
+    private Float areaTotal;
     private String idUsuarioPropietario;
-    private String nroRegistroICA;
 
-    // Constructor vacío
-    public Predio() {
-    }
-
-    public Predio(String idPredio, String numPredial, String nomPredio, String idVereda, String direccion, String cx, String cy, Double areaTotal, String idUsuarioPropietario, String nroRegistroICA) {
+    public Predio(String idPredio, String numPredial, String nroRegistroICA, String nomPredio, String direccion, String idDepartamento, String idMunicipio, String idVereda, String cx, String cy, Float areaTotal, String idUsuarioPropietario) {
         this.idPredio = idPredio;
         this.numPredial = numPredial;
+        this.nroRegistroICA = nroRegistroICA;
         this.nomPredio = nomPredio;
-        this.idVereda = idVereda;
         this.direccion = direccion;
+        this.idDepartamento = idDepartamento;
+        this.idMunicipio = idMunicipio;
+        this.idVereda = idVereda;
         this.cx = cx;
         this.cy = cy;
         this.areaTotal = areaTotal;
         this.idUsuarioPropietario = idUsuarioPropietario;
-        this.nroRegistroICA = nroRegistroICA;
+    }
+    
+
+    public Predio() {
     }
 
     public String getIdPredio() {
@@ -50,6 +54,14 @@ public class Predio {
         this.numPredial = numPredial;
     }
 
+    public String getNroRegistroICA() {
+        return nroRegistroICA;
+    }
+
+    public void setNroRegistroICA(String nroRegistroICA) {
+        this.nroRegistroICA = nroRegistroICA;
+    }
+
     public String getNomPredio() {
         return nomPredio;
     }
@@ -58,20 +70,36 @@ public class Predio {
         this.nomPredio = nomPredio;
     }
 
-    public String getIdVereda() {
-        return idVereda;
-    }
-
-    public void setIdVereda(String idVereda) {
-        this.idVereda = idVereda;
-    }
-
     public String getDireccion() {
         return direccion;
     }
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public String getIdDepartamento() {
+        return idDepartamento;
+    }
+
+    public void setIdDepartamento(String idDepartamento) {
+        this.idDepartamento = idDepartamento;
+    }
+
+    public String getIdMunicipio() {
+        return idMunicipio;
+    }
+
+    public void setIdMunicipio(String idMunicipio) {
+        this.idMunicipio = idMunicipio;
+    }
+
+    public String getIdVereda() {
+        return idVereda;
+    }
+
+    public void setIdVereda(String idVereda) {
+        this.idVereda = idVereda;
     }
 
     public String getCx() {
@@ -90,11 +118,11 @@ public class Predio {
         this.cy = cy;
     }
 
-    public Double getAreaTotal() {
+    public Float getAreaTotal() {
         return areaTotal;
     }
 
-    public void setAreaTotal(Double areaTotal) {
+    public void setAreaTotal(Float areaTotal) {
         this.areaTotal = areaTotal;
     }
 
@@ -105,15 +133,20 @@ public class Predio {
     public void setIdUsuarioPropietario(String idUsuarioPropietario) {
         this.idUsuarioPropietario = idUsuarioPropietario;
     }
+    
+    
 
-    public String getNroRegistroICA() {
-        return nroRegistroICA;
+//////////////
+    // En la parte de atributos (junto con los demás campos)
+    private String nombreMunicipio;
+
+// Debajo de los getters y setters existentes, agrega estos:
+    public String getNombreMunicipio() {
+        return nombreMunicipio;
     }
 
-    public void setNroRegistroICA(String nroRegistroICA) {
-        this.nroRegistroICA = nroRegistroICA;
+    public void setNombreMunicipio(String nombreMunicipio) {
+        this.nombreMunicipio = nombreMunicipio;
     }
-
-
 
 }

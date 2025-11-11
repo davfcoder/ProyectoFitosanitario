@@ -11,6 +11,7 @@ import Clases.dao.UsuarioDAO;
 import Clases.libreria.Dashboard;
 import java.util.List;
 import javax.swing.JOptionPane;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  *
@@ -70,6 +71,8 @@ public class EditPredio extends javax.swing.JPanel {
 
         // Bloquear el campo de identificación (clave primaria)
         txtIdentificacion.setEnabled(false);
+        txtUsuario.setEnabled(false);
+
     }
 
     private void limpiarCampos() {

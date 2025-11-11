@@ -4,8 +4,7 @@
  */
 package Clases.vistas;
 
-import Clases.modelo.Usuarios;
-import Clases.dao.RolesDAO;
+import Clases.modelo.Predio;
 import Clases.libreria.Dashboard;
 import Clases.modelo.Roles;
 import java.util.List;
@@ -15,51 +14,30 @@ import javax.swing.JOptionPane;
  *
  * @author ricar
  */
-public class UpPredios extends javax.swing.JPanel {
+public class UpPredio extends javax.swing.JPanel {
 
     /**
      * Creates new form Principal
      */
-    public UpPredios() {
+    public UpPredio() {
         initComponents();
-        cargarComboRoles();
+        
 
     }
 
     private void limpiarCampos() {
-        txtIdentificacion.setText("");
-        txtNombres.setText("");
-        txtApellidos.setText("");
+        txtINumPredial.setText("");
+        txtNombre.setText("");
         txtDireccion.setText("");
-        txtTelefono.setText("");
+        txtDepartamento.setText("");
+        txtMunicipio.setText("");
         txtCorreo.setText("");
         txtUsuario.setText("");
         txtContrasena.setText("");
         txtRegistroICA.setText("");
         txtTarjetaProf.setText("");
-        cmbRoles.setSelectedIndex(0);
     }
 
-    private void cargarComboRoles() {
-        try {
-            cmbRoles.removeAllItems();
-            RolesDAO rolesDAO = new RolesDAO();
-            List<Roles> listaRoles = rolesDAO.listarTodos();
-
-            if (listaRoles == null || listaRoles.isEmpty()) {
-                cmbRoles.addItem("Sin roles"); // evita combo vacío
-                return;
-            }
-
-            for (Roles roles : listaRoles) {
-                // mostramos "id - nombre" (porque tu combo es JComboBox<String>)
-                cmbRoles.addItem(roles.getIdRol() + " - " + roles.getNomRol());
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar roles: " + e.getMessage());
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -73,19 +51,18 @@ public class UpPredios extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtIdentificacion = new javax.swing.JTextField();
-        txtDireccion = new javax.swing.JTextField();
-        txtNombres = new javax.swing.JTextField();
+        txtINumPredial = new javax.swing.JTextField();
+        txtDepartamento = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
         txtUsuario = new javax.swing.JTextField();
-        txtApellidos = new javax.swing.JTextField();
+        txtDireccion = new javax.swing.JTextField();
         txtContrasena = new javax.swing.JTextField();
         txtCorreo = new javax.swing.JTextField();
         txtRegistroICA = new javax.swing.JTextField();
-        txtTelefono = new javax.swing.JTextField();
+        txtMunicipio = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         txtTarjetaProf = new javax.swing.JTextField();
-        cmbRoles = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -96,6 +73,7 @@ public class UpPredios extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        txtNroRegistroICA = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(750, 430));
@@ -104,19 +82,19 @@ public class UpPredios extends javax.swing.JPanel {
         jPanel1.setPreferredSize(new java.awt.Dimension(750, 430));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("Nuevo Usuario:");
+        jLabel1.setText("Nuevo Predio:");
 
-        jLabel2.setText("Número de identificación");
+        jLabel2.setText("Numero Predial");
 
-        txtNombres.addActionListener(new java.awt.event.ActionListener() {
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombresActionPerformed(evt);
+                txtNombreActionPerformed(evt);
             }
         });
 
-        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
+        txtMunicipio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTelefonoActionPerformed(evt);
+                txtMunicipioActionPerformed(evt);
             }
         });
 
@@ -133,39 +111,32 @@ public class UpPredios extends javax.swing.JPanel {
         btnGuardar.setBackground(new java.awt.Color(51, 153, 0));
         btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
-        btnGuardar.setText("Guardar usuario");
+        btnGuardar.setText("Guardar predio");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
             }
         });
 
-        cmbRoles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbRoles.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbRolesActionPerformed(evt);
-            }
-        });
+        jLabel3.setText("Nro Registro ICA ");
 
-        jLabel3.setText("Rol");
+        jLabel4.setText("Nombre");
 
-        jLabel4.setText("Nombres");
+        jLabel5.setText("Dirección");
 
-        jLabel5.setText("Apellidos");
+        jLabel6.setText("Departamento");
 
-        jLabel6.setText("Direccion");
+        jLabel7.setText("Municipio");
 
-        jLabel7.setText("Telefono");
+        jLabel8.setText("Vereda");
 
-        jLabel8.setText("Usuario");
+        jLabel9.setText("Latitud");
 
-        jLabel9.setText("Contraseña");
+        jLabel10.setText("Area Total");
 
-        jLabel10.setText("Correo Electronico");
+        jLabel11.setText("Longitud");
 
-        jLabel11.setText("Numero registro ICA");
-
-        jLabel12.setText("Tarjeta Profesional");
+        jLabel12.setText("Propietario");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -175,41 +146,28 @@ public class UpPredios extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtTarjetaProf, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                        .addGap(482, 482, 482))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(258, 258, 258)
-                                .addComponent(jLabel3))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(343, 343, 343)
-                                .addComponent(jLabel5))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(343, 343, 343)
-                                .addComponent(jLabel7))
-                            .addComponent(jLabel8)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel6)
                             .addComponent(jLabel10)
                             .addComponent(jLabel12))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 579, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(txtCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
                             .addComponent(txtUsuario)
-                            .addComponent(txtNombres)
-                            .addComponent(txtIdentificacion)
-                            .addComponent(txtDireccion))
+                            .addComponent(txtNombre)
+                            .addComponent(txtINumPredial)
+                            .addComponent(txtDepartamento)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTarjetaProf))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(145, 145, 145)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(cmbRoles, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtRegistroICA)
                                     .addComponent(jLabel11)
                                     .addComponent(jLabel9)
@@ -217,10 +175,16 @@ public class UpPredios extends javax.swing.JPanel {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(btnCancelar)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnGuardar))))
+                                        .addComponent(btnGuardar))
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel7)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGap(144, 144, 144)
-                                .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel5)
+                                        .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtNroRegistroICA, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -232,34 +196,33 @@ public class UpPredios extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
-                .addGap(5, 5, 5)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(txtIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cmbRoles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtINumPredial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNroRegistroICA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
                 .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
                 .addGap(4, 4, 4)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
+                    .addComponent(txtDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel9)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel9))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel8)))
                 .addGap(4, 4, 4)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -296,61 +259,8 @@ public class UpPredios extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cmbRolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRolesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbRolesActionPerformed
-
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        if (txtIdentificacion.getText().trim().isEmpty()
-            || txtNombres.getText().trim().isEmpty()
-            || txtApellidos.getText().trim().isEmpty()
-            || txtCorreo.getText().trim().isEmpty()
-            || txtTelefono.getText().trim().isEmpty()
-            || txtDireccion.getText().trim().isEmpty()
-            || txtUsuario.getText().trim().isEmpty()
-            || txtContrasena.getText().trim().isEmpty()) {
 
-            JOptionPane.showMessageDialog(this,
-                "Por favor, complete todos los campos antes de guardar.",
-                "Campos incompletos",
-                JOptionPane.WARNING_MESSAGE);
-            return; // no continúa si falta información
-        }
-        try {
-            // Obtener el ID del rol seleccionado
-            String itemSeleccionado = (String) cmbRoles.getSelectedItem();
-            String idRol = itemSeleccionado.split(" - ")[0].trim();
-
-            // Crear el objeto usuario con los datos del formulario
-            Usuarios usuario = new Usuarios();
-            usuario.setNumIdentificacion(txtIdentificacion.getText());
-            usuario.setNombres(txtNombres.getText());
-            usuario.setApellidos(txtApellidos.getText());
-            usuario.setDireccion(txtDireccion.getText());
-            usuario.setTelefono(txtTelefono.getText());
-            usuario.setIngresoUsuario(txtUsuario.getText());
-            usuario.setIngresoContrasenia(txtContrasena.getText());
-            usuario.setCorreoElectronico(txtCorreo.getText());
-            usuario.setNroRegistroICA(txtRegistroICA.getText());
-            usuario.setTarjetaProfesional(txtTarjetaProf.getText());
-            usuario.setIdRol(idRol);
-
-            // Llamar al DAO para guardar en BD
-            Clases.dao.UsuarioDAO usuarioDAO = new Clases.dao.UsuarioDAO();
-            boolean guardado = usuarioDAO.insertar(usuario);
-
-            if (guardado) {
-                JOptionPane.showMessageDialog(this, "Usuario guardado correctamente");
-                limpiarCampos();
-                Dashboard.ShowJPanel(new GestionUsuarios());
-            } else {
-                JOptionPane.showMessageDialog(this, "No se pudo guardar el usuario");
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al guardar: " + e.getMessage());
-            e.printStackTrace();
-        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -358,19 +268,18 @@ public class UpPredios extends javax.swing.JPanel {
         Dashboard.ShowJPanel(new GestionUsuarios());
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
+    private void txtMunicipioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMunicipioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTelefonoActionPerformed
+    }//GEN-LAST:event_txtMunicipioActionPerformed
 
-    private void txtNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombresActionPerformed
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombresActionPerformed
+    }//GEN-LAST:event_txtNombreActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JComboBox<String> cmbRoles;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -384,15 +293,16 @@ public class UpPredios extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtContrasena;
     private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtDepartamento;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtIdentificacion;
-    private javax.swing.JTextField txtNombres;
+    private javax.swing.JTextField txtINumPredial;
+    private javax.swing.JTextField txtMunicipio;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNroRegistroICA;
     private javax.swing.JTextField txtRegistroICA;
     private javax.swing.JTextField txtTarjetaProf;
-    private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

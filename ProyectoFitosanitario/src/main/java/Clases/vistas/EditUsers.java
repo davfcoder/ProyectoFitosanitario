@@ -70,6 +70,8 @@ public class EditUsers extends javax.swing.JPanel {
 
         // Bloquear el campo de identificación (clave primaria)
         txtIdentificacion.setEnabled(false);
+        txtUsuario.setEnabled(false);
+
     }
 
     private void limpiarCampos() {

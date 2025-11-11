@@ -198,7 +198,7 @@ public class RolesDAO {
         }
     }
 
-// READ - Buscar rol por ID usando procedimiento almacenado para abrir EditUSERS
+// READ - Buscar rol por ID usando funcion para que visualice en la pantalla de bienvenida e inicia
     public Roles buscarPorId(String id) {
         Roles rol = null;
         Connection con = null;
@@ -208,7 +208,7 @@ public class RolesDAO {
         try {
             con = conexion.estableceConexion();
 
-            // ✅ Llamada correcta a la función
+            // Llamada correcta a la función
             String sql = "{ ? = call fun_buscarRolPorId(?) }";
             cs = con.prepareCall(sql);
 

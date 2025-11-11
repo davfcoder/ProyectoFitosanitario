@@ -4,12 +4,13 @@
  */
 package Clases.vistas;
 
-import Clases.dao.UsuarioDAO;
-import Clases.modelo.Usuarios;
+import Clases.dao.VeredaDAO;
+import Clases.modelo.Vereda;
 import Clases.libreria.Dashboard;
 import javax.swing.JOptionPane;
-import Clases.vistas.UpUsers;
+import Clases.vistas.UpVereda;
 import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -22,37 +23,31 @@ public class GestionPredios extends javax.swing.JPanel {
      */
     public GestionPredios() {
         initComponents();
-        LoadUsers();
+        LoadVereda();
     }
 
-    private void LoadUsers() {
+    private void LoadVereda() {
         try {
-            UsuarioDAO dao = new UsuarioDAO();
+            VeredaDAO dao = new VeredaDAO();
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0); // limpia la tabla
 
-            // Limpiar la tabla antes de cargar nuevos datos
-            model.setRowCount(0);
-
-            // Llenar el modelo con los datos
             dao.listarTodos().forEach((u) -> {
                 model.addRow(new Object[]{
-                    u.getIdUsuario(), // 🔹 ID oculto
-                    u.getNumIdentificacion(),
-                    u.getNombres(),
-                    u.getApellidos(),
-                    u.getTelefono(),
-                    u.getCorreoElectronico(),
-                    u.getNomRol()
+                    u.getIdMunicipio(), 
+                    u.getCodigoDane(),
+                    u.getNombre(),
+                    u.getNombreMunicipio(),
                 });
             });
 
-            // 🔹 Ocultar la primera columna (id_usuario)
+            // Ocultar la primera columna (ID)
             jTable1.getColumnModel().getColumn(0).setMinWidth(0);
             jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
             jTable1.getColumnModel().getColumn(0).setWidth(0);
 
         } catch (Exception e) {
-            System.out.println("Error al cargar usuarios: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
@@ -69,7 +64,7 @@ public class GestionPredios extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnNuevoPredio = new javax.swing.JButton();
         btnbuscar = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
@@ -87,23 +82,24 @@ public class GestionPredios extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Id", "Identificación", "Nombres", "Apellidos", "Teléfono", "Correo Electronico", "Rol"
+                "id", "Numero Predio", "Registro ICA", "Nombre", "Dirección", "Propietario"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                true, true, false, true, true, true, true
-            };
+        ));
+        jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
+        }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        btnNuevoPredio.setText("+ Nuevo predio");
+        btnNuevoPredio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoPredioActionPerformed(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setText("+ Nuevo usuario");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnbuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnbuscarActionPerformed(evt);
             }
         });
 
@@ -145,7 +141,7 @@ public class GestionPredios extends javax.swing.JPanel {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnNuevoPredio)
                 .addGap(40, 40, 40)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
@@ -164,7 +160,7 @@ public class GestionPredios extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnNuevoPredio)
                     .addComponent(btnEditar)
                     .addComponent(btnBorrar))
                 .addGap(93, 93, 93))
@@ -182,26 +178,21 @@ public class GestionPredios extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Dashboard.ShowJPanel(new UpUsers());
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnNuevoPredioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoPredioActionPerformed
+        Dashboard.ShowJPanel(new UpVereda());
+    }//GEN-LAST:event_btnNuevoPredioActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        UsuarioDAO dao = new UsuarioDAO();
+        VeredaDAO dao = new VeredaDAO();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
         int[] selected = jTable1.getSelectedRows();
         if (selected.length < 1) {
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Debes seleccionar uno o más usuarios para eliminar.",
-                    "AVISO",
-                    JOptionPane.WARNING_MESSAGE
-            );
+            JOptionPane.showMessageDialog(this, "Debes seleccionar uno o más Veredas para eliminar.", "AVISO", JOptionPane.WARNING_MESSAGE);
         } else {
             int confirmacion = JOptionPane.showConfirmDialog(
                     this,
-                    "¿Está seguro de eliminar los usuarios seleccionados?",
+                    "¿Está seguro de eliminar las veredas seleccionados?",
                     "Confirmar eliminación",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE
@@ -209,32 +200,30 @@ public class GestionPredios extends javax.swing.JPanel {
 
             if (confirmacion == JOptionPane.YES_OPTION) {
                 int eliminados = 0;
-                // Iterar de atrás hacia adelante para evitar desajustes al eliminar filas
+                // Iterar de atrás hacia adelante para evitar desajustes de índices al remover filas
                 java.util.Arrays.sort(selected);
                 for (int idx = selected.length - 1; idx >= 0; idx--) {
                     int row = selected[idx];
                     try {
-                        // Se asume que la primera columna (0) contiene el id_usuario oculto
-                        String idUsuario = jTable1.getValueAt(row, 0).toString();
-                        boolean ok = dao.eliminar(idUsuario);
-
+                        String idVereda = jTable1.getValueAt(row, 0).toString();
+                        boolean ok = dao.eliminar(idVereda);
                         if (ok) {
                             model.removeRow(row);
                             eliminados++;
                         } else {
+                            // No se eliminó: informar al usuario por cada fila fallida (opcional)
                             JOptionPane.showMessageDialog(
                                     this,
-                                    "No se pudo eliminar el usuario con ID: " + idUsuario,
+                                    "No se pudo eliminar el vereda con ID: " + idVereda,
                                     "Error",
                                     JOptionPane.ERROR_MESSAGE
                             );
                         }
-
                     } catch (Exception e) {
                         e.printStackTrace();
                         JOptionPane.showMessageDialog(
                                 this,
-                                "Error inesperado al eliminar el usuario en la fila " + row + ": " + e.getMessage(),
+                                "Error inesperado al eliminar la fila " + row + ": " + e.getMessage(),
                                 "Error",
                                 JOptionPane.ERROR_MESSAGE
                         );
@@ -242,22 +231,12 @@ public class GestionPredios extends javax.swing.JPanel {
                 }
 
                 if (eliminados > 0) {
-                    JOptionPane.showMessageDialog(
-                            this,
-                            eliminados + " usuario(s) eliminado(s) correctamente."
-                    );
+                    JOptionPane.showMessageDialog(this, eliminados + " Vereda(s) eliminados correctamente.");
                 } else {
-                    JOptionPane.showMessageDialog(
-                            this,
-                            "No se eliminó ningún usuario."
-                    );
+                    JOptionPane.showMessageDialog(this, "No se eliminó ningún vereda.");
                 }
-
             } else {
-                JOptionPane.showMessageDialog(
-                        this,
-                        "Eliminación cancelada por el usuario."
-                );
+                JOptionPane.showMessageDialog(this, "Eliminación cancelada por el usuario.");
             }
         }
 
@@ -267,33 +246,33 @@ public class GestionPredios extends javax.swing.JPanel {
         int fila = jTable1.getSelectedRow();
 
         if (fila == -1) {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione un usuario de la tabla.");
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un vereda de la tabla para editarlo.");
             return;
         }
 
         // Supongamos que la columna 0 tiene el número de identificación
-        String idUser = jTable1.getValueAt(fila, 0).toString();
+        String idVereda = jTable1.getValueAt(fila, 0).toString();
 
-        // Buscar el usuario en la BD
+        // Buscar el Vereda en la BD
         try {
-            // Buscar el usuario en la BD
-            Clases.dao.UsuarioDAO buscarId = new Clases.dao.UsuarioDAO();
-            Clases.modelo.Usuarios usuario = buscarId.getUserById(idUser);
+            // Buscar el vereda en la BD
+            Clases.dao.VeredaDAO buscarId = new Clases.dao.VeredaDAO();
+            Clases.modelo.Vereda vereda = buscarId.buscarPorId(idVereda);
 
-            if (usuario != null) {
-                // Crear el panel EditUsers y pasarle el usuario
-                EditUsers panelEditar = new EditUsers();
-                panelEditar.setUsuario(usuario);
+            if (vereda != null) {
+                // Crear el panel EditVereda y pasarle el vereda
+                EditVereda panelEditar = new EditVereda();
+                panelEditar.setVereda(vereda);
 
                 // Mostrar el panel en el Dashboard
                 Dashboard.ShowJPanel(panelEditar);
             } else {
-                JOptionPane.showMessageDialog(this, "No se encontró el usuario seleccionado.");
+                JOptionPane.showMessageDialog(this, "No se encontró el vereda seleccionado.");
             }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
-                    "Error al obtener el usuario: " + e.getMessage(),
+                    "Error al obtener el vereda: " + e.getMessage(),
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
@@ -304,13 +283,17 @@ public class GestionPredios extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSearchActionPerformed
 
+    private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnbuscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnNuevoPredio;
     private javax.swing.JButton btnSearch;
     private javax.swing.JTextField btnbuscar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
