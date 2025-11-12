@@ -54,10 +54,6 @@
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="txtTarjetaProf" pref="191" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="482" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
@@ -88,6 +84,7 @@
                               <Component id="txtNombres" max="32767" attributes="0"/>
                               <Component id="txtIdentificacion" max="32767" attributes="0"/>
                               <Component id="txtDireccion" max="32767" attributes="0"/>
+                              <Component id="txtTarjetaProf" max="32767" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
@@ -113,7 +110,7 @@
                                   <Component id="txtApellidos" min="-2" pref="249" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="32" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>

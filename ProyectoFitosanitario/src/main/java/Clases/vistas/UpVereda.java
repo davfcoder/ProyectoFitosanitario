@@ -6,8 +6,11 @@ package Clases.vistas;
 
 import Clases.modelo.Vereda;
 import Clases.dao.VeredaDAO;
+import Clases.dao.DepartamentoDAO;
 import Clases.dao.MunicipioDAO;
 import Clases.libreria.Dashboard;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
@@ -23,30 +26,89 @@ public class UpVereda extends javax.swing.JPanel {
      */
     public UpVereda() {
         initComponents();
-        cargarMunicipios();
+        cargarDepartamentos();
+        configurarMunicipioInactivo(); // 👈 desactiva el combo al inicio
+        configurarEventoDepartamento(); // 👈 para que filtre municipios al cambiar el depto
+
     }
 
     private void limpiarCampos() {
         txtCodigoDane.setText("");
         txtNombre.setText("");
-        jBoxMunicipio.setSelectedIndex(0);
+        jBoxDepartamento.setSelectedIndex(0);
+        jBoxMunicipio.removeAllItems();
+        jBoxMunicipio.addItem("Seleccione un municipio");
     }
 
-    private void cargarMunicipios() {
+    // 🔹 Deja el JComboBox de Municipio deshabilitado hasta que se elija un departamento
+    private void configurarMunicipioInactivo() {
+        jBoxMunicipio.removeAllItems();
+        jBoxMunicipio.addItem("Seleccione un municipio");
+        jBoxMunicipio.setEnabled(false); // ❌ Desactivado al inicio
+    }
+
+    // 🔹 Carga inicial de departamentos
+    private void cargarDepartamentos() {
+        try {
+            DepartamentoDAO dao = new DepartamentoDAO();
+            jBoxDepartamento.removeAllItems();
+            jBoxDepartamento.addItem("Seleccione un departamento");
+
+            dao.listarTodos().forEach(dep -> jBoxDepartamento.addItem(dep.getNombre()));
+
+            // Activar autocompletado
+            AutoCompleteDecorator.decorate(jBoxDepartamento);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar departamentos: " + e.getMessage());
+        }
+    }
+
+    // 🔹 Carga dinámica de municipios según el departamento seleccionado
+    private void configurarEventoDepartamento() {
+        jBoxDepartamento.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (jBoxDepartamento.getSelectedIndex() > 0) {
+                    String nombreDepto = (String) jBoxDepartamento.getSelectedItem();
+
+                    try {
+                        // Buscar ID del departamento
+                        DepartamentoDAO depDAO = new DepartamentoDAO();
+                        String idDepto = depDAO.obtenerIdPorNombre(nombreDepto);
+
+                        if (idDepto != null) {
+                            cargarMunicipiosPorDepartamento(idDepto);
+                            jBoxMunicipio.setEnabled(true); // ✅ Activar combo de municipios
+                        }
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Error al cargar municipios: " + ex.getMessage());
+                    }
+                } else {
+                    // 🔹 Si no hay departamento seleccionado, limpiar y desactivar el combo
+                    configurarMunicipioInactivo();
+                }
+            }
+        });
+    }
+
+    // 🔹 Carga municipios filtrados por departamento
+    private void cargarMunicipiosPorDepartamento(String idDepto) {
         try {
             MunicipioDAO dao = new MunicipioDAO();
             jBoxMunicipio.removeAllItems();
             jBoxMunicipio.addItem("Seleccione un municipio");
 
-            dao.listarTodos().forEach(dep -> jBoxMunicipio.addItem(dep.getNombre()));
+            List<String> municipios = dao.listarPorDepartamento(idDepto);
+            municipios.forEach(m -> jBoxMunicipio.addItem(m));
 
-            // ?Habilitar autocompletado
             AutoCompleteDecorator.decorate(jBoxMunicipio);
-
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar municipios: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al listar municipios: " + e.getMessage());
         }
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -67,6 +129,8 @@ public class UpVereda extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jBoxMunicipio = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        jBoxDepartamento = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(750, 430));
@@ -117,6 +181,10 @@ public class UpVereda extends javax.swing.JPanel {
 
         jBoxMunicipio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jLabel5.setText("Departamento");
+
+        jBoxDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -125,19 +193,21 @@ public class UpVereda extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtCodigoDane)
+                    .addComponent(jBoxMunicipio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtNombre)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 475, Short.MAX_VALUE)
+                        .addComponent(btnGuardar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
                             .addComponent(jLabel3)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 475, Short.MAX_VALUE)
-                        .addComponent(btnGuardar))
-                    .addComponent(jBoxMunicipio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtNombre)))
+                    .addComponent(jBoxDepartamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,14 +223,18 @@ public class UpVereda extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel5)
+                .addGap(10, 10, 10)
+                .addComponent(jBoxDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jBoxMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
+                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnCancelar))
-                .addGap(178, 178, 178))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnGuardar))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -190,14 +264,14 @@ public class UpVereda extends javax.swing.JPanel {
         }
 
         try {
-            // 🔹 Obtener el nombre seleccionado
-            String nombreMunpo = (String) jBoxMunicipio.getSelectedItem();
+            // 🔹 Obtener el nombre del municipio seleccionado
+            String nombreMunicipio = (String) jBoxMunicipio.getSelectedItem();
 
-            // 🔹 Buscar ID del municipio
-            Clases.dao.MunicipioDAO munDAO = new Clases.dao.MunicipioDAO();
-            String idMunpo = munDAO.obtenerIdPorNombre(nombreMunpo);
+            // 🔹 Buscar el ID real del municipio en la BD
+            MunicipioDAO munDAO = new MunicipioDAO();
+            String idMunicipio = munDAO.obtenerIdPorNombre(nombreMunicipio);
 
-            if (idMunpo == null) {
+            if (idMunicipio == null) {
                 JOptionPane.showMessageDialog(this,
                         "No se encontró el ID del municipio seleccionado.",
                         "Error",
@@ -205,22 +279,22 @@ public class UpVereda extends javax.swing.JPanel {
                 return;
             }
 
-            // 🔹 Crear vereda con el ID correcto
+            // 🔹 Crear el objeto Vereda con los datos requeridos
             Vereda vereda = new Vereda();
             vereda.setCodigoDane(txtCodigoDane.getText());
             vereda.setNombre(txtNombre.getText());
-            vereda.setIdMunicipio(idMunpo); // ✅ Guardamos el ID real
+            vereda.setIdMunicipio(idMunicipio);
 
-            // 🔹 Insertar en la BD
-            Clases.dao.VeredaDAO veredaDAO = new Clases.dao.VeredaDAO();
+            // 🔹 Llamar al DAO para guardar en la BD
+            VeredaDAO veredaDAO = new VeredaDAO();
             boolean guardado = veredaDAO.insertar(vereda);
 
             if (guardado) {
-                JOptionPane.showMessageDialog(this, "Vereda guardado correctamente");
+                JOptionPane.showMessageDialog(this, "Vereda guardada correctamente.");
                 limpiarCampos();
-                Dashboard.ShowJPanel(new GestionMunicipios());
+                Dashboard.ShowJPanel(new GestionVeredas());
             } else {
-                JOptionPane.showMessageDialog(this, "No se pudo guardar la Vereda");
+                JOptionPane.showMessageDialog(this, "No se pudo guardar la Vereda.");
             }
 
         } catch (Exception e) {
@@ -247,11 +321,13 @@ public class UpVereda extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JComboBox<String> jBoxDepartamento;
     private javax.swing.JComboBox<String> jBoxMunicipio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtCodigoDane;
     private javax.swing.JTextField txtNombre;

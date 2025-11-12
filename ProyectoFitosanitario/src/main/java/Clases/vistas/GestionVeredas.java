@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import Clases.vistas.UpVereda;
 import javax.swing.table.DefaultTableModel;
 
-
 /**
  *
  * @author ricar
@@ -34,11 +33,10 @@ public class GestionVeredas extends javax.swing.JPanel {
 
             dao.listarTodos().forEach((u) -> {
                 model.addRow(new Object[]{
-                    u.getIdMunicipio(), 
+                    u.getIdVereda(),
                     u.getCodigoDane(),
                     u.getNombre(),
-                    u.getNombreMunicipio(),
-                });
+                    u.getNombreMunicipio(),});
             });
 
             // Ocultar la primera columna (ID)
@@ -189,55 +187,71 @@ public class GestionVeredas extends javax.swing.JPanel {
         int[] selected = jTable1.getSelectedRows();
         if (selected.length < 1) {
             JOptionPane.showMessageDialog(this, "Debes seleccionar uno o más Veredas para eliminar.", "AVISO", JOptionPane.WARNING_MESSAGE);
-        } else {
-            int confirmacion = JOptionPane.showConfirmDialog(
-                    this,
-                    "¿Está seguro de eliminar las veredas seleccionados?",
-                    "Confirmar eliminación",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE
-            );
+            return;
+        }
 
-            if (confirmacion == JOptionPane.YES_OPTION) {
-                int eliminados = 0;
-                // Iterar de atrás hacia adelante para evitar desajustes de índices al remover filas
-                java.util.Arrays.sort(selected);
-                for (int idx = selected.length - 1; idx >= 0; idx--) {
-                    int row = selected[idx];
-                    try {
-                        String idVereda = jTable1.getValueAt(row, 0).toString();
-                        boolean ok = dao.eliminar(idVereda);
-                        if (ok) {
-                            model.removeRow(row);
-                            eliminados++;
-                        } else {
-                            // No se eliminó: informar al usuario por cada fila fallida (opcional)
-                            JOptionPane.showMessageDialog(
-                                    this,
-                                    "No se pudo eliminar el vereda con ID: " + idVereda,
-                                    "Error",
-                                    JOptionPane.ERROR_MESSAGE
-                            );
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        JOptionPane.showMessageDialog(
-                                this,
-                                "Error inesperado al eliminar la fila " + row + ": " + e.getMessage(),
-                                "Error",
-                                JOptionPane.ERROR_MESSAGE
-                        );
-                    }
+        int confirmacion = JOptionPane.showConfirmDialog(
+                this,
+                "¿Está seguro de eliminar las veredas seleccionadas?",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (confirmacion != JOptionPane.YES_OPTION) {
+            JOptionPane.showMessageDialog(this, "Eliminación cancelada por el usuario.");
+            return;
+        }
+
+        int eliminados = 0;
+        java.util.Arrays.sort(selected);
+
+        // 🔹 Recorremos de atrás hacia adelante para evitar conflictos de índice
+        for (int idx = selected.length - 1; idx >= 0; idx--) {
+            int row = selected[idx];
+            try {
+                Object valorCelda = jTable1.getValueAt(row, 0);
+
+                if (valorCelda == null) {
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "La fila " + (row + 1) + " no tiene un ID válido (columna vacía).",
+                            "Advertencia",
+                            JOptionPane.WARNING_MESSAGE
+                    );
+                    continue;
                 }
 
-                if (eliminados > 0) {
-                    JOptionPane.showMessageDialog(this, eliminados + " Vereda(s) eliminados correctamente.");
+                String idVereda = valorCelda.toString();
+
+                boolean ok = dao.eliminar(idVereda);
+                if (ok) {
+                    model.removeRow(row);
+                    eliminados++;
                 } else {
-                    JOptionPane.showMessageDialog(this, "No se eliminó ningún vereda.");
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "No se pudo eliminar la vereda con ID: " + idVereda,
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE
+                    );
                 }
-            } else {
-                JOptionPane.showMessageDialog(this, "Eliminación cancelada por el usuario.");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Error inesperado al eliminar la fila " + (row + 1) + ": " + e.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
             }
+        }
+
+        if (eliminados > 0) {
+            JOptionPane.showMessageDialog(this, eliminados + " Vereda(s) eliminadas correctamente.");
+        } else {
+            JOptionPane.showMessageDialog(this, "No se eliminó ninguna vereda.");
         }
 
     }//GEN-LAST:event_btnBorrarActionPerformed
@@ -246,7 +260,7 @@ public class GestionVeredas extends javax.swing.JPanel {
         int fila = jTable1.getSelectedRow();
 
         if (fila == -1) {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione un vereda de la tabla para editarlo.");
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona un vereda de la tabla para editarlo.");
             return;
         }
 
@@ -267,7 +281,7 @@ public class GestionVeredas extends javax.swing.JPanel {
                 // Mostrar el panel en el Dashboard
                 Dashboard.ShowJPanel(panelEditar);
             } else {
-                JOptionPane.showMessageDialog(this, "No se encontró el vereda seleccionado.");
+                JOptionPane.showMessageDialog(this, "No se encontró la vereda seleccionado.");
             }
 
         } catch (Exception e) {

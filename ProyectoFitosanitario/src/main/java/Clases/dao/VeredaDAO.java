@@ -184,6 +184,7 @@ public class VeredaDAO {
     }
 
     // READ - Buscar vereda por ID para abrir EditVereda
+// READ - Buscar vereda por ID para abrir EditVereda
     public Vereda buscarPorId(String id) {
         Vereda vereda = null;
         Connection con = null;
@@ -192,21 +193,30 @@ public class VeredaDAO {
 
         try {
             con = conexion.estableceConexion();
-            String sql = "{call fun_buscarVeredaPorId(?, ?)}";
+
+            // ✅ Llamada correcta a la función (retorna un SYS_REFCURSOR)
+            String sql = "{ ? = call fun_buscarVeredaPorId(?) }";
             cs = con.prepareCall(sql);
 
-            cs.setString(1, id);
-            cs.registerOutParameter(2, oracle.jdbc.OracleTypes.CURSOR);
+            // ✅ Registrar parámetro de salida (cursor)
+            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
 
+            // ✅ Asignar parámetro de entrada (ID)
+            cs.setString(2, id);
+
+            // ✅ Ejecutar
             cs.execute();
-            rs = (ResultSet) cs.getObject(2);
 
+            // ✅ Obtener el cursor como ResultSet
+            rs = (ResultSet) cs.getObject(1);
+
+            // ✅ Procesar resultado
             if (rs.next()) {
                 vereda = new Vereda();
                 vereda.setIdVereda(rs.getString("id_vereda"));
                 vereda.setCodigoDane(rs.getString("codigo_dane"));
                 vereda.setNombre(rs.getString("nombre_vereda"));
-                vereda.setNombre(rs.getString("nombre_municipio"));
+                vereda.setNombreMunicipio(rs.getString("nombre_municipio")); // ← corregido, antes usabas setNombre dos veces
             }
 
         } catch (SQLException e) {

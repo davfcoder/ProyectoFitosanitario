@@ -245,35 +245,25 @@ public class DepartamentoDAO {
 
         return dep;
     }
-
-
-// 🔹 Obtener NOMBRE del departamento por su ID para autorrellenable de vista municipio
-    public String obtenerIdPorNombre(String idDepartamento) {
-        String nombreDepartamento = null;
+/////Tra solo el nombre del campo departamento para el AUTORRELLENABLE
+    public String obtenerIdPorNombre(String nombreDepartamento) {
+        String idDepartamento = null;
         Connection con = null;
         CallableStatement cs = null;
 
         try {
             con = conexion.estableceConexion();
-
-            // ✅ Llamar a la función que devuelve el nombre del departamento
-            String sql = "{ ? = call fun_obtenerNombreDepartamento(?) }";
+            String sql = "{ ? = call fun_obtenerIdDepartamento(?) }";
             cs = con.prepareCall(sql);
-
-            // ✅ Registrar el parámetro de salida (valor devuelto)
             cs.registerOutParameter(1, java.sql.Types.VARCHAR);
-
-            // ✅ Asignar el parámetro de entrada (ID del departamento)
-            cs.setString(2, idDepartamento);
-
-            // ✅ Ejecutar la función
+            cs.setString(2, nombreDepartamento);
             cs.execute();
 
-            // ✅ Obtener el nombre devuelto por la función
-            nombreDepartamento = cs.getString(1);
+            idDepartamento = cs.getString(1);
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener nombre del departamento: " + e.getMessage());
+            JOptionPane.showMessageDialog(null,
+                    "Error al obtener ID del departamento: " + e.getMessage());
         } finally {
             try {
                 if (cs != null) {
@@ -287,7 +277,7 @@ public class DepartamentoDAO {
             }
         }
 
-        return nombreDepartamento;
+        return idDepartamento;
     }
 
 }

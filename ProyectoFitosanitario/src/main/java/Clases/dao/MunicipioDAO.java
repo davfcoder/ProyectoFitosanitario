@@ -184,7 +184,7 @@ public class MunicipioDAO {
         }
     }
 
-    // READ - Buscar municipio por ID
+// READ - Buscar municipio por ID
     public Municipio buscarPorId(String id) {
         Municipio municipio = null;
         Connection con = null;
@@ -193,21 +193,28 @@ public class MunicipioDAO {
 
         try {
             con = conexion.estableceConexion();
-            String sql = "{call fun_buscarMunicipioPorId(?, ?)}";
+
+            // ✅ Llamada correcta: función que retorna un cursor
+            String sql = "{ ? = call fun_buscarMunicipioPorId(?) }";
             cs = con.prepareCall(sql);
 
-            cs.setString(1, id);
-            cs.registerOutParameter(2, oracle.jdbc.OracleTypes.CURSOR);
+            // ✅ Registrar el parámetro de salida (el cursor que retorna)
+            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+
+            // ✅ Pasar el parámetro de entrada
+            cs.setString(2, id);
 
             cs.execute();
-            rs = (ResultSet) cs.getObject(2);
+
+            // ✅ Obtener el cursor como ResultSet
+            rs = (ResultSet) cs.getObject(1);
 
             if (rs.next()) {
                 municipio = new Municipio();
                 municipio.setIdMunicipio(rs.getString("id_municipio"));
                 municipio.setCodigoDane(rs.getString("codigo_dane"));
-                municipio.setNombre(rs.getString("nombre"));
-                municipio.setNombre(rs.getString("nombre"));
+                municipio.setNombre(rs.getString("nombre_municipio"));
+                municipio.setNombreDepartamento(rs.getString("nombre_departamento"));
             }
 
         } catch (SQLException e) {
@@ -231,7 +238,7 @@ public class MunicipioDAO {
         return municipio;
     }
 
-    //  Obtener ID para que me traiga el nombre
+    //  Obtener ID para que me traiga el nombre AUTORRELLENABLE
     public String obtenerIdPorNombre(String nombreMunicipio) {
         String idMunicipio = null;
         Connection con = null;
@@ -272,6 +279,32 @@ public class MunicipioDAO {
         }
 
         return idMunicipio;
+    }
+
+    ////////////AUTORRELLENA EL MUNCIPIO APARTIR DEL DPTO
+    public List<String> listarPorDepartamento(String idDepartamento) {
+        List<String> municipios = new ArrayList<>();
+
+        String sql = "{ ? = call fun_listarMunPorDpto(?) }";
+
+        try (Connection con = conexion.estableceConexion(); CallableStatement cs = con.prepareCall(sql)) {
+
+            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            cs.setString(2, idDepartamento);
+            cs.execute();
+
+            try (ResultSet rs = (ResultSet) cs.getObject(1)) {
+                while (rs.next()) {
+                    municipios.add(rs.getString("nombre"));
+                }
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,
+                    "Error al listar municipios por departamento: " + e.getMessage());
+        }
+
+        return municipios;
     }
 
 }

@@ -127,7 +127,7 @@ public class EditPredio extends javax.swing.JPanel {
         jPanel1.setPreferredSize(new java.awt.Dimension(750, 430));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("Editar Usuario Existente: ");
+        jLabel1.setText("Editar Predio: ");
 
         jLabel2.setText("Número de identificación");
 
@@ -162,7 +162,7 @@ public class EditPredio extends javax.swing.JPanel {
         jButton2.setBackground(new java.awt.Color(51, 153, 0));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Actualizar Usuario");
+        jButton2.setText("Actualizar predio");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -179,23 +179,23 @@ public class EditPredio extends javax.swing.JPanel {
 
         jLabel3.setText("Rol");
 
-        jLabel4.setText("Nombres");
+        jLabel4.setText("Nombre");
 
-        jLabel5.setText("Apellidos");
+        jLabel5.setText("Dirección");
 
-        jLabel6.setText("Direccion");
+        jLabel6.setText("Departamento");
 
-        jLabel7.setText("Telefono");
+        jLabel7.setText("Municipio");
 
-        jLabel8.setText("Usuario");
+        jLabel8.setText("Vereda");
 
-        jLabel9.setText("Contraseña");
+        jLabel9.setText("Latitud");
 
-        jLabel10.setText("Correo Electronico");
+        jLabel10.setText("Area Total");
 
-        jLabel11.setText("Numero registro ICA");
+        jLabel11.setText("Longitud");
 
-        jLabel12.setText("Tarjeta Profesional");
+        jLabel12.setText("Propietario");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
