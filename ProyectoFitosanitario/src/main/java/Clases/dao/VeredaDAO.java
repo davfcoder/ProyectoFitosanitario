@@ -116,7 +116,7 @@ public class VeredaDAO {
 
         try {
             con = conexion.estableceConexion();
-            String sql = "{call pro_actVereda(?, ?, ?, ?)}";
+            String sql = "{call pro_elimVereda(?, ?, ?, ?)}";
             cs = con.prepareCall(sql);
 
             cs.setString(1, vereda.getIdVereda());
@@ -151,8 +151,8 @@ public class VeredaDAO {
         try {
             con = conexion.estableceConexion();
             con.setAutoCommit(false);
-            //llamo el procedimiento 
-            String sql = "{call pro_elimMunicipio(?)}";
+
+            String sql = "{call pro_elimVereda(?)}";
             cs = con.prepareCall(sql);
 
             cs.setString(1, id);
