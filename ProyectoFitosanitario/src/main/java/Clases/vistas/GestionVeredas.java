@@ -36,7 +36,10 @@ public class GestionVeredas extends javax.swing.JPanel {
                     u.getIdVereda(),
                     u.getCodigoDane(),
                     u.getNombre(),
-                    u.getNombreMunicipio(),});
+                    u.getNombreMunicipio(),
+                    u.getNombreDepartamento()                        
+                        ,});
+                
             });
 
             // Ocultar la primera columna (ID)
@@ -80,7 +83,7 @@ public class GestionVeredas extends javax.swing.JPanel {
 
             },
             new String [] {
-                "id", "Codigo Dane", "Nombre", "Municipio"
+                "id", "Codigo Dane", "Nombre", "Municipio", "Departamento"
             }
         ));
         jScrollPane1.setViewportView(jTable1);

@@ -83,6 +83,8 @@ public class VeredaDAO {
                 v.setCodigoDane(rs.getString("codigo_dane"));
                 v.setNombre(rs.getString("nombre_vereda"));        // Alias creado en SQL
                 v.setNombreMunicipio(rs.getString("nombre_municipio")); // Alias creado en SQL
+                v.setNombreDepartamento(rs.getString("nombre_departamento")); // Alias creado en SQL
+
                 lista.add(v);
             }
 
