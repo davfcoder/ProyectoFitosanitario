@@ -75,12 +75,15 @@ public class Dashboard extends javax.swing.JFrame {
 
         background = new javax.swing.JPanel();
         menu = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         btnGestionRol = new javax.swing.JButton();
         btnGestionUsuario = new javax.swing.JButton();
         btnGestionMunicipio = new javax.swing.JButton();
         btnGestionarDepartamentos = new javax.swing.JButton();
         btnGestionVereda = new javax.swing.JButton();
+        btnGestionPredio = new javax.swing.JButton();
+        btnGestionLugarProd = new javax.swing.JButton();
+        btnGestionLote = new javax.swing.JButton();
+        btnGestionPlaga = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         btnCerrarSesion = new javax.swing.JButton();
         header = new javax.swing.JPanel();
@@ -98,18 +101,6 @@ public class Dashboard extends javax.swing.JFrame {
 
         menu.setBackground(new java.awt.Color(27, 94, 32));
         menu.setPreferredSize(new java.awt.Dimension(270, 640));
-
-        jButton1.setBackground(new java.awt.Color(27, 94, 32));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Principal");
-        jButton1.setBorder(null);
-        jButton1.setBorderPainted(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         btnGestionRol.setBackground(new java.awt.Color(27, 94, 32));
         btnGestionRol.setForeground(new java.awt.Color(255, 255, 255));
@@ -171,6 +162,40 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
+        btnGestionPredio.setBackground(new java.awt.Color(27, 94, 32));
+        btnGestionPredio.setForeground(new java.awt.Color(255, 255, 255));
+        btnGestionPredio.setText("Predio");
+        btnGestionPredio.setBorder(null);
+        btnGestionPredio.setBorderPainted(false);
+        btnGestionPredio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGestionPredioActionPerformed(evt);
+            }
+        });
+
+        btnGestionLugarProd.setBackground(new java.awt.Color(27, 94, 32));
+        btnGestionLugarProd.setForeground(new java.awt.Color(255, 255, 255));
+        btnGestionLugarProd.setText("Lugas de Producción");
+        btnGestionLugarProd.setBorder(null);
+        btnGestionLugarProd.setBorderPainted(false);
+        btnGestionLugarProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGestionLugarProdActionPerformed(evt);
+            }
+        });
+
+        btnGestionLote.setBackground(new java.awt.Color(27, 94, 32));
+        btnGestionLote.setForeground(new java.awt.Color(255, 255, 255));
+        btnGestionLote.setText("Lote");
+        btnGestionLote.setBorder(null);
+        btnGestionLote.setBorderPainted(false);
+
+        btnGestionPlaga.setBackground(new java.awt.Color(27, 94, 32));
+        btnGestionPlaga.setForeground(new java.awt.Color(255, 255, 255));
+        btnGestionPlaga.setText("Plaga");
+        btnGestionPlaga.setBorder(null);
+        btnGestionPlaga.setBorderPainted(false);
+
         jPanel1.setBackground(new java.awt.Color(27, 94, 32));
 
         btnCerrarSesion.setBackground(new java.awt.Color(255, 0, 0));
@@ -203,34 +228,39 @@ public class Dashboard extends javax.swing.JFrame {
         menu.setLayout(menuLayout);
         menuLayout.setHorizontalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuLayout.createSequentialGroup()
-                .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                    .addComponent(btnGestionUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                    .addComponent(btnGestionRol, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                    .addComponent(btnGestionarDepartamentos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                    .addComponent(btnGestionMunicipio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                    .addComponent(btnGestionVereda, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(btnGestionUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnGestionRol, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnGestionarDepartamentos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnGestionMunicipio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnGestionVereda, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnGestionPredio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnGestionLugarProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnGestionLote, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnGestionPlaga, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         menuLayout.setVerticalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(menuLayout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(btnGestionUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addComponent(btnGestionRol, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19)
+                .addComponent(btnGestionUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGestionRol, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGestionarDepartamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGestionMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGestionVereda, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnGestionPredio, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGestionLugarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(btnGestionLote, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(btnGestionarDepartamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(btnGestionMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(btnGestionVereda, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)
+                .addComponent(btnGestionPlaga, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -312,8 +342,8 @@ public class Dashboard extends javax.swing.JFrame {
                         .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE)
-                    .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE)
+                    .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -326,7 +356,7 @@ public class Dashboard extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, 814, Short.MAX_VALUE)
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
         );
 
         pack();
@@ -367,10 +397,6 @@ public class Dashboard extends javax.swing.JFrame {
          ShowJPanel(new GestionVeredas());
     }//GEN-LAST:event_btnGestionVeredaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ShowJPanel(new Principal());        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void btnGestionUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionUsuarioActionPerformed
         ShowJPanel(new GestionUsuarios());        // TODO add your handling code here:
     }//GEN-LAST:event_btnGestionUsuarioActionPerformed
@@ -397,6 +423,14 @@ public class Dashboard extends javax.swing.JFrame {
         ShowJPanel(new GestionMunicipios()); // TODO add your handling code here:
     }//GEN-LAST:event_btnGestionMunicipioActionPerformed
 
+    private void btnGestionPredioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionPredioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGestionPredioActionPerformed
+
+    private void btnGestionLugarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionLugarProdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGestionLugarProdActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -415,14 +449,17 @@ public class Dashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
     private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnGestionLote;
+    private javax.swing.JButton btnGestionLugarProd;
     private javax.swing.JButton btnGestionMunicipio;
+    private javax.swing.JButton btnGestionPlaga;
+    private javax.swing.JButton btnGestionPredio;
     private javax.swing.JButton btnGestionRol;
     private javax.swing.JButton btnGestionUsuario;
     private javax.swing.JButton btnGestionVereda;
     private javax.swing.JButton btnGestionarDepartamentos;
     private static javax.swing.JPanel content;
     private javax.swing.JPanel header;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblBienvenida;
     private javax.swing.JLabel lblRol;
