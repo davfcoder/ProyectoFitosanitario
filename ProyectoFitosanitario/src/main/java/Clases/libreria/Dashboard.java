@@ -11,6 +11,7 @@ import Clases.vistas.GestionMunicipios;
 import Clases.vistas.GestionVeredas;
 import Clases.vistas.GestionPredios;
 import Clases.vistas.GestionPlagas;
+import Clases.vistas.GestionEspeciesVegetales;
 import Clases.vistas.Principal;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.BorderLayout;
@@ -202,6 +203,11 @@ public class Dashboard extends javax.swing.JFrame {
         btnGestionPlaga.setText("Especie Vegetal");
         btnGestionPlaga.setBorder(null);
         btnGestionPlaga.setBorderPainted(false);
+        btnGestionPlaga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGestionPlagaActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(27, 94, 32));
 
@@ -441,6 +447,10 @@ public class Dashboard extends javax.swing.JFrame {
     private void btnGestionLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionLoteActionPerformed
         ShowJPanel(new GestionPlagas()); // TODO add your handling code here:        // TODO add your handling code here:
     }//GEN-LAST:event_btnGestionLoteActionPerformed
+
+    private void btnGestionPlagaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionPlagaActionPerformed
+        ShowJPanel(new GestionEspeciesVegetales()); // TODO add your handling code here:        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGestionPlagaActionPerformed
 
     /**
      * @param args the command line arguments
