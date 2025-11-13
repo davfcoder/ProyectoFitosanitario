@@ -106,7 +106,7 @@
                   <Component id="btnGestionVereda" alignment="1" min="-2" pref="270" max="-2" attributes="0"/>
                   <Component id="btnGestionPredio" alignment="1" min="-2" pref="270" max="-2" attributes="0"/>
                   <Component id="btnGestionLugarProd" alignment="1" min="-2" pref="270" max="-2" attributes="0"/>
-                  <Component id="btnGestionLote" min="-2" pref="270" max="-2" attributes="0"/>
+                  <Component id="btnGestionLote" alignment="1" min="-2" pref="270" max="-2" attributes="0"/>
                   <Component id="btnGestionPlaga" min="-2" pref="270" max="-2" attributes="0"/>
                   <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
               </Group>
@@ -124,13 +124,13 @@
                       <Component id="btnGestionMunicipio" min="-2" pref="35" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnGestionVereda" min="-2" pref="35" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnGestionPredio" min="-2" pref="35" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnGestionPredio" min="-2" pref="35" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                       <Component id="btnGestionLugarProd" min="-2" pref="35" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnGestionLote" min="-2" pref="35" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Component id="btnGestionPlaga" min="-2" pref="35" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                       <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
@@ -271,7 +271,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Lugas de Producci&#xf3;n"/>
+                <Property name="text" type="java.lang.String" value="Lugar de Producci&#xf3;n"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
@@ -289,12 +289,15 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Lote"/>
+                <Property name="text" type="java.lang.String" value="Plaga"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
                 <Property name="borderPainted" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGestionLoteActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnGestionPlaga">
               <Properties>
@@ -304,7 +307,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Plaga"/>
+                <Property name="text" type="java.lang.String" value="Especie Vegetal"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>

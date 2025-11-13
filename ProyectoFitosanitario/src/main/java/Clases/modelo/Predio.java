@@ -11,32 +11,30 @@ public class Predio {
     private String nroRegistroICA;
     private String nomPredio;
     private String direccion;
-    private String idDepartamento;
-    private String idMunicipio;
     private String idVereda;
     private String cx;
     private String cy;
     private Float areaTotal;
     private String idUsuarioPropietario;
+    private String idLugarProduccion;
 
-    public Predio(String idPredio, String numPredial, String nroRegistroICA, String nomPredio, String direccion, String idDepartamento, String idMunicipio, String idVereda, String cx, String cy, Float areaTotal, String idUsuarioPropietario) {
+    public Predio(String idPredio, String numPredial, String nroRegistroICA, String nomPredio, String direccion, String idVereda, String cx, String cy, Float areaTotal, String idUsuarioPropietario, String idLugarProduccion) {
         this.idPredio = idPredio;
         this.numPredial = numPredial;
         this.nroRegistroICA = nroRegistroICA;
         this.nomPredio = nomPredio;
         this.direccion = direccion;
-        this.idDepartamento = idDepartamento;
-        this.idMunicipio = idMunicipio;
         this.idVereda = idVereda;
         this.cx = cx;
         this.cy = cy;
         this.areaTotal = areaTotal;
         this.idUsuarioPropietario = idUsuarioPropietario;
+        this.idLugarProduccion = idLugarProduccion;
     }
-    
+
 
     public Predio() {
-    }
+    } 
 
     public String getIdPredio() {
         return idPredio;
@@ -78,22 +76,6 @@ public class Predio {
         this.direccion = direccion;
     }
 
-    public String getIdDepartamento() {
-        return idDepartamento;
-    }
-
-    public void setIdDepartamento(String idDepartamento) {
-        this.idDepartamento = idDepartamento;
-    }
-
-    public String getIdMunicipio() {
-        return idMunicipio;
-    }
-
-    public void setIdMunicipio(String idMunicipio) {
-        this.idMunicipio = idMunicipio;
-    }
-
     public String getIdVereda() {
         return idVereda;
     }
@@ -133,10 +115,17 @@ public class Predio {
     public void setIdUsuarioPropietario(String idUsuarioPropietario) {
         this.idUsuarioPropietario = idUsuarioPropietario;
     }
-    
-    
 
-//////////////
+    public String getIdLugarProduccion() {
+        return idLugarProduccion;
+    }
+
+    public void setIdLugarProduccion(String idLugarProduccion) {
+        this.idLugarProduccion = idLugarProduccion;
+    }
+
+    
+//////////////TRAE Nombre Municipio 
     // En la parte de atributos (junto con los demás campos)
     private String nombreMunicipio;
 
@@ -148,5 +137,54 @@ public class Predio {
     public void setNombreMunicipio(String nombreMunicipio) {
         this.nombreMunicipio = nombreMunicipio;
     }
+    
+    //////////////////TRAE NOMBRE DEPARTAMENTO
+    // En la parte de atributos (junto con los demás campos)
+    private String nombreDepartamento;
 
+// Debajo de los getters y setters existentes, agrega estos:
+    public String getNombreDepartamento() {
+        return nombreDepartamento;
+    }
+
+    public void setNombreDepartamento(String nombreDepartamento) {
+        this.nombreDepartamento = nombreDepartamento;
+    }
+    
+        //////////////////TRAE NOMBRE VEREDA
+    // En la parte de atributos (junto con los demás campos)
+    private String nombreVereda;
+
+// Debajo de los getters y setters existentes, agrega estos:
+    public String getNombreVereda() {
+        return nombreVereda;
+    }
+
+    public void setNombreVereda(String nombreVereda) {
+        this.nombreVereda = nombreVereda;
+    }
+        //////////////////TRAE NOMBRE USUARIO
+    private String nombreUsuario;
+
+// Debajo de los getters y setters existentes, agrega estos:
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+    
+            //////////////////TRAE NOMBRE LUGAR PRODUCCION
+    private String nombreLugarProduccion;
+
+// Debajo de los getters y setters existentes, agrega estos:
+    public String getNombreLugarProduccion() {
+        return nombreLugarProduccion;
+    }
+
+    public void setNombreLugarProduccion(String nombreLugarProduccion) {
+        this.nombreLugarProduccion = nombreLugarProduccion;
+
+    }
 }

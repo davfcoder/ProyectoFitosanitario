@@ -7,23 +7,19 @@ package Clases.modelo;
 public class Plaga {
 
     private String idPlaga;
-    private String especie;
+    private String nomEspecie;
     private String nombreComun;
-    private String idCultivo; // 🔹 Relación foránea con la tabla cultivo
-    
+
+    public Plaga(String idPlaga, String nomEspecie, String nombreComun) {
+        this.idPlaga = idPlaga;
+        this.nomEspecie = nomEspecie;
+        this.nombreComun = nombreComun;
+    }
+       
     // Constructor vacío
     public Plaga() {
     }
 
-    // Constructor completo
-    public Plaga(String idPlaga, String especie, String nombreComun, String idCultivo) {
-        this.idPlaga = idPlaga;
-        this.especie = especie;
-        this.nombreComun = nombreComun;
-        this.idCultivo = idCultivo;
-    }
-
-    // Getters y Setters
     public String getIdPlaga() {
         return idPlaga;
     }
@@ -32,12 +28,12 @@ public class Plaga {
         this.idPlaga = idPlaga;
     }
 
-    public String getEspecie() {
-        return especie;
+    public String getNomEspecie() {
+        return nomEspecie;
     }
 
-    public void setEspecie(String especie) {
-        this.especie = especie;
+    public void setNomEspecie(String nomEspecie) {
+        this.nomEspecie = nomEspecie;
     }
 
     public String getNombreComun() {
@@ -47,17 +43,8 @@ public class Plaga {
     public void setNombreComun(String nombreComun) {
         this.nombreComun = nombreComun;
     }
+    
+    
+    
 
-    public String getIdCultivo() {
-        return idCultivo;
-    }
-
-    public void setIdCultivo(String idCultivo) {
-        this.idCultivo = idCultivo;
-    }
-
-    @Override
-    public String toString() {
-        return nombreComun + " (" + especie + ")";
-    }
 }

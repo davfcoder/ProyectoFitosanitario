@@ -19,7 +19,7 @@ public class VeredaDAO {
         this.conexion = new CConexion();
     }
 
-// CREATE - Insertar rol usando procedimiento almacenado
+// CREATE - Insertar vereda usando procedimiento almacenado
     public boolean insertar(Vereda vereda) {
         Connection con = null;
         CallableStatement cs = null;

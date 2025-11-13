@@ -9,6 +9,8 @@ import Clases.vistas.GestionRoles;
 import Clases.vistas.GestionDepartamentos;
 import Clases.vistas.GestionMunicipios;
 import Clases.vistas.GestionVeredas;
+import Clases.vistas.GestionPredios;
+import Clases.vistas.GestionPlagas;
 import Clases.vistas.Principal;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.BorderLayout;
@@ -175,7 +177,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         btnGestionLugarProd.setBackground(new java.awt.Color(27, 94, 32));
         btnGestionLugarProd.setForeground(new java.awt.Color(255, 255, 255));
-        btnGestionLugarProd.setText("Lugas de Producción");
+        btnGestionLugarProd.setText("Lugar de Producción");
         btnGestionLugarProd.setBorder(null);
         btnGestionLugarProd.setBorderPainted(false);
         btnGestionLugarProd.addActionListener(new java.awt.event.ActionListener() {
@@ -186,13 +188,18 @@ public class Dashboard extends javax.swing.JFrame {
 
         btnGestionLote.setBackground(new java.awt.Color(27, 94, 32));
         btnGestionLote.setForeground(new java.awt.Color(255, 255, 255));
-        btnGestionLote.setText("Lote");
+        btnGestionLote.setText("Plaga");
         btnGestionLote.setBorder(null);
         btnGestionLote.setBorderPainted(false);
+        btnGestionLote.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGestionLoteActionPerformed(evt);
+            }
+        });
 
         btnGestionPlaga.setBackground(new java.awt.Color(27, 94, 32));
         btnGestionPlaga.setForeground(new java.awt.Color(255, 255, 255));
-        btnGestionPlaga.setText("Plaga");
+        btnGestionPlaga.setText("Especie Vegetal");
         btnGestionPlaga.setBorder(null);
         btnGestionPlaga.setBorderPainted(false);
 
@@ -235,7 +242,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addComponent(btnGestionVereda, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(btnGestionPredio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(btnGestionLugarProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(btnGestionLote, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnGestionLote, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(btnGestionPlaga, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -252,13 +259,13 @@ public class Dashboard extends javax.swing.JFrame {
                 .addComponent(btnGestionMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGestionVereda, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnGestionPredio, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGestionPredio, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
                 .addComponent(btnGestionLugarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGestionLote, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addGap(12, 12, 12)
                 .addComponent(btnGestionPlaga, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(56, 56, 56)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -424,12 +431,16 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGestionMunicipioActionPerformed
 
     private void btnGestionPredioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionPredioActionPerformed
-        // TODO add your handling code here:
+        ShowJPanel(new GestionPredios()); // TODO add your handling code here:        // TODO add your handling code here:
     }//GEN-LAST:event_btnGestionPredioActionPerformed
 
     private void btnGestionLugarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionLugarProdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnGestionLugarProdActionPerformed
+
+    private void btnGestionLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionLoteActionPerformed
+        ShowJPanel(new GestionPlagas()); // TODO add your handling code here:        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGestionLoteActionPerformed
 
     /**
      * @param args the command line arguments

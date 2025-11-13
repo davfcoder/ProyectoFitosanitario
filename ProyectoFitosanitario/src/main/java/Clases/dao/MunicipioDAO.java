@@ -280,7 +280,6 @@ public class MunicipioDAO {
 
         return idMunicipio;
     }
-
     ////////////AUTORRELLENA EL MUNCIPIO APARTIR DEL DPTO
     public List<String> listarPorDepartamento(String idDepartamento) {
         List<String> municipios = new ArrayList<>();

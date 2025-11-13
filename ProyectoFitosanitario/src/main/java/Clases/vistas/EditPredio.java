@@ -23,70 +23,19 @@ public class EditPredio extends javax.swing.JPanel {
 
     public EditPredio() {
         initComponents();
-        cargarComboRoles();
+
     }
     
-    private void cargarComboRoles() {
-        try {
-            cmbRoles.removeAllItems();
-            RolesDAO rolesDAO = new RolesDAO();
-            List<Roles> listaRoles = rolesDAO.listarTodos();
-
-            if (listaRoles == null || listaRoles.isEmpty()) {
-                cmbRoles.addItem("Sin roles");
-                return;
-            }
-
-            for (Roles roles : listaRoles) {
-                cmbRoles.addItem(roles.getIdRol() + " - " + roles.getNomRol());
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar roles: " + e.getMessage());
-        }
-    }
     
-    public void setUsuario(Usuarios usuario) {
-        this.usuarioActual = usuario;
-
-        txtINumPredial.setText(usuario.getNumIdentificacion());
-        txtNombre.setText(usuario.getNombres());
-        txtDireccion.setText(usuario.getApellidos());
-        txtDireccion.setText(usuario.getDireccion());
-        txtTelefono.setText(usuario.getTelefono());
-        txtAreaTotal.setText(usuario.getCorreoElectronico());
-        txtUsuario.setText(usuario.getIngresoUsuario());
-        txtLongitud.setText(usuario.getIngresoContrasenia());
-        txtLatitud.setText(usuario.getNroRegistroICA());
-        txtTarjetaProf.setText(usuario.getTarjetaProfesional());
-
-        // Selecciona el rol correspondiente en el combo
-        for (int i = 0; i < cmbRoles.getItemCount(); i++) {
-            String item = cmbRoles.getItemAt(i);
-            if (item.startsWith(usuario.getIdRol() + " ")) {
-                cmbRoles.setSelectedIndex(i);
-                break;
-            }
-        }
-
-        // Bloquear el campo de identificación (clave primaria)
-        txtINumPredial.setEnabled(false);
-        txtUsuario.setEnabled(false);
-
-    }
 
     private void limpiarCampos() {
         txtINumPredial.setText("");
         txtNombre.setText("");
         txtDireccion.setText("");
         txtDireccion.setText("");
-        txtTelefono.setText("");
         txtAreaTotal.setText("");
-        txtUsuario.setText("");
         txtLongitud.setText("");
         txtLatitud.setText("");
-        txtTarjetaProf.setText("");
-        cmbRoles.setSelectedIndex(0);
     }
 
     @SuppressWarnings("unchecked")
@@ -244,24 +193,24 @@ public class EditPredio extends javax.swing.JPanel {
                             .addComponent(txtLongitud, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(txtAreaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(142, 142, 142)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtLatitud, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addGap(332, 332, 332)
+                        .addComponent(jBoxLugarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jBoxPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(145, 145, 145)
                         .addComponent(btnCancelar)
                         .addGap(41, 41, 41)
-                        .addComponent(jButton2))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel12)
-                            .addGap(332, 332, 332)
-                            .addComponent(jBoxLugarProd, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel10)
-                                .addComponent(txtAreaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(142, 142, 142)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtLatitud, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel13))))))
+                        .addComponent(jButton2)))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -335,7 +284,7 @@ public class EditPredio extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,57 +303,6 @@ public class EditPredio extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
-        if (usuarioActual == null) {
-            JOptionPane.showMessageDialog(this, "No hay un usuario cargado para actualizar.");
-            return;
-        }
-        
-        if (txtNombre.getText().trim().isEmpty()
-                || txtDireccion.getText().trim().isEmpty()
-                || txtAreaTotal.getText().trim().isEmpty()
-                || txtTelefono.getText().trim().isEmpty()
-                || txtDireccion.getText().trim().isEmpty()
-                || txtUsuario.getText().trim().isEmpty()
-                || txtLongitud.getText().trim().isEmpty()) {
-
-            JOptionPane.showMessageDialog(this,
-                    "Por favor, complete todos los campos antes de actualizar.",
-                    "Campos incompletos",
-                    JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        try {
-            String itemSeleccionado = (String) cmbRoles.getSelectedItem();
-            String idRol = itemSeleccionado.split(" - ")[0].trim();
-
-            // Actualizar los valores en el objeto usuarioActual
-            usuarioActual.setNombres(txtNombre.getText());
-            usuarioActual.setApellidos(txtDireccion.getText());
-            usuarioActual.setDireccion(txtDireccion.getText());
-            usuarioActual.setTelefono(txtTelefono.getText());
-            usuarioActual.setIngresoUsuario(txtUsuario.getText());
-            usuarioActual.setIngresoContrasenia(txtLongitud.getText());
-            usuarioActual.setCorreoElectronico(txtAreaTotal.getText());
-            usuarioActual.setNroRegistroICA(txtLatitud.getText());
-            usuarioActual.setTarjetaProfesional(txtTarjetaProf.getText());
-            usuarioActual.setIdRol(idRol);
-
-            // Llamar al DAO para actualizar en BD
-            UsuarioDAO usuarioDAO = new UsuarioDAO();
-            boolean actualizado = usuarioDAO.actualizar(usuarioActual);
-
-            if (actualizado) {
-                JOptionPane.showMessageDialog(this, "Usuario actualizado correctamente.");
-                Dashboard.ShowJPanel(new GestionUsuarios());
-            } else {
-                JOptionPane.showMessageDialog(this, "No se pudo actualizar el usuario.");
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al actualizar: " + e.getMessage());
-            e.printStackTrace();
-        }
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
