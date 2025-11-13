@@ -9,6 +9,7 @@ import Clases.vistas.GestionRoles;
 import Clases.vistas.GestionDepartamentos;
 import Clases.vistas.GestionMunicipios;
 import Clases.vistas.GestionVeredas;
+import Clases.vistas.GestionLugaresProduccion;
 import Clases.vistas.GestionPredios;
 import Clases.vistas.GestionPlagas;
 import Clases.vistas.GestionEspeciesVegetales;
@@ -441,7 +442,8 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGestionPredioActionPerformed
 
     private void btnGestionLugarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionLugarProdActionPerformed
-        // TODO add your handling code here:
+        ShowJPanel(new GestionLugaresProduccion()); // TODO add your handling code here:        // TODO add your handling code here:
+
     }//GEN-LAST:event_btnGestionLugarProdActionPerformed
 
     private void btnGestionLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionLoteActionPerformed

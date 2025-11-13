@@ -104,16 +104,4 @@ public class LugarProduccion {
         this.nombreUsuario = nombreUsuario;
     }
     
-            //////////////////TRAE NOMBRE LUGAR PRODUCCION
-    private String nombreLugarProduccion;
-
-// Debajo de los getters y setters existentes, agrega estos:
-    public String getNombreLugarProduccion() {
-        return nombreLugarProduccion;
-    }
-
-    public void setNombreLugarProduccion(String nombreLugarProduccion) {
-        this.nombreLugarProduccion = nombreLugarProduccion;
-
-    }
 }

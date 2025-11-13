@@ -78,7 +78,6 @@ public class LugarProduccionDAO {
                 lp.setIdLugarProduccion(rs.getString("id_lugar_produccion"));
                 lp.setNomLugarProduccion(rs.getString("nom_lugar_produccion"));
                 lp.setNroRegistroICA(rs.getString("nro_registro_ica"));
-                lp.setIdUsuarioProductor(rs.getString("id_usuario_productor"));
                 lp.setNombreUsuario(rs.getString("nombre_productor"));
 
                 lista.add(lp);
@@ -201,7 +200,6 @@ public class LugarProduccionDAO {
                 lugar.setIdLugarProduccion(rs.getString("id_lugar_produccion"));
                 lugar.setNomLugarProduccion(rs.getString("nom_lugar_produccion"));
                 lugar.setNroRegistroICA(rs.getString("nro_registro_ica"));
-                lugar.setIdUsuarioProductor(rs.getString("id_usuario_productor"));
                 lugar.setNombreUsuario(rs.getString("nombre_productor"));
             }
 
