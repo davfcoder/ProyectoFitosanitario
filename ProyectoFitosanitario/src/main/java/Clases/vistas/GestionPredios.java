@@ -39,12 +39,7 @@ public class GestionPredios extends javax.swing.JPanel {
                     u.getNroRegistroICA(),
                     u.getNomPredio(),
                     u.getDireccion(),
-                    u.getNombreDepartamento(),
-                    u.getNombreMunicipio(),
                     u.getNombreVereda(),
-                    u.getCx(),
-                    u.getCy(),
-                    u.getAreaTotal(),
                     u.getNombreUsuario(),
                     u.getNombreLugarProduccion(),
                 });
@@ -91,7 +86,7 @@ public class GestionPredios extends javax.swing.JPanel {
 
             },
             new String [] {
-                "id", "Numero Predio", "Registro ICA", "Nombre", "Dirección", "Departamento", "Municipio", "Vereda", "Longitud", "Latitud", "Area Total", "Propietario", "Lugar de Produccion"
+                "id", "Numero Predio", "Codigo ICA", "Nombre", "Dirección", "Vereda", "Propietario", "Lugar de Produccion"
             }
         ));
         jScrollPane1.setViewportView(jTable1);

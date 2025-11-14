@@ -88,12 +88,7 @@ public class PredioDAO {
                 p.setNroRegistroICA(rs.getString("nro_registro_ica"));
                 p.setNomPredio(rs.getString("nom_predio"));
                 p.setDireccion(rs.getString("direccion"));
-                p.setNombreDepartamento(rs.getString("nombre_departamento"));
-                p.setNombreMunicipio(rs.getString("nombre_municipio"));
                 p.setNombreVereda(rs.getString("nombre_vereda"));
-                p.setCx(rs.getString("cx"));
-                p.setCy(rs.getString("cy"));
-                p.setAreaTotal(rs.getFloat("area_total"));
                 p.setNombreUsuario(rs.getString("nombre_propietario"));
                 p.setNombreLugarProduccion(rs.getString("nom_lugar_produccion"));
 

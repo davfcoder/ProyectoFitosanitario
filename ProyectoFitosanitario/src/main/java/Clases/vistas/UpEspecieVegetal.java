@@ -52,10 +52,11 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
         txtNomCientifico = new javax.swing.JTextField();
         txtNomComun = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
-        btnGuardar = new javax.swing.JButton();
+        btnSelectPlaga = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jBoxCiclos = new javax.swing.JComboBox<>();
+        btnGuardar1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(750, 430));
@@ -90,13 +91,13 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
             }
         });
 
-        btnGuardar.setBackground(new java.awt.Color(51, 153, 0));
-        btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
-        btnGuardar.setText("Guardar Especie Vegetal");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+        btnSelectPlaga.setBackground(new java.awt.Color(153, 153, 153));
+        btnSelectPlaga.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSelectPlaga.setForeground(new java.awt.Color(255, 255, 255));
+        btnSelectPlaga.setText("Seleccionar Plagas");
+        btnSelectPlaga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
+                btnSelectPlagaActionPerformed(evt);
             }
         });
 
@@ -105,6 +106,16 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
         jLabel3.setText("Ciclo Cultivo");
 
         jBoxCiclos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btnGuardar1.setBackground(new java.awt.Color(51, 153, 0));
+        btnGuardar1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnGuardar1.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardar1.setText("Guardar Especie Vegetal");
+        btnGuardar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardar1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -115,18 +126,19 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtNomCientifico)
                     .addComponent(txtNomComun)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 426, Short.MAX_VALUE)
-                        .addComponent(btnGuardar))
+                    .addComponent(jBoxCiclos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jBoxCiclos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap(522, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGuardar1))
+                    .addComponent(btnSelectPlaga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,10 +157,13 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
                 .addComponent(jLabel3)
                 .addGap(12, 12, 12)
                 .addComponent(jBoxCiclos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSelectPlaga)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
-                    .addComponent(btnGuardar)))
+                    .addComponent(btnGuardar1))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -165,7 +180,7 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+    private void btnSelectPlagaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectPlagaActionPerformed
         if (txtNomCientifico.getText().trim().isEmpty()
                 || txtNomComun.getText().trim().isEmpty()
                 || jBoxCiclos.getSelectedItem() == null) {
@@ -199,7 +214,7 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Error al guardar: " + e.getMessage());
             e.printStackTrace();
         }
-    }//GEN-LAST:event_btnGuardarActionPerformed
+    }//GEN-LAST:event_btnSelectPlagaActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         limpiarCampos();
@@ -214,10 +229,15 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomCientificoActionPerformed
 
+    private void btnGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGuardar1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnGuardar1;
+    private javax.swing.JButton btnSelectPlaga;
     private javax.swing.JComboBox<String> jBoxCiclos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
