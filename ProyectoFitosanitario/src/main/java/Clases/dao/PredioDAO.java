@@ -125,7 +125,7 @@ public class PredioDAO {
         try {
             con = conexion.estableceConexion();
 
-            String sql = "{ call pro_actPredio(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
+            String sql = "{ call pro_actPredio(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
             cs = con.prepareCall(sql);
 
             cs.setString(1, predio.getIdPredio());
@@ -138,6 +138,8 @@ public class PredioDAO {
             cs.setString(8, predio.getCy());
             cs.setFloat(9, predio.getAreaTotal());
             cs.setString(10, predio.getIdUsuarioPropietario());
+            cs.setString(11, predio.getIdLugarProduccion()); // Nuevo campo
+
 
             cs.execute();
             return true;

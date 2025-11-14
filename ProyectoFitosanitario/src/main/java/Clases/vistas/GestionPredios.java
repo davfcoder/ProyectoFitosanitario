@@ -4,11 +4,11 @@
  */
 package Clases.vistas;
 
-import Clases.dao.VeredaDAO;
-import Clases.modelo.Vereda;
+import Clases.dao.PredioDAO;
+import Clases.modelo.Predio;
 import Clases.libreria.Dashboard;
 import javax.swing.JOptionPane;
-import Clases.vistas.UpVereda;
+import Clases.vistas.UpPredio;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -23,21 +23,30 @@ public class GestionPredios extends javax.swing.JPanel {
      */
     public GestionPredios() {
         initComponents();
-        LoadVereda();
+        LoadPredio();
     }
 
-    private void LoadVereda() {
+    private void LoadPredio() {
         try {
-            VeredaDAO dao = new VeredaDAO();
+            PredioDAO dao = new PredioDAO();
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0); // limpia la tabla
 
             dao.listarTodos().forEach((u) -> {
                 model.addRow(new Object[]{
-                    u.getIdMunicipio(), 
-                    u.getCodigoDane(),
-                    u.getNombre(),
+                    u.getIdPredio(), 
+                    u.getNumPredial(),
+                    u.getNroRegistroICA(),
+                    u.getNomPredio(),
+                    u.getDireccion(),
+                    u.getNombreDepartamento(),
                     u.getNombreMunicipio(),
+                    u.getNombreVereda(),
+                    u.getCx(),
+                    u.getCy(),
+                    u.getAreaTotal(),
+                    u.getNombreUsuario(),
+                    u.getNombreLugarProduccion(),
                 });
             });
 
@@ -82,7 +91,7 @@ public class GestionPredios extends javax.swing.JPanel {
 
             },
             new String [] {
-                "id", "Numero Predio", "Registro ICA", "Nombre", "Dirección", "Propietario"
+                "id", "Numero Predio", "Registro ICA", "Nombre", "Dirección", "Departamento", "Municipio", "Vereda", "Longitud", "Latitud", "Area Total", "Propietario", "Lugar de Produccion"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -179,20 +188,20 @@ public class GestionPredios extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoPredioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoPredioActionPerformed
-        Dashboard.ShowJPanel(new UpVereda());
+        Dashboard.ShowJPanel(new UpPredio());
     }//GEN-LAST:event_btnNuevoPredioActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        VeredaDAO dao = new VeredaDAO();
+        PredioDAO dao = new PredioDAO();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
         int[] selected = jTable1.getSelectedRows();
         if (selected.length < 1) {
-            JOptionPane.showMessageDialog(this, "Debes seleccionar uno o más Veredas para eliminar.", "AVISO", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debes seleccionar uno o más Predios para eliminar.", "AVISO", JOptionPane.WARNING_MESSAGE);
         } else {
             int confirmacion = JOptionPane.showConfirmDialog(
                     this,
-                    "¿Está seguro de eliminar las veredas seleccionados?",
+                    "¿Está seguro de eliminar los predios seleccionados?",
                     "Confirmar eliminación",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE
@@ -205,8 +214,8 @@ public class GestionPredios extends javax.swing.JPanel {
                 for (int idx = selected.length - 1; idx >= 0; idx--) {
                     int row = selected[idx];
                     try {
-                        String idVereda = jTable1.getValueAt(row, 0).toString();
-                        boolean ok = dao.eliminar(idVereda);
+                        String idPredio = jTable1.getValueAt(row, 0).toString();
+                        boolean ok = dao.eliminar(idPredio);
                         if (ok) {
                             model.removeRow(row);
                             eliminados++;
@@ -214,7 +223,7 @@ public class GestionPredios extends javax.swing.JPanel {
                             // No se eliminó: informar al usuario por cada fila fallida (opcional)
                             JOptionPane.showMessageDialog(
                                     this,
-                                    "No se pudo eliminar el vereda con ID: " + idVereda,
+                                    "No se pudo eliminar el predio con ID: " + idPredio,
                                     "Error",
                                     JOptionPane.ERROR_MESSAGE
                             );
@@ -231,9 +240,9 @@ public class GestionPredios extends javax.swing.JPanel {
                 }
 
                 if (eliminados > 0) {
-                    JOptionPane.showMessageDialog(this, eliminados + " Vereda(s) eliminados correctamente.");
+                    JOptionPane.showMessageDialog(this, eliminados + " Predio(s) eliminados correctamente.");
                 } else {
-                    JOptionPane.showMessageDialog(this, "No se eliminó ningún vereda.");
+                    JOptionPane.showMessageDialog(this, "No se eliminó ningún predio.");
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Eliminación cancelada por el usuario.");
@@ -246,33 +255,33 @@ public class GestionPredios extends javax.swing.JPanel {
         int fila = jTable1.getSelectedRow();
 
         if (fila == -1) {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione un vereda de la tabla para editarlo.");
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un predio de la tabla para editarlo.");
             return;
         }
 
         // Supongamos que la columna 0 tiene el número de identificación
-        String idVereda = jTable1.getValueAt(fila, 0).toString();
+        String idPredio = jTable1.getValueAt(fila, 0).toString();
 
-        // Buscar el Vereda en la BD
+        // Buscar el Predio en la BD
         try {
-            // Buscar el vereda en la BD
-            Clases.dao.VeredaDAO buscarId = new Clases.dao.VeredaDAO();
-            Clases.modelo.Vereda vereda = buscarId.buscarPorId(idVereda);
+            // Buscar el predio en la BD
+            Clases.dao.PredioDAO buscarId = new Clases.dao.PredioDAO();
+            Clases.modelo.Predio predio = buscarId.buscarPorId(idPredio);
 
-            if (vereda != null) {
-                // Crear el panel EditVereda y pasarle el vereda
-                EditVereda panelEditar = new EditVereda();
-                panelEditar.setVereda(vereda);
+            if (predio != null) {
+                // Crear el panel EditPredio y pasarle el predio
+                EditPredio panelEditar = new EditPredio();
+                panelEditar.setPredio(predio);
 
                 // Mostrar el panel en el Dashboard
                 Dashboard.ShowJPanel(panelEditar);
             } else {
-                JOptionPane.showMessageDialog(this, "No se encontró el vereda seleccionado.");
+                JOptionPane.showMessageDialog(this, "No se encontró el predio seleccionado.");
             }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
-                    "Error al obtener el vereda: " + e.getMessage(),
+                    "Error al obtener el predio: " + e.getMessage(),
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();

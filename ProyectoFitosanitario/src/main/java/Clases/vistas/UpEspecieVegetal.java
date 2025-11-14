@@ -21,13 +21,20 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
      */
     public UpEspecieVegetal() {
         initComponents();
+        cargarCiclos();
     }
 
     private void limpiarCampos() {
         txtNomCientifico.setText("");
         txtNomComun.setText("");
-        txtCicloCultivo.setText("");
+        jBoxCiclos.setSelectedIndex(0);
+    }
 
+    private void cargarCiclos() {
+        jBoxCiclos.removeAllItems();
+        jBoxCiclos.addItem("Corto (menor a dos años)");
+        jBoxCiclos.addItem("Medio (menor de cinco años)");
+        jBoxCiclos.addItem("Largo (mayor a cinco años)");
     }
 
     /**
@@ -48,7 +55,7 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
         btnGuardar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtCicloCultivo = new javax.swing.JTextField();
+        jBoxCiclos = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(750, 430));
@@ -97,6 +104,8 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
 
         jLabel3.setText("Ciclo Cultivo");
 
+        jBoxCiclos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -106,7 +115,10 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtNomCientifico)
                     .addComponent(txtNomComun)
-                    .addComponent(txtCicloCultivo)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 426, Short.MAX_VALUE)
+                        .addComponent(btnGuardar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -114,10 +126,7 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
                             .addComponent(jLabel2)
                             .addComponent(jLabel4))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 426, Short.MAX_VALUE)
-                        .addComponent(btnGuardar))))
+                    .addComponent(jBoxCiclos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,9 +143,9 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
                 .addComponent(txtNomComun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
+                .addGap(12, 12, 12)
+                .addComponent(jBoxCiclos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCicloCultivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnGuardar)))
@@ -158,13 +167,13 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         if (txtNomCientifico.getText().trim().isEmpty()
-            || txtNomComun.getText().trim().isEmpty()
-            || txtCicloCultivo.getText().trim().isEmpty()){
+                || txtNomComun.getText().trim().isEmpty()
+                || jBoxCiclos.getSelectedItem() == null) {
 
             JOptionPane.showMessageDialog(this,
-                "Por favor, complete todos los campos antes de guardar.",
-                "Campos incompletos",
-                JOptionPane.WARNING_MESSAGE);
+                    "Por favor, complete todos los campos antes de guardar.",
+                    "Campos incompletos",
+                    JOptionPane.WARNING_MESSAGE);
             return; // no continúa si falta información
         }
         try {
@@ -172,8 +181,7 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
             EspecieVegetal especievegetal = new EspecieVegetal();
             especievegetal.setNomEspecie(txtNomCientifico.getText());
             especievegetal.setNombreComun(txtNomComun.getText());
-            especievegetal.setCicloCultivo(txtCicloCultivo.getText());
-
+            especievegetal.setCicloCultivo(jBoxCiclos.getSelectedItem().toString());
 
             // Llamar al DAO para guardar en BD
             Clases.dao.EspecieVegetalDAO especievegetalDAO = new Clases.dao.EspecieVegetalDAO();
@@ -210,12 +218,12 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JComboBox<String> jBoxCiclos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtCicloCultivo;
     private javax.swing.JTextField txtNomCientifico;
     private javax.swing.JTextField txtNomComun;
     // End of variables declaration//GEN-END:variables

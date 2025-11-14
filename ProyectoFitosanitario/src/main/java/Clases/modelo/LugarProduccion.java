@@ -54,44 +54,6 @@ public class LugarProduccion {
     }
 
     
-//////////////TRAE Nombre Municipio 
-    // En la parte de atributos (junto con los demás campos)
-    private String nombreMunicipio;
-
-// Debajo de los getters y setters existentes, agrega estos:
-    public String getNombreMunicipio() {
-        return nombreMunicipio;
-    }
-
-    public void setNombreMunicipio(String nombreMunicipio) {
-        this.nombreMunicipio = nombreMunicipio;
-    }
-    
-    //////////////////TRAE NOMBRE DEPARTAMENTO
-    // En la parte de atributos (junto con los demás campos)
-    private String nombreDepartamento;
-
-// Debajo de los getters y setters existentes, agrega estos:
-    public String getNombreDepartamento() {
-        return nombreDepartamento;
-    }
-
-    public void setNombreDepartamento(String nombreDepartamento) {
-        this.nombreDepartamento = nombreDepartamento;
-    }
-    
-        //////////////////TRAE NOMBRE VEREDA
-    // En la parte de atributos (junto con los demás campos)
-    private String nombreVereda;
-
-// Debajo de los getters y setters existentes, agrega estos:
-    public String getNombreVereda() {
-        return nombreVereda;
-    }
-
-    public void setNombreVereda(String nombreVereda) {
-        this.nombreVereda = nombreVereda;
-    }
         //////////////////TRAE NOMBRE USUARIO
     private String nombreUsuario;
 

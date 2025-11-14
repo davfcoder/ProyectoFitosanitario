@@ -20,7 +20,7 @@ public class LugarProduccionDAO {
     }
 
 // CREATE - Insertar vereda usando procedimiento almacenado
-     public boolean insertar(LugarProduccion lugar) {
+    public boolean insertar(LugarProduccion lugar) {
         Connection con = null;
         CallableStatement cs = null;
 
@@ -41,8 +41,12 @@ public class LugarProduccionDAO {
             return false;
         } finally {
             try {
-                if (cs != null) cs.close();
-                if (con != null) con.close();
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -87,9 +91,15 @@ public class LugarProduccionDAO {
             JOptionPane.showMessageDialog(null, "Error al listar lugares de producción: " + e.getMessage());
         } finally {
             try {
-                if (rs != null) rs.close();
-                if (cs != null) cs.close();
-                if (con != null) con.close();
+                if (rs != null) {
+                    rs.close();
+                }
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -123,8 +133,12 @@ public class LugarProduccionDAO {
             return false;
         } finally {
             try {
-                if (cs != null) cs.close();
-                if (con != null) con.close();
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -153,7 +167,9 @@ public class LugarProduccionDAO {
 
         } catch (SQLException e) {
             try {
-                if (con != null) con.rollback();
+                if (con != null) {
+                    con.rollback();
+                }
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -161,8 +177,12 @@ public class LugarProduccionDAO {
             return false;
         } finally {
             try {
-                if (cs != null) cs.close();
-                if (con != null) con.close();
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -207,15 +227,67 @@ public class LugarProduccionDAO {
             JOptionPane.showMessageDialog(null, "Error al buscar lugar de producción: " + e.getMessage());
         } finally {
             try {
-                if (rs != null) rs.close();
-                if (cs != null) cs.close();
-                if (con != null) con.close();
+                if (rs != null) {
+                    rs.close();
+                }
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
 
         return lugar;
+    }
+
+    // Obtener ID REAL del lugar de producción por nombre (autorrellenable)
+    public String obtenerIdPorNombre(String nombreLugarProd) {
+        String idLugarProd = null;
+        Connection con = null;
+        CallableStatement cs = null;
+
+        try {
+            con = conexion.estableceConexion();
+
+            // Llamar a la función que devuelve un VARCHAR
+            String sql = "{ ? = call fun_obtenerIdLugarProduccion(?) }";
+            cs = con.prepareCall(sql);
+
+            // Registrar parámetro de salida
+            cs.registerOutParameter(1, java.sql.Types.VARCHAR);
+
+            // Parámetro de entrada
+            cs.setString(2, nombreLugarProd);
+
+            // Ejecutar
+            cs.execute();
+
+            // Obtener resultado
+            idLugarProd = cs.getString(1);
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Error al obtener ID del lugar de producción: " + e.getMessage()
+            );
+        } finally {
+            try {
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return idLugarProd;
     }
 
 }

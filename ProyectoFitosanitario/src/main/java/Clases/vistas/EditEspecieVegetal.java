@@ -20,22 +20,30 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
 
     public EditEspecieVegetal() {
         initComponents();
+        cargarCiclos();
     }
-    
+
     public void setEspecieVegetal(EspecieVegetal especievegetal) {
         this.especievegetalActual = especievegetal;
-        
+
         txtNomCientifico.setText(especievegetal.getNomEspecie());
         txtNomComun.setText(especievegetal.getNombreComun());
-        txtCicloCultivo.setText(especievegetal.getCicloCultivo());
+        jBoxCiclos.setSelectedItem(especievegetal.getCicloCultivo());
 
-        
     }
 
     private void limpiarCampos() {
         txtNomCientifico.setText("");
         txtNomComun.setText("");
-        txtCicloCultivo.setText("");
+        jBoxCiclos.setSelectedIndex(0);
+
+    }
+
+    private void cargarCiclos() {
+        jBoxCiclos.removeAllItems();
+        jBoxCiclos.addItem("Corto (menor a dos años)");
+        jBoxCiclos.addItem("Medio (menor de cinco años)");
+        jBoxCiclos.addItem("Largo (mayor a cinco años)");
     }
 
     @SuppressWarnings("unchecked")
@@ -51,7 +59,7 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtCicloCultivo = new javax.swing.JTextField();
+        jBoxCiclos = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(750, 430));
@@ -94,6 +102,8 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
 
         jLabel3.setText("Ciclo Cultivo");
 
+        jBoxCiclos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -111,7 +121,7 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
                         .addComponent(jButton2))
                     .addComponent(txtNomCientifico, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
                     .addComponent(txtNomComun)
-                    .addComponent(txtCicloCultivo))
+                    .addComponent(jBoxCiclos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -129,9 +139,9 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
                 .addComponent(txtNomComun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCicloCultivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
+                .addComponent(jBoxCiclos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(jButton2))
@@ -156,15 +166,15 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+
         if (especievegetalActual == null) {
             JOptionPane.showMessageDialog(this, "No hay una Especie Vegetal cargada para actualizar.");
             return;
         }
-        
+
         if (txtNomCientifico.getText().trim().isEmpty()
-            || txtNomComun.getText().trim().isEmpty()
-            || txtCicloCultivo.getText().trim().isEmpty()){
+                || txtNomComun.getText().trim().isEmpty()
+                || jBoxCiclos.getSelectedItem() == null) {
 
             JOptionPane.showMessageDialog(this,
                     "Por favor, complete todos los campos antes de actualizar.",
@@ -178,8 +188,7 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
             // Actualizar los valores en el objeto usuarioActual
             especievegetalActual.setNomEspecie(txtNomCientifico.getText());
             especievegetalActual.setNombreComun(txtNomComun.getText());
-            especievegetalActual.setCicloCultivo(txtNomComun.getText());
-
+            especievegetalActual.setCicloCultivo(jBoxCiclos.getSelectedItem().toString());
 
             // Llamar al DAO para actualizar en BD
             EspecieVegetalDAO especievegetalDAO = new EspecieVegetalDAO();
@@ -206,13 +215,13 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JComboBox<String> jBoxCiclos;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtCicloCultivo;
     private javax.swing.JTextField txtNomCientifico;
     private javax.swing.JTextField txtNomComun;
     // End of variables declaration//GEN-END:variables

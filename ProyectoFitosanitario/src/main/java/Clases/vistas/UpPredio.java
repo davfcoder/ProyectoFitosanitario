@@ -4,16 +4,25 @@
  */
 package Clases.vistas;
 
+import Clases.dao.PredioDAO;
 import Clases.modelo.Predio;
+import Clases.dao.MunicipioDAO;
+import Clases.dao.DepartamentoDAO;
+import Clases.dao.VeredaDAO;
+import Clases.dao.UsuarioDAO;
+import Clases.dao.LugarProduccionDAO;
 import Clases.libreria.Dashboard;
-import Clases.modelo.Roles;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JOptionPane;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  *
  * @author ricar
  */
+
 public class UpPredio extends javax.swing.JPanel {
 
     /**
@@ -21,19 +30,206 @@ public class UpPredio extends javax.swing.JPanel {
      */
     public UpPredio() {
         initComponents();
-        
-
+        cargarDepartamentos();
+        configurarCombosInactivos();
+        configurarEventoDepartamento();
+        configurarEventoMunicipio();
+        cargarUsuarios();
+        cargarLugarProduccion();
     }
 
     private void limpiarCampos() {
+
         txtINumPredial.setText("");
+        txtNroRegistroICA.setText("");
         txtNombre.setText("");
         txtDireccion.setText("");
-        txtAreaTotal.setText("");
+        jBoxDepartamento.setSelectedIndex(0);
+        jBoxMunicipio.removeAllItems();
+        jBoxMunicipio.addItem("Seleccione un municipio");
+        jBoxMunicipio.setEnabled(false);
+        jBoxVereda.removeAllItems();
+        jBoxVereda.addItem("Seleccione una vereda");
+        jBoxVereda.setEnabled(false);
         txtLongitud.setText("");
         txtLatitud.setText("");
+        txtAreaTotal.setText("");
+        jBoxPropietario.setSelectedIndex(0);
+        jBoxLugarProd.removeAllItems();
+        jBoxLugarProd.addItem("Seleccione un lugar");
+        jBoxLugarProd.setEnabled(false);
+    }
+    
+     // ---------------------------------------------------------
+    // DESHABILITAR COMBOS AL INICIO
+    // ---------------------------------------------------------
+    private void configurarCombosInactivos() {
+        jBoxMunicipio.removeAllItems();
+        jBoxMunicipio.addItem("Seleccione un municipio");
+        jBoxMunicipio.setEnabled(false);
+
+        jBoxVereda.removeAllItems();
+        jBoxVereda.addItem("Seleccione una vereda");
+        jBoxVereda.setEnabled(false);
+
+        jBoxLugarProd.setEnabled(false);
     }
 
+    // ---------------------------------------------------------
+    // CARGAR DEPARTAMENTOS
+    // ---------------------------------------------------------
+    private void cargarDepartamentos() {
+        try {
+            DepartamentoDAO dao = new DepartamentoDAO();
+            jBoxDepartamento.removeAllItems();
+            jBoxDepartamento.addItem("Seleccione un departamento");
+
+            dao.listarTodos().forEach(dep -> jBoxDepartamento.addItem(dep.getNombre()));
+
+            AutoCompleteDecorator.decorate(jBoxDepartamento);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar departamentos: " + e.getMessage());
+        }
+    }
+
+    // ---------------------------------------------------------
+    // EVENTO: CUANDO SE SELECCIONA DEPARTAMENTO → CARGAR MUNICIPIOS
+    // ---------------------------------------------------------
+    private void configurarEventoDepartamento() {
+
+        jBoxDepartamento.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (jBoxDepartamento.getSelectedIndex() > 0) {
+                    String nombreDepto = (String) jBoxDepartamento.getSelectedItem();
+
+                    try {
+                        DepartamentoDAO depDAO = new DepartamentoDAO();
+                        String idDepto = depDAO.obtenerIdPorNombre(nombreDepto);
+
+                        if (idDepto != null) {
+                            cargarMunicipiosPorDepartamento(idDepto);
+                            jBoxMunicipio.setEnabled(true);  // ✔ Activar
+                        }
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Error al cargar municipios: " + ex.getMessage());
+                    }
+                } else {
+                    configurarCombosInactivos();
+                }
+            }
+        });
+    }
+
+    // ---------------------------------------------------------
+    // CARGAR MUNICIPIOS FILTRADOS
+    // ---------------------------------------------------------
+    private void cargarMunicipiosPorDepartamento(String idDepto) {
+        try {
+            MunicipioDAO dao = new MunicipioDAO();
+            jBoxMunicipio.removeAllItems();
+            jBoxMunicipio.addItem("Seleccione un municipio");
+
+            dao.listarPorDepartamento(idDepto)
+                    .forEach(mun -> jBoxMunicipio.addItem(mun));
+
+            AutoCompleteDecorator.decorate(jBoxMunicipio);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al listar municipios: " + e.getMessage());
+        }
+    }
+
+    // ---------------------------------------------------------
+    // EVENTO: CUANDO SE SELECCIONA MUNICIPIO → CARGAR VEREDAS
+    // ---------------------------------------------------------
+    private void configurarEventoMunicipio() {
+
+        jBoxMunicipio.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (jBoxMunicipio.getSelectedIndex() > 0) {
+
+                    String nombreMunicipio = (String) jBoxMunicipio.getSelectedItem();
+
+                    try {
+                        MunicipioDAO munDAO = new MunicipioDAO();
+                        String idMunicipio = munDAO.obtenerIdPorNombre(nombreMunicipio);
+
+                        if (idMunicipio != null) {
+                            cargarVeredasPorMunicipio(idMunicipio);
+                            jBoxVereda.setEnabled(true);   // ✔ Activar Vereda
+                        }
+
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Error al cargar veredas: " + ex.getMessage());
+                    }
+
+                } else {
+                    jBoxVereda.removeAllItems();
+                    jBoxVereda.addItem("Seleccione una vereda");
+                    jBoxVereda.setEnabled(false);
+                }
+            }
+        });
+    }
+
+    // ---------------------------------------------------------
+    // CARGAR VEREDAS FILTRADAS
+    // ---------------------------------------------------------
+    private void cargarVeredasPorMunicipio(String idMunicipio) {
+        try {
+            VeredaDAO dao = new VeredaDAO();
+            jBoxVereda.removeAllItems();
+            jBoxVereda.addItem("Seleccione una vereda");
+
+            dao.listarVeredasPorMunicipio(idMunicipio)
+                    .forEach(ver -> jBoxVereda.addItem(ver));
+
+            AutoCompleteDecorator.decorate(jBoxVereda);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al listar veredas: " + e.getMessage());
+        }
+    }
+
+    // ---------------------------------------------------------
+    // CARGAR PROPIETARIOS
+    // ---------------------------------------------------------
+    private void cargarUsuarios() {
+        try {
+            UsuarioDAO dao = new UsuarioDAO();
+            jBoxPropietario.removeAllItems();
+            jBoxPropietario.addItem("Seleccione un usuario");
+
+            dao.listarTodos().forEach(usu -> jBoxPropietario.addItem(usu.getNombreCompleto()));
+
+            AutoCompleteDecorator.decorate(jBoxPropietario);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar usuarios: " + e.getMessage());
+        }
+    }
+    
+        // ---------------------------------------------------------
+    // CARGAR LUGAR PRODUCCION
+    // ---------------------------------------------------------
+    private void cargarLugarProduccion() {
+        try {
+            LugarProduccionDAO dao = new LugarProduccionDAO();
+            jBoxLugarProd.removeAllItems();
+            jBoxLugarProd.addItem("");
+
+            dao.listarTodos().forEach(lgr -> jBoxLugarProd.addItem(lgr.getNomLugarProduccion()));
+
+            AutoCompleteDecorator.decorate(jBoxLugarProd);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar lugar produccion: " + e.getMessage());
+        }
+    }   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -141,6 +337,11 @@ public class UpPredio extends javax.swing.JPanel {
         jLabel13.setText("Lugar de Producción");
 
         jBoxLugarProd.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jBoxLugarProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBoxLugarProdActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -283,6 +484,99 @@ public class UpPredio extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // Validación MÍNIMA requerida para guardar un predio
+        if (txtINumPredial.getText().trim().isEmpty()
+                || txtNombre.getText().trim().isEmpty()
+                || txtNroRegistroICA.getText().trim().isEmpty()
+                || txtDireccion.getText().trim().isEmpty()
+                || txtLongitud.getText().trim().isEmpty()
+                || txtLatitud.getText().trim().isEmpty()
+                || txtAreaTotal.getText().trim().isEmpty()
+                || jBoxVereda.getSelectedIndex() <= 0) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Debe completar los datos básicos del predio y seleccionar una predio.",
+                    "Campos incompletos",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+
+            // -------------------------------------------------------------------
+            // 1️⃣ Obtener ID Vereda (OBLIGATORIO)
+            // -------------------------------------------------------------------
+            String nombreVereda = (String) jBoxVereda.getSelectedItem();
+            VeredaDAO verDAO = new VeredaDAO();
+            String idVereda = verDAO.obtenerIdPorNombre(nombreVereda);
+
+            if (idVereda == null) {
+                JOptionPane.showMessageDialog(this,
+                        "No existe la vereda seleccionada en la base de datos.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // -------------------------------------------------------------------
+            // 2️⃣ Obtener ID Propietario (OPCIONAL)
+            // -------------------------------------------------------------------
+            String idProp = null;
+
+            if (jBoxPropietario.getSelectedIndex() > 0) {
+                String nombreProp = (String) jBoxPropietario.getSelectedItem();
+                UsuarioDAO usuDAO = new UsuarioDAO();
+                idProp = usuDAO.obtenerIdUsuarioPorNombre(nombreProp);
+            }
+
+            // -------------------------------------------------------------------
+            // 3️⃣ Obtener ID Lugar de Producción (OPCIONAL)
+            // -------------------------------------------------------------------
+            String idLugar = null;
+
+            if (jBoxLugarProd.getSelectedIndex() > 0) {
+                String nombreLugar = (String) jBoxLugarProd.getSelectedItem();
+                LugarProduccionDAO lpDAO = new LugarProduccionDAO();
+                idLugar = lpDAO.obtenerIdPorNombre(nombreLugar);
+            }
+
+            // -------------------------------------------------------------------
+            // 4️⃣ Crear OBJETO Predio para insertar
+            // -------------------------------------------------------------------
+            Predio nuevoPredio = new Predio();
+            nuevoPredio.setNumPredial(txtINumPredial.getText());
+            nuevoPredio.setNroRegistroICA(txtNroRegistroICA.getText());
+            nuevoPredio.setNomPredio(txtNombre.getText());
+            nuevoPredio.setDireccion(txtDireccion.getText());
+            nuevoPredio.setCx(txtLongitud.getText());
+            nuevoPredio.setCy(txtLatitud.getText());
+            nuevoPredio.setAreaTotal(Float.parseFloat(txtAreaTotal.getText()));
+            nuevoPredio.setIdVereda(idVereda);
+            nuevoPredio.setIdUsuarioPropietario(idProp);        // opcional
+            nuevoPredio.setIdLugarProduccion(idLugar);          // opcional
+
+            // -------------------------------------------------------------------
+            // 5️⃣ Guardar en BD
+            // -------------------------------------------------------------------
+            PredioDAO predioDAO = new PredioDAO();
+            boolean guardado = predioDAO.insertar(nuevoPredio);
+
+            if (guardado) {
+                JOptionPane.showMessageDialog(this, "Predio guardado correctamente.");
+                limpiarCampos();
+                Dashboard.ShowJPanel(new GestionPredios());
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "No se pudo guardar el predio.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                    "Error al guardar el predio: " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+
 
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -294,6 +588,10 @@ public class UpPredio extends javax.swing.JPanel {
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void jBoxLugarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBoxLugarProdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBoxLugarProdActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

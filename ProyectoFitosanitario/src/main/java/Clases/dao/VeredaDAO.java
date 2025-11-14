@@ -242,4 +242,75 @@ public class VeredaDAO {
         return vereda;
     }
 
+    // Obtener ID de Vereda por nombre (AUTORRELLENABLE)
+    public String obtenerIdPorNombre(String nombreVereda) {
+        String idVereda = null;
+        Connection con = null;
+        CallableStatement cs = null;
+
+        try {
+            con = conexion.estableceConexion();
+
+            String sql = "{ ? = call fun_obtenerIdVereda(?) }";
+            cs = con.prepareCall(sql);
+
+            // Parámetro de salida (retorno VARCHAR2)
+            cs.registerOutParameter(1, java.sql.Types.VARCHAR);
+
+            // Parámetro de entrada
+            cs.setString(2, nombreVereda);
+
+            // Ejecutar función
+            cs.execute();
+
+            // Obtener el ID retornado
+            idVereda = cs.getString(1);
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Error al obtener ID de la vereda: " + e.getMessage()
+            );
+        } finally {
+            try {
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return idVereda;
+    }
+
+    ////////////// AUTORRELLENA LA VEREDA A PARTIR DEL MUNICIPIO
+    public List<String> listarVeredasPorMunicipio(String idMunicipio) {
+        List<String> veredas = new ArrayList<>();
+
+        String sql = "{ ? = call fun_listarVerPorMun(?) }";
+
+        try (Connection con = conexion.estableceConexion(); CallableStatement cs = con.prepareCall(sql)) {
+
+            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            cs.setString(2, idMunicipio);
+            cs.execute();
+
+            try (ResultSet rs = (ResultSet) cs.getObject(1)) {
+                while (rs.next()) {
+                    veredas.add(rs.getString("nombre"));
+                }
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,
+                    "Error al listar veredas por municipio: " + e.getMessage());
+        }
+
+        return veredas;
+    }
+
 }
