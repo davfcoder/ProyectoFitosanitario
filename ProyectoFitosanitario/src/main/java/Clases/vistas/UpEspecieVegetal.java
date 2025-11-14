@@ -181,7 +181,24 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSelectPlagaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectPlagaActionPerformed
-        if (txtNomCientifico.getText().trim().isEmpty()
+
+    }//GEN-LAST:event_btnSelectPlagaActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        limpiarCampos();
+        Dashboard.ShowJPanel(new GestionEspeciesVegetales());
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void txtNomComunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomComunActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomComunActionPerformed
+
+    private void txtNomCientificoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomCientificoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomCientificoActionPerformed
+
+    private void btnGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar1ActionPerformed
+             if (txtNomCientifico.getText().trim().isEmpty()
                 || txtNomComun.getText().trim().isEmpty()
                 || jBoxCiclos.getSelectedItem() == null) {
 
@@ -214,23 +231,7 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Error al guardar: " + e.getMessage());
             e.printStackTrace();
         }
-    }//GEN-LAST:event_btnSelectPlagaActionPerformed
-
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        limpiarCampos();
-        Dashboard.ShowJPanel(new GestionEspeciesVegetales());
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void txtNomComunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomComunActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomComunActionPerformed
-
-    private void txtNomCientificoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomCientificoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomCientificoActionPerformed
-
-    private void btnGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar1ActionPerformed
-        // TODO add your handling code here:
+       // TODO add your handling code here:
     }//GEN-LAST:event_btnGuardar1ActionPerformed
 
 
