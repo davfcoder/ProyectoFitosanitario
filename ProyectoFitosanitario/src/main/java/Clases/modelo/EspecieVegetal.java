@@ -17,7 +17,7 @@ public class EspecieVegetal {
         this.nombreComun = nombreComun;
         this.cicloCultivo = cicloCultivo;
     }
-       
+
     // Constructor vacío
     public EspecieVegetal() {
     }
@@ -54,6 +54,6 @@ public class EspecieVegetal {
         this.cicloCultivo = cicloCultivo;
     }
 
-    
-    
+
+
 }

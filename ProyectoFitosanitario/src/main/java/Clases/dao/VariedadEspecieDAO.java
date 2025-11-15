@@ -5,39 +5,38 @@
 package Clases.dao;
 
 import Clases.db.CConexion;
-import Clases.modelo.EspecieVegetal;
+import Clases.modelo.VariedadEspecie;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-public class EspecieVegetalDAO {
+public class VariedadEspecieDAO {
 
     private CConexion conexion;
 
-    public EspecieVegetalDAO() {
+    public VariedadEspecieDAO() {
         this.conexion = new CConexion();
     }
 
-    // CREATE - Insertar Especie Vegetal
-    public boolean insertar(EspecieVegetal especievegetal) {
+// CREATE - Insertar variedades de especies usando procedimiento almacenado
+    public boolean insertar(VariedadEspecie variedadespecie) {
         Connection con = null;
         CallableStatement cs = null;
 
         try {
             con = conexion.estableceConexion();
-            String sql = "{call pro_incEspecieVegetal(?, ?, ?)}";
+            String sql = "{call pro_incVariedadEspecie(?, ?)}";
             cs = con.prepareCall(sql);
 
-            cs.setString(1, especievegetal.getNomEspecie());
-            cs.setString(2, especievegetal.getNombreComun());
-            cs.setString(3, especievegetal.getCicloCultivo());
+            cs.setString(1, variedadespecie.getNomVariedad());
+            cs.setString(2, variedadespecie.getIdEspecie());
 
             cs.execute();
             return true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al insertar Especie Vegetal: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al insertar variedades de especies: " + e.getMessage());
             return false;
         } finally {
             try {
@@ -53,21 +52,21 @@ public class EspecieVegetalDAO {
         }
     }
 
-    // ============================================================
-    // READ - Listar todas las Especies Vegetales (función con SYS_REFCURSOR)
-    // ============================================================
-    public List<EspecieVegetal> listarTodas() {
-        List<EspecieVegetal> lista = new ArrayList<>();
+// 🔹 READ - Listar todos los variedad de especies usando FUNCTION almacenada
+    public List<VariedadEspecie> listarTodos() {
+        List<VariedadEspecie> lista = new ArrayList<>();
         Connection con = null;
         CallableStatement cs = null;
         ResultSet rs = null;
 
         try {
             con = conexion.estableceConexion();
-            String sql = "{ ? = call fun_listarEspeciesVegetales() }";
+
+            // ✅ Llamada a la función almacenada que devuelve un SYS_REFCURSOR
+            String sql = "{ ? = call fun_listarVariedadesEspecie() }";
             cs = con.prepareCall(sql);
 
-            // ✅ Registrar parámetro de salida (cursor)
+            // ✅ Registrar el parámetro de salida (el cursor devuelto por la función)
             cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
 
             // ✅ Ejecutar la función
@@ -76,17 +75,17 @@ public class EspecieVegetalDAO {
             // ✅ Obtener el cursor como ResultSet
             rs = (ResultSet) cs.getObject(1);
 
+            // ✅ Recorrer resultados
             while (rs.next()) {
-                EspecieVegetal p = new EspecieVegetal();
-                p.setIdEspecie(rs.getString("id_especie"));
-                p.setNomEspecie(rs.getString("nom_especie"));
-                p.setNombreComun(rs.getString("nom_comun"));
-                p.setCicloCultivo(rs.getString("ciclo_cultivo")); //corto ,medio,largo
-                lista.add(p);
+                VariedadEspecie m = new VariedadEspecie();
+                m.setIdVariedad(rs.getString("id_variedad"));
+                m.setNomVariedad(rs.getString("nom_variedad"));
+                m.setNombreEspecie(rs.getString("nombre_especie"));
+                lista.add(m);
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al listar Especies Vegetales: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al listar variedad de especies: " + e.getMessage());
         } finally {
             try {
                 if (rs != null) {
@@ -106,28 +105,25 @@ public class EspecieVegetalDAO {
         return lista;
     }
 
-    // ============================================================
-    // UPDATE - Actualizar Especie Vegetal
-    // ============================================================
-    public boolean actualizar(EspecieVegetal especievegetal) {
+    // UPDATE - Actualizar variedad de especies
+    public boolean actualizar(VariedadEspecie variedadespecie) {
         Connection con = null;
         CallableStatement cs = null;
 
         try {
             con = conexion.estableceConexion();
-            String sql = "{call pro_actEspecieVegetal(?, ?, ?, ?)}";
+            String sql = "{call pro_actVariedadEspecie(?, ?, ?)}";
             cs = con.prepareCall(sql);
 
-            cs.setString(1, especievegetal.getIdEspecie());
-            cs.setString(2, especievegetal.getNomEspecie());
-            cs.setString(3, especievegetal.getNombreComun());
-            cs.setString(4, especievegetal.getCicloCultivo());
+            cs.setString(1, variedadespecie.getIdVariedad());
+            cs.setString(2, variedadespecie.getNomVariedad());
+            cs.setString(3, variedadespecie.getIdEspecie());
 
             cs.execute();
             return true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar especie vegetal: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al actualizar variedad de especie: " + e.getMessage());
             return false;
         } finally {
             try {
@@ -143,10 +139,8 @@ public class EspecieVegetalDAO {
         }
     }
 
-    // ============================================================
-    // DELETE - Eliminar Especie Vegetal
-    // ============================================================
-    public boolean eliminar(String idEspecie) {
+    // DELETE - Eliminar variedad de especies
+    public boolean eliminar(String id) {
         Connection con = null;
         CallableStatement cs = null;
 
@@ -154,10 +148,10 @@ public class EspecieVegetalDAO {
             con = conexion.estableceConexion();
             con.setAutoCommit(false);
 
-            String sql = "{call pro_elimEspecieVegetal(?)}";
+            String sql = "{call pro_elimVariedadEspecie(?)}";
             cs = con.prepareCall(sql);
 
-            cs.setString(1, idEspecie);
+            cs.setString(1, id);
             cs.execute();
 
             con.commit();
@@ -171,7 +165,7 @@ public class EspecieVegetalDAO {
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-            JOptionPane.showMessageDialog(null, "Error al eliminar Especie Vegetal: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al eliminar variedad de especie: " + e.getMessage());
             return false;
         } finally {
             try {
@@ -187,42 +181,40 @@ public class EspecieVegetalDAO {
         }
     }
 
-    // ============================================================
-    // READ - Buscar Especie Vegetal por ID (para módulo Editar)
-    // ============================================================
-    public EspecieVegetal buscarPorId(String idEspecie) {
-        EspecieVegetal especievegetal = null;
+// READ - Buscar variedad de especie por ID
+    public VariedadEspecie buscarPorId(String id) {
+        VariedadEspecie variedadespecie = null;
         Connection con = null;
         CallableStatement cs = null;
         ResultSet rs = null;
 
         try {
             con = conexion.estableceConexion();
-            String sql = "{ ? = call fun_buscarEspecieVegetalPorId(?) }";
+
+            // ✅ Llamada correcta: función que retorna un cursor
+            String sql = "{ ? = call fun_buscarVariedadEspeciePorId(?) }";
             cs = con.prepareCall(sql);
 
-            // ✅ Registrar parámetro de salida (cursor)
+            // ✅ Registrar el parámetro de salida (el cursor que retorna)
             cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
 
-            // ✅ Parámetro de entrada
-            cs.setString(2, idEspecie);
+            // ✅ Pasar el parámetro de entrada
+            cs.setString(2, id);
 
-            // ✅ Ejecutar
             cs.execute();
 
-            // ✅ Obtener resultados
+            // ✅ Obtener el cursor como ResultSet
             rs = (ResultSet) cs.getObject(1);
 
             if (rs.next()) {
-                especievegetal = new EspecieVegetal();
-                especievegetal.setIdEspecie(rs.getString("id_especie"));
-                especievegetal.setNomEspecie(rs.getString("nom_especie"));
-                especievegetal.setNombreComun(rs.getString("nom_comun"));
-                especievegetal.setCicloCultivo(rs.getString("ciclo_cultivo"));
+                variedadespecie = new VariedadEspecie();
+                variedadespecie.setIdVariedad(rs.getString("id_variedad"));
+                variedadespecie.setNomVariedad(rs.getString("nom_variedad"));
+                variedadespecie.setNombreEspecie(rs.getString("nombre_especie"));
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al buscar Especie Vegetal: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al buscar variedad de especies: " + e.getMessage());
         } finally {
             try {
                 if (rs != null) {
@@ -239,28 +231,36 @@ public class EspecieVegetalDAO {
             }
         }
 
-        return especievegetal;
+        return variedadespecie;
     }
-    
-    /////Tra solo el nombre del campo departamento para el AUTORRELLENABLE
-    public String obtenerIdPorNombre(String nombreEspecie) {
-        String idEspecie = null;
+
+    //  Obtener ID para que me traiga el nombre AUTORRELLENABLE
+    public String obtenerIdPorNombre(String nombreVariedadEspecie) {
+        String idVariedadEspecie = null;
         Connection con = null;
         CallableStatement cs = null;
 
         try {
             con = conexion.estableceConexion();
-            String sql = "{ ? = call fun_obtenerIdEspecie(?) }";
+
+            // Llamar a la función que devuelve un valor
+            String sql = "{? = call fun_obtenerIdVariedad(?)}";
             cs = con.prepareCall(sql);
+
+            // Registrar el parámetro de salida (valor devuelto por la función)
             cs.registerOutParameter(1, java.sql.Types.VARCHAR);
-            cs.setString(2, nombreEspecie);
+
+            // Asignar el parámetro de entrada
+            cs.setString(2, nombreVariedadEspecie);
+
+            // Ejecutar
             cs.execute();
 
-            idEspecie = cs.getString(1);
+            // Obtener el valor retornado por la función
+            idVariedadEspecie = cs.getString(1);
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,
-                    "Error al obtener ID de la especie vegetal: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al obtener ID de variedad de especie: " + e.getMessage());
         } finally {
             try {
                 if (cs != null) {
@@ -274,6 +274,7 @@ public class EspecieVegetalDAO {
             }
         }
 
-        return idEspecie;
+        return idVariedadEspecie;
     }
+
 }

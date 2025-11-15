@@ -20,6 +20,32 @@ public class VariedadEspecie {
     public VariedadEspecie() {
     }
 
+    public String getIdVariedad() {
+        return idVariedad;
+    }
+
+    public void setIdVariedad(String idVariedad) {
+        this.idVariedad = idVariedad;
+    }
+
+    public String getNomVariedad() {
+        return nomVariedad;
+    }
+
+    public void setNomVariedad(String nomVariedad) {
+        this.nomVariedad = nomVariedad;
+    }
+
+    public String getIdEspecie() {
+        return idEspecie;
+    }
+
+    public void setIdEspecie(String idEspecie) {
+        this.idEspecie = idEspecie;
+    }
+    
+    
+
     // En la parte de atributos (junto con los demás campos)
     private String nombreEspecie;
 
