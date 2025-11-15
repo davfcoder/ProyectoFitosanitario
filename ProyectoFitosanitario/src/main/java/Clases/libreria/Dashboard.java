@@ -90,6 +90,7 @@ public class Dashboard extends javax.swing.JFrame {
         btnGestionPlaga = new javax.swing.JButton();
         btnGestionEspecieVeg = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         btnCerrarSesion = new javax.swing.JButton();
         header = new javax.swing.JPanel();
@@ -214,7 +215,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         btnGestionEspecieVeg.setBackground(new java.awt.Color(27, 94, 32));
         btnGestionEspecieVeg.setForeground(new java.awt.Color(255, 255, 255));
-        btnGestionEspecieVeg.setText("Plaga");
+        btnGestionEspecieVeg.setText("Variedad Especies Vegetales");
         btnGestionEspecieVeg.setAutoscrolls(true);
         btnGestionEspecieVeg.setBorder(null);
         btnGestionEspecieVeg.addActionListener(new java.awt.event.ActionListener() {
@@ -225,9 +226,25 @@ public class Dashboard extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(27, 94, 32));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Inspección Fitosanitaria");
+        jButton1.setText("Plagas");
         jButton1.setBorder(null);
         jButton1.setBorderPainted(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setBackground(new java.awt.Color(27, 94, 32));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Inspeccion Fitosanitaria");
+        jButton2.setBorder(null);
+        jButton2.setBorderPainted(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(27, 94, 32));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -275,7 +292,8 @@ public class Dashboard extends javax.swing.JFrame {
                     .addComponent(btnGestionLote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnGestionPlaga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnGestionEspecieVeg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         menuLayout.setVerticalGroup(
@@ -302,7 +320,9 @@ public class Dashboard extends javax.swing.JFrame {
                 .addComponent(btnGestionEspecieVeg, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(118, 118, 118)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(87, 87, 87)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -484,6 +504,14 @@ public class Dashboard extends javax.swing.JFrame {
          ShowJPanel(new GestionPlagas()); // TODO add your handling code here:        // TODO add your handling code here:       // TODO add your handling code here:
     }//GEN-LAST:event_btnGestionEspecieVegActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -515,6 +543,7 @@ public class Dashboard extends javax.swing.JFrame {
     private static javax.swing.JPanel content;
     private javax.swing.JPanel header;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblBienvenida;
     private javax.swing.JLabel lblRol;

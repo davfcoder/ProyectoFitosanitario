@@ -5,39 +5,42 @@
 package Clases.dao;
 
 import Clases.db.CConexion;
-import Clases.modelo.Vereda;
+import Clases.modelo.Lote;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-public class VeredaDAO {
+public class LoteDAO {
 
     private CConexion conexion;
 
-    public VeredaDAO() {
+    public LoteDAO() {
         this.conexion = new CConexion();
     }
 
-// CREATE - Insertar vereda usando procedimiento almacenado
-    public boolean insertar(Vereda vereda) {
+// CREATE - Insertar lote usando procedimiento almacenado
+    public boolean insertar(Lote lote) {
         Connection con = null;
         CallableStatement cs = null;
 
         try {
             con = conexion.estableceConexion();
-            String sql = "{call pro_incVereda(?, ?, ?)}";
+            String sql = "{call pro_incLote(?, ?, ?, ?, ?, ?, ?)}";
             cs = con.prepareCall(sql);
 
-            cs.setString(1, vereda.getCodigoDane());
-            cs.setString(2, vereda.getNombre());
-            cs.setString(3, vereda.getIdMunicipio());
+            cs.setString(1, lote.getNumero());
+            cs.setFloat(2, lote.getAreaTotal());
+            cs.setDate(3, lote.getFecSiembra());
+            cs.setDate(4, lote.getFecEliminacion());
+            cs.setString(5, lote.getIdVariedad());
+            cs.setString(6, lote.getIdLugarProduccion());
 
             cs.execute();
             return true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al insertar vereda: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al insertar lote: " + e.getMessage());
             return false;
         } finally {
             try {
@@ -53,9 +56,9 @@ public class VeredaDAO {
         }
     }
 
-// ✅ READ - Listar todas las veredas (usando función almacenada)
-    public List<Vereda> listarTodos() {
-        List<Vereda> lista = new ArrayList<>();
+//  READ - Listar todas las lotes (usando función almacenada)
+    public List<Lote> listarTodos() {
+        List<Lote> lista = new ArrayList<>();
         Connection con = null;
         CallableStatement cs = null;
         ResultSet rs = null;
@@ -63,33 +66,35 @@ public class VeredaDAO {
         try {
             con = conexion.estableceConexion();
 
-            // ✅ Llamada correcta a la función que devuelve un SYS_REFCURSOR
-            String sql = "{ ? = call fun_listarVeredas() }";
+            //  Llamada correcta a la función que devuelve un SYS_REFCURSOR
+            String sql = "{ ? = call fun_listarLotes() }";
             cs = con.prepareCall(sql);
 
-            // ✅ Registrar el parámetro de salida (el cursor devuelto por la función)
+            //  Registrar el parámetro de salida (el cursor devuelto por la función)
             cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
 
-            // ✅ Ejecutar la función
+            //  Ejecutar la función
             cs.execute();
 
-            // ✅ Obtener el cursor como ResultSet
+            //  Obtener el cursor como ResultSet
             rs = (ResultSet) cs.getObject(1);
 
-            // ✅ Recorrer resultados y llenar la lista
+            //  Recorrer resultados y llenar la lista
             while (rs.next()) {
-                Vereda v = new Vereda();
-                v.setIdVereda(rs.getString("id_vereda"));
-                v.setCodigoDane(rs.getString("codigo_dane"));
-                v.setNombre(rs.getString("nombre_vereda"));        // Alias creado en SQL
-                v.setNombreMunicipio(rs.getString("nombre_municipio")); // Alias creado en SQL
-                v.setNombreDepartamento(rs.getString("nombre_departamento")); // Alias creado en SQL
+                Lote v = new Lote();
+                v.setIdLote(rs.getString("id_lote"));
+                v.setNumero(rs.getString("numero"));
+                v.setAreaTotal(rs.getFloat("area_total"));        
+                v.setFecSiembra(rs.getDate("fec_siembra")); 
+                v.setFecEliminacion(rs.getDate("fec_eliminacion")); 
+                v.setNombreVariedad(rs.getString("nom_variedad")); 
+                v.setNombreLugarProduccion(rs.getString("nom_lugar_produccion")); 
 
                 lista.add(v);
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al listar veredas: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al listar lotes: " + e.getMessage());
         } finally {
             try {
                 if (rs != null) {
@@ -109,25 +114,28 @@ public class VeredaDAO {
         return lista;
     }
 
-    // UPDATE - Actualizar vereda
-    public boolean actualizar(Vereda vereda) {
+    // UPDATE - Actualizar lote
+    public boolean actualizar(Lote lote) {
         Connection con = null;
         CallableStatement cs = null;
 
         try {
             con = conexion.estableceConexion();
-            String sql = "{call pro_actVereda(?, ?, ?, ?)}";
+            String sql = "{call pro_actLote(?, ?, ?, ?, ?, ?, ?)}";
             cs = con.prepareCall(sql);
 
-            cs.setString(1, vereda.getIdVereda());
-            cs.setString(2, vereda.getCodigoDane());
-            cs.setString(3, vereda.getNombre());
-            cs.setString(4, vereda.getIdMunicipio());
+            cs.setString(1, lote.getIdLote());
+            cs.setString(2, lote.getNumero());
+            cs.setFloat(3, lote.getAreaTotal());
+            cs.setDate(4, lote.getFecSiembra());
+            cs.setDate(5, lote.getFecEliminacion());
+            cs.setString(6, lote.getIdVariedad());
+            cs.setString(7, lote.getIdLugarProduccion());
             cs.execute();
             return true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar vereda: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al actualizar lote: " + e.getMessage());
             return false;
         } finally {
             try {
@@ -143,7 +151,7 @@ public class VeredaDAO {
         }
     }
 
-    // DELETE - Eliminar vereda
+    // DELETE - Eliminar lote
     public boolean eliminar(String id) {
         Connection con = null;
         CallableStatement cs = null;
@@ -152,7 +160,7 @@ public class VeredaDAO {
             con = conexion.estableceConexion();
             con.setAutoCommit(false);
 
-            String sql = "{call pro_elimVereda(?)}";
+            String sql = "{call pro_elimLote(?)}";
             cs = con.prepareCall(sql);
 
             cs.setString(1, id);
@@ -169,7 +177,7 @@ public class VeredaDAO {
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-            JOptionPane.showMessageDialog(null, "Error al eliminar vereda: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al eliminar lote: " + e.getMessage());
             return false;
         } finally {
             try {
@@ -184,11 +192,9 @@ public class VeredaDAO {
             }
         }
     }
-
-    // READ - Buscar vereda por ID para abrir EditVereda
-// READ - Buscar vereda por ID para abrir EditVereda
-    public Vereda buscarPorId(String id) {
-        Vereda vereda = null;
+// READ - Buscar lote por ID para abrir EditLote
+    public Lote buscarPorId(String id) {
+        Lote lote = null;
         Connection con = null;
         CallableStatement cs = null;
         ResultSet rs = null;
@@ -196,33 +202,36 @@ public class VeredaDAO {
         try {
             con = conexion.estableceConexion();
 
-            // ✅ Llamada correcta a la función (retorna un SYS_REFCURSOR)
-            String sql = "{ ? = call fun_buscarVeredaPorId(?) }";
+            //  Llamada correcta a la función (retorna un SYS_REFCURSOR)
+            String sql = "{ ? = call fun_buscarLotePorId(?) }";
             cs = con.prepareCall(sql);
 
-            // ✅ Registrar parámetro de salida (cursor)
+            //  Registrar parámetro de salida (cursor)
             cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
 
-            // ✅ Asignar parámetro de entrada (ID)
+            //  Asignar parámetro de entrada (ID)
             cs.setString(2, id);
 
-            // ✅ Ejecutar
+            //  Ejecutar
             cs.execute();
 
-            // ✅ Obtener el cursor como ResultSet
+            //  Obtener el cursor como ResultSet
             rs = (ResultSet) cs.getObject(1);
 
-            // ✅ Procesar resultado
+            //  Procesar resultado
             if (rs.next()) {
-                vereda = new Vereda();
-                vereda.setIdVereda(rs.getString("id_vereda"));
-                vereda.setCodigoDane(rs.getString("codigo_dane"));
-                vereda.setNombre(rs.getString("nombre_vereda"));
-                vereda.setNombreMunicipio(rs.getString("nombre_municipio")); // ← corregido, antes usabas setNombre dos veces
+                lote = new Lote();
+                lote.setIdLote(rs.getString("id_lote"));
+                lote.setNumero(rs.getString("numero"));
+                lote.setAreaTotal(rs.getFloat("area_total"));
+                lote.setFecSiembra(rs.getDate("fec_siembra"));
+                lote.setFecEliminacion(rs.getDate("fec_eliminacion"));
+                lote.setNombreVariedad(rs.getString("nom_variedad"));
+                lote.setNombreLugarProduccion(rs.getString("nom_lugar_produccion"));
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al buscar vereda: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al buscar lote: " + e.getMessage());
         } finally {
             try {
                 if (rs != null) {
@@ -239,37 +248,37 @@ public class VeredaDAO {
             }
         }
 
-        return vereda;
+        return lote;
     }
 
-    // Obtener ID de Vereda por nombre (AUTORRELLENABLE)
-    public String obtenerIdPorNombre(String nombreVereda) {
-        String idVereda = null;
+    // Obtener ID de Lote por nombre (AUTORRELLENABLE)
+    public String obtenerIdPorNombre(String nombreLote) {
+        String idLote = null;
         Connection con = null;
         CallableStatement cs = null;
 
         try {
             con = conexion.estableceConexion();
 
-            String sql = "{ ? = call fun_obtenerIdVereda(?) }";
+            String sql = "{ ? = call fun_obtenerIdLote(?) }";
             cs = con.prepareCall(sql);
 
             // Parámetro de salida (retorno VARCHAR2)
             cs.registerOutParameter(1, java.sql.Types.VARCHAR);
 
             // Parámetro de entrada
-            cs.setString(2, nombreVereda);
+            cs.setString(2, nombreLote);
 
             // Ejecutar función
             cs.execute();
 
             // Obtener el ID retornado
-            idVereda = cs.getString(1);
+            idLote = cs.getString(1);
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(
                     null,
-                    "Error al obtener ID de la vereda: " + e.getMessage()
+                    "Error al obtener ID de la lote: " + e.getMessage()
             );
         } finally {
             try {
@@ -284,33 +293,7 @@ public class VeredaDAO {
             }
         }
 
-        return idVereda;
-    }
-
-    ////////////// AUTORRELLENA LA VEREDA A PARTIR DEL MUNICIPIO
-    public List<String> listarVeredasPorMunicipio(String idMunicipio) {
-        List<String> veredas = new ArrayList<>();
-
-        String sql = "{ ? = call fun_listarVerPorMun(?) }";
-
-        try (Connection con = conexion.estableceConexion(); CallableStatement cs = con.prepareCall(sql)) {
-
-            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
-            cs.setString(2, idMunicipio);
-            cs.execute();
-
-            try (ResultSet rs = (ResultSet) cs.getObject(1)) {
-                while (rs.next()) {
-                    veredas.add(rs.getString("nombre"));
-                }
-            }
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,
-                    "Error al listar veredas por municipio: " + e.getMessage());
-        }
-
-        return veredas;
+        return idLote;
     }
 
 }
