@@ -13,6 +13,7 @@ import Clases.vistas.GestionLugaresProduccion;
 import Clases.vistas.GestionPredios;
 import Clases.vistas.GestionPlagas;
 import Clases.vistas.GestionEspeciesVegetales;
+import Clases.vistas.GestionVariedadEspecies;
 import Clases.vistas.Principal;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.BorderLayout;
@@ -501,11 +502,11 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGestionPlagaActionPerformed
 
     private void btnGestionEspecieVegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionEspecieVegActionPerformed
-         ShowJPanel(new GestionPlagas()); // TODO add your handling code here:        // TODO add your handling code here:       // TODO add your handling code here:
+         ShowJPanel(new GestionVariedadEspecies()); // TODO add your handling code here:        // TODO add your handling code here:       // TODO add your handling code here:
     }//GEN-LAST:event_btnGestionEspecieVegActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+          ShowJPanel(new GestionPlagas()); // TODO add your handling code here:        // TODO add your handling code here:       // TODO add your handling code here:       // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

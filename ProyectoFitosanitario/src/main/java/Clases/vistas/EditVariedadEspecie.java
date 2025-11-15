@@ -107,6 +107,11 @@ public class EditVariedadEspecie extends javax.swing.JPanel {
         jLabel3.setText("Especie Vegetal");
 
         jBoxEspecieVegetal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jBoxEspecieVegetal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBoxEspecieVegetalActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -185,9 +190,9 @@ public class EditVariedadEspecie extends javax.swing.JPanel {
 
         try {
             // Crear DAO de variedad para obtener el ID según el nombre seleccionado
-            VariedadEspecieDAO espvDAO = new VariedadEspecieDAO();
-            String nombreEspecieVegetal = jBoxEspecieVegetal.getSelectedItem().toString();
-            String idEspv = espvDAO.obtenerIdPorNombre(nombreEspecieVegetal); // método que debes tener en tu DAO
+            EspecieVegetalDAO espvDAO = new EspecieVegetalDAO();
+            String nombreEspecie = jBoxEspecieVegetal.getSelectedItem().toString();
+            String idEspv = espvDAO.obtenerIdPorNombre(nombreEspecie); // método que debes tener en tu DAO
 
             if (idEspv == null) {
                 JOptionPane.showMessageDialog(this, "No se encontró la variedad seleccionada.");
@@ -215,6 +220,10 @@ public class EditVariedadEspecie extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jBoxEspecieVegetalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBoxEspecieVegetalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBoxEspecieVegetalActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

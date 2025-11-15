@@ -96,7 +96,6 @@ public class EditPredio extends javax.swing.JPanel {
         jBoxPropietario.setSelectedIndex(0);
         jBoxLugarProd.removeAllItems();
         jBoxLugarProd.addItem("Seleccione un lugar");
-        jBoxLugarProd.setEnabled(false);
     }
 
     // ---------------------------------------------------------
@@ -110,8 +109,6 @@ public class EditPredio extends javax.swing.JPanel {
         jBoxVereda.removeAllItems();
         jBoxVereda.addItem("Seleccione una vereda");
         jBoxVereda.setEnabled(false);
-
-        jBoxLugarProd.setEnabled(false);
     }
 
     // ---------------------------------------------------------

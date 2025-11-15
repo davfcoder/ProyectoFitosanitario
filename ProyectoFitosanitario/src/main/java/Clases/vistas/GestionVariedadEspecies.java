@@ -249,7 +249,6 @@ public class GestionVariedadEspecies extends javax.swing.JPanel {
             return;
         }
 
-        // Supongamos que la columna 0 tiene el número de identificación
         String idVariedadEspecie = jTable1.getValueAt(fila, 0).toString();
 
         try {

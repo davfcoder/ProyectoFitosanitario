@@ -281,9 +281,9 @@ public class UpLote extends javax.swing.JPanel {
 
             // 🔹 Crear el objeto Lote con los datos requeridos
             Lote lote = new Lote();
-            lote.setCodigoDane(txtCodigoDane.getText());
-            lote.setNombre(txtNombre.getText());
-            lote.setIdMunicipio(idMunicipio);
+            //lote.setCodigoDane(txtCodigoDane.getText());
+            //lote.setNombre(txtNombre.getText());
+            //lote.setIdMunicipio(idMunicipio);
 
             // 🔹 Llamar al DAO para guardar en la BD
             LoteDAO loteDAO = new LoteDAO();
