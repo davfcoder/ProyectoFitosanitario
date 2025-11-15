@@ -23,28 +23,27 @@ public class UpVariedadEspecie extends javax.swing.JPanel {
      */
     public UpVariedadEspecie() {
         initComponents();
-        cargarDepartamentos();
+        cargarVariedadEspecie();
     }
 
     private void limpiarCampos() {
-        txtCodigoDane.setText("");
         txtNombre.setText("");
-        jBoxDepartamento.setSelectedIndex(0);
+        jBoxEspecieVegetal.setSelectedIndex(0);
     }
 
-    private void cargarDepartamentos() {
+    private void cargarVariedadEspecie() {
         try {
-            DepartamentoDAO dao = new DepartamentoDAO();
-            jBoxDepartamento.removeAllItems();
-            jBoxDepartamento.addItem("Seleccione un departamento");
+            EspecieVegetalDAO dao = new EspecieVegetalDAO();
+            jBoxEspecieVegetal.removeAllItems();
+            jBoxEspecieVegetal.addItem("Seleccione una Especie");
 
-            dao.listarTodos().forEach(dep -> jBoxDepartamento.addItem(dep.getNombre()));
+            dao.listarTodos().forEach(espv -> jBoxEspecieVegetal.addItem(espv.getNomEspecie()));
 
             // ?Habilitar autocompletado
-            AutoCompleteDecorator.decorate(jBoxDepartamento);
+            AutoCompleteDecorator.decorate(jBoxEspecieVegetal);
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar departamentos: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al cargar especies vegetales: " + e.getMessage());
         }
     }
 
@@ -60,13 +59,11 @@ public class UpVariedadEspecie extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtCodigoDane = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jBoxDepartamento = new javax.swing.JComboBox<>();
+        jBoxEspecieVegetal = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(750, 430));
@@ -75,15 +72,9 @@ public class UpVariedadEspecie extends javax.swing.JPanel {
         jPanel1.setPreferredSize(new java.awt.Dimension(750, 430));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("Nueva Variedad Vegetal:");
+        jLabel1.setText("Nueva Variedad Especie:");
 
-        jLabel2.setText("Codigo Dane");
-
-        txtCodigoDane.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodigoDaneActionPerformed(evt);
-            }
-        });
+        jLabel2.setText("Nombre");
 
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,18 +95,16 @@ public class UpVariedadEspecie extends javax.swing.JPanel {
         btnGuardar.setBackground(new java.awt.Color(51, 153, 0));
         btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
-        btnGuardar.setText("Guardar Municipio");
+        btnGuardar.setText("Guardar Variedad");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
             }
         });
 
-        jLabel4.setText("Nombre");
+        jLabel3.setText("Especie Vegetal");
 
-        jLabel3.setText("Departamento");
-
-        jBoxDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jBoxEspecieVegetal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -124,20 +113,18 @@ public class UpVariedadEspecie extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCodigoDane)
+                    .addComponent(txtNombre)
+                    .addComponent(jBoxEspecieVegetal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel2))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 458, Short.MAX_VALUE)
-                        .addComponent(btnGuardar))
-                    .addComponent(jBoxDepartamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtNombre)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 464, Short.MAX_VALUE)
+                        .addComponent(btnGuardar))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,20 +134,16 @@ public class UpVariedadEspecie extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addGap(6, 6, 6)
-                .addComponent(txtCodigoDane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBoxDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
+                .addComponent(jBoxEspecieVegetal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnCancelar))
-                .addGap(178, 178, 178))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnGuardar))
+                .addGap(236, 236, 236))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -178,9 +161,8 @@ public class UpVariedadEspecie extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        if (txtCodigoDane.getText().trim().isEmpty()
-                || txtNombre.getText().trim().isEmpty()
-                || jBoxDepartamento.getSelectedIndex() <= 0) {
+        if (txtNombre.getText().trim().isEmpty()
+                || jBoxEspecieVegetal.getSelectedIndex() <= 0) {
 
             JOptionPane.showMessageDialog(this,
                     "Por favor, complete todos los campos antes de guardar.",
@@ -191,36 +173,35 @@ public class UpVariedadEspecie extends javax.swing.JPanel {
 
         try {
             // 🔹 Obtener el nombre seleccionado
-            String nombreDepto = (String) jBoxDepartamento.getSelectedItem();
+            String nombreEspecieVegetal = (String) jBoxEspecieVegetal.getSelectedItem();
 
-            // 🔹 Buscar ID del departamento
-            Clases.dao.DepartamentoDAO depDAO = new Clases.dao.DepartamentoDAO();
-            String idDepto = depDAO.obtenerIdPorNombre(nombreDepto);
+            // 🔹 Buscar ID del EspecieVegetal
+            Clases.dao.EspecieVegetalDAO espvDAO = new Clases.dao.EspecieVegetalDAO();
+            String idEspv = espvDAO.obtenerIdPorNombre(nombreEspecieVegetal);
 
-            if (idDepto == null) {
+            if (idEspv == null) {
                 JOptionPane.showMessageDialog(this,
-                        "No se encontró el ID del departamento seleccionado.",
+                        "No se encontró el ID de la especie vegetal seleccionada.",
                         "Error",
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             // 🔹 Crear municipio con el ID correcto
-            VariedadEspecie municipio = new VariedadEspecie();
-            municipio.setCodigoDane(txtCodigoDane.getText());
-            municipio.setNombre(txtNombre.getText());
-            municipio.setIdDepartamento(idDepto); // ✅ Guardamos el ID real
+            VariedadEspecie veriedadespecie = new VariedadEspecie();
+            veriedadespecie.setNomVariedad(txtNombre.getText());
+            veriedadespecie.setIdEspecie(idEspv); // ✅ Guardamos el ID real
 
             // 🔹 Insertar en la BD
-            Clases.dao.VariedadEspecieDAO municipioDAO = new Clases.dao.VariedadEspecieDAO();
-            boolean guardado = municipioDAO.insertar(municipio);
+            Clases.dao.VariedadEspecieDAO veriedadespecieDAO = new Clases.dao.VariedadEspecieDAO();
+            boolean guardado = veriedadespecieDAO.insertar(veriedadespecie);
 
             if (guardado) {
-                JOptionPane.showMessageDialog(this, "VariedadEspecie guardado correctamente");
+                JOptionPane.showMessageDialog(this, "Variedad guardada correctamente");
                 limpiarCampos();
                 Dashboard.ShowJPanel(new GestionVariedadEspecies());
             } else {
-                JOptionPane.showMessageDialog(this, "No se pudo guardar el VariedadEspecie");
+                JOptionPane.showMessageDialog(this, "No se pudo guardar la variedad");
             }
 
         } catch (Exception e) {
@@ -240,21 +221,15 @@ public class UpVariedadEspecie extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
 
-    private void txtCodigoDaneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoDaneActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodigoDaneActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JComboBox<String> jBoxDepartamento;
+    private javax.swing.JComboBox<String> jBoxEspecieVegetal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtCodigoDane;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

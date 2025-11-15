@@ -211,6 +211,7 @@ public class VariedadEspecieDAO {
                 variedadespecie.setIdVariedad(rs.getString("id_variedad"));
                 variedadespecie.setNomVariedad(rs.getString("nom_variedad"));
                 variedadespecie.setNombreEspecie(rs.getString("nombre_especie"));
+
             }
 
         } catch (SQLException e) {

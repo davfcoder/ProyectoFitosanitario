@@ -255,12 +255,12 @@ public class GestionVariedadEspecies extends javax.swing.JPanel {
         try {
             // Buscar el variedad en la BD
             Clases.dao.VariedadEspecieDAO buscarId = new Clases.dao.VariedadEspecieDAO();
-            Clases.modelo.VariedadEspecie variedad = buscarId.buscarPorId(idVariedadEspecie);
+            Clases.modelo.VariedadEspecie variedadespecie = buscarId.buscarPorId(idVariedadEspecie);
 
-            if (variedad != null) {
+            if (variedadespecie != null) {
                 // Crear el panel EditVariedadEspecie y pasarle el variedad
                 EditVariedadEspecie panelEditar = new EditVariedadEspecie();
-                panelEditar.setVariedadEspecie(variedad);
+                panelEditar.setVariedadEspecie(variedadespecie);
 
                 // Mostrar el panel en el Dashboard
                 Dashboard.ShowJPanel(panelEditar);

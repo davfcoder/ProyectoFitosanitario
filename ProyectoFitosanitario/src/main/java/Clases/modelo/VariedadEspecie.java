@@ -58,4 +58,8 @@ public class VariedadEspecie {
         this.nombreEspecie = nombreEspecie;
     }
 
+    public void idEspecie(String idEspv) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

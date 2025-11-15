@@ -31,7 +31,7 @@ public class GestionEspeciesVegetales extends javax.swing.JPanel {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0); // limpia la tabla
 
-            dao.listarTodas().forEach((u) -> {
+            dao.listarTodos().forEach((u) -> {
                 model.addRow(new Object[]{
                     u.getIdEspecie(), // 🔹 ID oculto
                     u.getNomEspecie(),

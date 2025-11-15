@@ -56,7 +56,7 @@ public class EspecieVegetalDAO {
     // ============================================================
     // READ - Listar todas las Especies Vegetales (función con SYS_REFCURSOR)
     // ============================================================
-    public List<EspecieVegetal> listarTodas() {
+    public List<EspecieVegetal> listarTodos() {
         List<EspecieVegetal> lista = new ArrayList<>();
         Connection con = null;
         CallableStatement cs = null;
