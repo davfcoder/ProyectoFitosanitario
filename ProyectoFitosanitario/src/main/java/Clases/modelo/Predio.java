@@ -164,15 +164,15 @@ public class Predio {
         this.nombreVereda = nombreVereda;
     }
         //////////////////TRAE NOMBRE USUARIO
-    private String nombrePropietario;
+    private String nombreUsuario;
 
 // Debajo de los getters y setters existentes, agrega estos:
-    public String getNombrePropietario() {
-        return nombrePropietario;
+    public String getNombreUsuario() {
+        return nombreUsuario;
     }
 
-    public void setNombrePropietario(String nombrePropietario) {
-        this.nombrePropietario = nombrePropietario;
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
     
             //////////////////TRAE NOMBRE LUGAR PRODUCCION

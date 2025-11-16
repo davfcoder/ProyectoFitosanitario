@@ -54,6 +54,8 @@ public class GestionPredios extends javax.swing.JPanel {
             System.out.println(e.getMessage());
         }
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
