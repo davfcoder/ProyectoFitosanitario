@@ -26,7 +26,7 @@ public class LoteDAO {
 
         try {
             con = conexion.estableceConexion();
-            String sql = "{call pro_incLote(?, ?, ?, ?, ?, ?, ?)}";
+            String sql = "{call pro_incLote(?, ?, ?, ?, ?, ?)}";
             cs = con.prepareCall(sql);
 
             cs.setString(1, lote.getNumero());

@@ -85,7 +85,17 @@ public class Lote {
         this.idLugarProduccion = idLugarProduccion;
     }
     
-       
+    // En la parte de atributos (junto con los demás campos)
+    private String nombreEspecoe;
+
+// Debajo de los getters y setters existentes, agrega estos:
+    public String getNombreEspecie() {
+        return nombreEspecoe;
+    }
+
+    public void setNombreEspecie(String nombreEspecoe) {
+        this.nombreEspecoe = nombreEspecoe;
+    }       
    
 //////////////TRAE Nombre Variedad 
     // En la parte de atributos (junto con los demás campos)

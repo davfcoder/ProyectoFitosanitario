@@ -27,8 +27,8 @@ public class UpVereda extends javax.swing.JPanel {
     public UpVereda() {
         initComponents();
         cargarDepartamentos();
-        configurarMunicipioInactivo(); // 👈 desactiva el combo al inicio
-        configurarEventoDepartamento(); // 👈 para que filtre municipios al cambiar el depto
+        configurarMunicipioInactivo(); 
+        configurarEventoDepartamento(); 
 
     }
 

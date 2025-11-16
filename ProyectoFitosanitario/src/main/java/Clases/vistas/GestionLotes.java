@@ -281,11 +281,11 @@ public class GestionLotes extends javax.swing.JPanel {
 
             if (lote != null) {
                 // Crear el panel EditLote y pasarle el lote
-                //EditLote panelEditar = new EditLote();
-                //panelEditar.setLote(lote);
+                EditLote panelEditar = new EditLote();
+                panelEditar.setLote(lote);
 
                 // Mostrar el panel en el Dashboard
-                //Dashboard.ShowJPanel(panelEditar);
+                Dashboard.ShowJPanel(panelEditar);
             } else {
                 JOptionPane.showMessageDialog(this, "No se encontró la lote seleccionado.");
             }

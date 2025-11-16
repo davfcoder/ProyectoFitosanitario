@@ -37,7 +37,7 @@ public class UpVariedadEspecie extends javax.swing.JPanel {
             jBoxEspecieVegetal.removeAllItems();
             jBoxEspecieVegetal.addItem("Seleccione una Especie");
 
-            dao.listarTodos().forEach(espv -> jBoxEspecieVegetal.addItem(espv.getNomEspecie()));
+            dao.listarTodos().forEach(espv -> jBoxEspecieVegetal.addItem(espv.getNombreComun()));
 
             // ?Habilitar autocompletado
             AutoCompleteDecorator.decorate(jBoxEspecieVegetal);

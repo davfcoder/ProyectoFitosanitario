@@ -277,5 +277,31 @@ public class VariedadEspecieDAO {
 
         return idVariedadEspecie;
     }
+    
+        ////////////AUTORRELLENA EL MUNCIPIO APARTIR DEL DPTO
+    public List<String> listarPorEspecie(String idEspecie) {
+        List<String> especievegetal = new ArrayList<>();
+
+        String sql = "{ ? = call fun_listarVarPorEspecie(?) }";
+
+        try (Connection con = conexion.estableceConexion(); CallableStatement cs = con.prepareCall(sql)) {
+
+            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            cs.setString(2, idEspecie);
+            cs.execute();
+
+            try (ResultSet rs = (ResultSet) cs.getObject(1)) {
+                while (rs.next()) {
+                    especievegetal.add(rs.getString("nom_variedad"));
+                }
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,
+                    "Error al listar variedad por especie: " + e.getMessage());
+        }
+
+        return especievegetal;
+    }
 
 }

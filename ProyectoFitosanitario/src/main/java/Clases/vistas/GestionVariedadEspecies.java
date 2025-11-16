@@ -81,7 +81,7 @@ public class GestionVariedadEspecies extends javax.swing.JPanel {
 
             },
             new String [] {
-                "id", "Nombre", "Especie Vegetal"
+                "id", "Nombre Variedad", "Especie Vegetal"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
