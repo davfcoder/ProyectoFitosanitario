@@ -78,7 +78,7 @@ public class EditDepartamento extends javax.swing.JPanel {
         jButton2.setBackground(new java.awt.Color(51, 153, 0));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Actualizar Departamento");
+        jButton2.setText("Actualizar departamento");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);

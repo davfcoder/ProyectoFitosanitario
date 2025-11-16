@@ -78,7 +78,7 @@ public class EditRol extends javax.swing.JPanel {
         jButton2.setBackground(new java.awt.Color(51, 153, 0));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Actualizar Rol");
+        jButton2.setText("Actualizar rol");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -104,7 +104,7 @@ public class EditRol extends javax.swing.JPanel {
                             .addComponent(jButton2))
                         .addComponent(txtNomRol, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(txtDescripcion, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

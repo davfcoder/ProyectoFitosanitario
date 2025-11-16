@@ -160,7 +160,7 @@ public class EditVereda extends javax.swing.JPanel {
         jButton2.setBackground(new java.awt.Color(51, 153, 0));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Actualizar Vereda");
+        jButton2.setText("Actualizar vereda");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -204,7 +204,7 @@ public class EditVereda extends javax.swing.JPanel {
                                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 575, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnCancelar)
                                 .addGap(460, 460, 460)

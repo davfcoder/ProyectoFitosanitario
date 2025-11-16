@@ -10,11 +10,15 @@ import Clases.dao.VariedadEspecieDAO;
 import Clases.dao.EspecieVegetalDAO;
 import Clases.dao.LugarProduccionDAO;
 import Clases.libreria.Dashboard;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.sql.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
@@ -32,6 +36,7 @@ public class EditLote extends javax.swing.JPanel {
         configurarVariedadInactiva();
         configurarEventoNomComun();
         cargarLugarProduccion();
+        configurarPlaceholderFecha();
     }
 
     private void configurarCamposEditables() {
@@ -191,6 +196,49 @@ public class EditLote extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Error al cargar especies: " + e.getMessage());
         }
     }
+
+    private void configurarPlaceholderFecha() {
+
+        agregarPlaceholder(txtFecSiembra, "YYYY-MM-DD");
+        agregarPlaceholder(txtFecEliminacion, "YYYY-MM-DD");
+    }
+
+
+    
+    private void agregarPlaceholder(JTextField campo, String placeholder) {
+
+    // Si ya tiene valor real (caso EDITAR)
+    if (!campo.getText().trim().isEmpty() && !campo.getText().equals(placeholder)) {
+        campo.setForeground(Color.BLACK);
+        return; // no aplicar placeholder
+    }
+
+    // Aplicar placeholder si está vacío
+    campo.setText(placeholder);
+    campo.setForeground(new Color(150,150,150));
+
+    campo.addFocusListener(new FocusAdapter() {
+
+        @Override
+        public void focusGained(FocusEvent e) {
+            // Al entrar al campo → poner negro SIEMPRE
+            if (campo.getText().equals(placeholder)) {
+                campo.setText("");
+            }
+            campo.setForeground(Color.BLACK); // ← aquí la solución definitiva
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+            // Si lo deja vacío → volver a placeholder
+            if (campo.getText().trim().isEmpty()) {
+                campo.setText(placeholder);
+                campo.setForeground(new Color(150,150,150));
+            }
+        }
+    });
+}
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

@@ -30,6 +30,7 @@ public class UpLote extends javax.swing.JPanel {
         configurarCamposEditables(); // <-- NUEVO
         cargarEspecies();
         configurarVariedadInactiva();
+        configurarPlaceholderFecha();  // <<--- AGREGA ESTA LÍNEA
         configurarEventoNomComun();
         cargarLugarProduccion();
     }
@@ -150,8 +151,39 @@ public class UpLote extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Error al cargar especies: " + e.getMessage());
         }
     }
-    // ---------------------------------------------------------
 
+    private void configurarPlaceholderFecha() {
+
+        agregarPlaceholder(txtFecSiembra, "YYYY-MM-DD");
+        agregarPlaceholder(txtFecEliminacion, "YYYY-MM-DD");
+    }
+
+    private void agregarPlaceholder(javax.swing.JTextField campo, String texto) {
+
+        campo.setText(texto);
+        campo.setForeground(new java.awt.Color(150, 150, 150));
+
+        campo.addFocusListener(new java.awt.event.FocusAdapter() {
+
+            @Override
+            public void focusGained(java.awt.event.FocusEvent e) {
+                if (campo.getText().equals(texto)) {
+                    campo.setText("");
+                    campo.setForeground(new java.awt.Color(0, 0, 0));
+                }
+            }
+
+            @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+                if (campo.getText().trim().isEmpty()) {
+                    campo.setText(texto);
+                    campo.setForeground(new java.awt.Color(150, 150, 150));
+                }
+            }
+        });
+    }
+
+    // ---------------------------------------------------------
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
