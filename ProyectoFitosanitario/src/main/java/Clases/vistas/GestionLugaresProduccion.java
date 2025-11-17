@@ -82,7 +82,7 @@ public class GestionLugaresProduccion extends javax.swing.JPanel {
 
             },
             new String [] {
-                "id", "Nombre", "Numero Registro ICA", "Productor"
+                "id", "Nombre", "Codigo ICA", "Productor"
             }
         ));
         jScrollPane1.setViewportView(jTable1);

@@ -445,9 +445,9 @@ public class UpInspeccionFitosanitaria extends javax.swing.JPanel {
         // ==================================
         String nombreAsistente = (String) jBoxAsistente.getSelectedItem();
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-        String idUsuarioAsis = usuarioDAO.obtenerIdUsuarioAsisPorNombre(nombreAsistente);
+        String idUsuario = usuarioDAO.obtenerIdUsuarioPorNombre(nombreAsistente);
 
-        if (idUsuarioAsis == null) {
+        if (idUsuario == null) {
             JOptionPane.showMessageDialog(this,
                     "No se encontró el ID del asistente técnico.");
             return;
@@ -475,7 +475,7 @@ public class UpInspeccionFitosanitaria extends javax.swing.JPanel {
         insp.setEstadoFenologico((String) jBoxEstado.getSelectedItem());
         insp.setFecInspeccion(fechaInspeccion);
         insp.setObservaciones(txtObservaciones.getText().trim());
-        insp.setIdUsuarioAsistente(idUsuarioAsis);
+        insp.setIdUsuarioAsistente(idUsuario);
         insp.setIdLote(idLote);
 
         // ==================================

@@ -499,9 +499,9 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
             // =======================
             String nombreAsistente = (String) jBoxAsistente.getSelectedItem();
             UsuarioDAO usuarioDAO = new UsuarioDAO();
-            String idUsuarioAsis = usuarioDAO.obtenerIdUsuarioAsisPorNombre(nombreAsistente);
+            String idUsuario = usuarioDAO.obtenerIdUsuarioPorNombre(nombreAsistente);
 
-            if (idUsuarioAsis == null) {
+            if (idUsuario == null) {
                 JOptionPane.showMessageDialog(this, "No se encontró el asistente técnico.");
                 return;
             }
@@ -538,11 +538,8 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
             inspeccionfitosanitariaActual.setObservaciones(txtObservaciones.getText().trim());
 
             // Estado fenológico viene del combo
-            inspeccionfitosanitariaActual.setEstadoFenologico(
-                    (String) jBoxEstado.getSelectedItem()
-            );
-
-            inspeccionfitosanitariaActual.setIdUsuarioAsistente(idUsuarioAsis);
+            inspeccionfitosanitariaActual.setEstadoFenologico((String) jBoxEstado.getSelectedItem());
+            inspeccionfitosanitariaActual.setIdUsuarioAsistente(idUsuario);
             inspeccionfitosanitariaActual.setIdLote(idLote);
 
             // jBoxLugarProd es solo visual → NO SE USA

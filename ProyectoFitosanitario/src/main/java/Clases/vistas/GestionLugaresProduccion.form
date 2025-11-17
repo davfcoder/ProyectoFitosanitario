@@ -110,7 +110,7 @@
                   <Table columnCount="4" rowCount="0">
                     <Column editable="true" title="id" type="java.lang.Object"/>
                     <Column editable="true" title="Nombre" type="java.lang.Object"/>
-                    <Column editable="true" title="Numero Registro ICA" type="java.lang.Object"/>
+                    <Column editable="true" title="Codigo ICA" type="java.lang.Object"/>
                     <Column editable="true" title="Productor" type="java.lang.Object"/>
                   </Table>
                 </Property>

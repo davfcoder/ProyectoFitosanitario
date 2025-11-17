@@ -315,49 +315,7 @@ public class UsuarioDAO {
         return idUsuario;
     }
     
-    
-    // Trae solo el ID del usuario a partir del nombre completo (AUTORRELLENABLE)
-
-    public String obtenerIdUsuarioAsisPorNombre(String nombreCompletoAsis) {
-        String idUsuarioAsis = null;
-        Connection con = null;
-        CallableStatement cs = null;
-
-        try {
-            con = conexion.estableceConexion();
-            String sql = "{ ? = call fun_obtenerIdUsuario(?) }";
-            cs = con.prepareCall(sql);
-
-            // Registrar parámetro de salida
-            cs.registerOutParameter(1, java.sql.Types.VARCHAR);
-
-            // Parámetro de entrada (nombre completo)
-            cs.setString(2, nombreCompletoAsis);
-
-            cs.execute();
-
-            idUsuarioAsis = cs.getString(1);
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(
-                    null,
-                    "Error al obtener ID del usuario: " + e.getMessage()
-            );
-        } finally {
-            try {
-                if (cs != null) {
-                    cs.close();
-                }
-                if (con != null) {
-                    con.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return idUsuarioAsis;
-    }
+   
     
     // READ - Listar usuarios usando Function almacenada
     public List<Usuarios> listarAsistentes() {
