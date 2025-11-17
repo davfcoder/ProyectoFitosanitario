@@ -20,25 +20,35 @@ public class EspecieVegetalDAO {
     }
 
     // CREATE - Insertar Especie Vegetal
-    public boolean insertar(EspecieVegetal especievegetal) {
+    public String insertar(EspecieVegetal especievegetal) {
         Connection con = null;
         CallableStatement cs = null;
+        CallableStatement csFunc = null;
 
         try {
             con = conexion.estableceConexion();
-            String sql = "{call pro_incEspecieVegetal(?, ?, ?)}";
+            
+            String sqlFunction = "{ ? = call fn_getNextIdEspecie }";
+            csFunc = con.prepareCall(sqlFunction);
+            csFunc.registerOutParameter(1, java.sql.Types.NUMERIC);
+            csFunc.execute();
+            String idGenerado = csFunc.getString(1);
+            System.out.println("Nuevo ID generado = " + idGenerado);
+            
+            String sql = "{call pro_incEspecieVegetal(?, ?, ?, ?)}";
             cs = con.prepareCall(sql);
-
-            cs.setString(1, especievegetal.getNomEspecie());
-            cs.setString(2, especievegetal.getNombreComun());
-            cs.setString(3, especievegetal.getCicloCultivo());
+            
+            cs.setString(1, idGenerado);
+            cs.setString(2, especievegetal.getNomEspecie());
+            cs.setString(3, especievegetal.getNombreComun());
+            cs.setString(4, especievegetal.getCicloCultivo());
 
             cs.execute();
-            return true;
+            return idGenerado;
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al insertar Especie Vegetal: " + e.getMessage());
-            return false;
+            return "0";
         } finally {
             try {
                 if (cs != null) {
@@ -149,11 +159,17 @@ public class EspecieVegetalDAO {
     public boolean eliminar(String idEspecie) {
         Connection con = null;
         CallableStatement cs = null;
+        CallableStatement cs2 = null;
 
         try {
             con = conexion.estableceConexion();
             con.setAutoCommit(false);
 
+            String sql2 = "{call pro_elim_all_especie_plaga(?)}";
+            cs2 = con.prepareCall(sql2);
+            cs2.setString(1, idEspecie);
+            cs2.execute();
+            
             String sql = "{call pro_elimEspecieVegetal(?)}";
             cs = con.prepareCall(sql);
 

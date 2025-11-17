@@ -52,11 +52,10 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
         txtNomCientifico = new javax.swing.JTextField();
         txtNomComun = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
-        btnSelectPlaga = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jBoxCiclos = new javax.swing.JComboBox<>();
-        btnGuardar1 = new javax.swing.JButton();
+        Continuar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(750, 430));
@@ -91,29 +90,19 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
             }
         });
 
-        btnSelectPlaga.setBackground(new java.awt.Color(153, 153, 153));
-        btnSelectPlaga.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnSelectPlaga.setForeground(new java.awt.Color(255, 255, 255));
-        btnSelectPlaga.setText("Seleccionar Plagas");
-        btnSelectPlaga.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSelectPlagaActionPerformed(evt);
-            }
-        });
-
         jLabel4.setText("Nombre Comun");
 
-        jLabel3.setText("Ciclo Cultivo");
+        jLabel3.setText("Ciclo de Cultivo");
 
         jBoxCiclos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        btnGuardar1.setBackground(new java.awt.Color(51, 153, 0));
-        btnGuardar1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnGuardar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnGuardar1.setText("Guardar Especie Vegetal");
-        btnGuardar1.addActionListener(new java.awt.event.ActionListener() {
+        Continuar.setBackground(new java.awt.Color(51, 153, 0));
+        Continuar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Continuar.setForeground(new java.awt.Color(255, 255, 255));
+        Continuar.setText("Guardar y continuar");
+        Continuar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardar1ActionPerformed(evt);
+                ContinuarActionPerformed(evt);
             }
         });
 
@@ -133,12 +122,11 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4))
-                        .addContainerGap(522, Short.MAX_VALUE))
+                        .addContainerGap(518, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGuardar1))
-                    .addComponent(btnSelectPlaga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 456, Short.MAX_VALUE)
+                        .addComponent(Continuar))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,12 +145,10 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
                 .addComponent(jLabel3)
                 .addGap(12, 12, 12)
                 .addComponent(jBoxCiclos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSelectPlaga)
-                .addGap(18, 18, 18)
+                .addGap(53, 53, 53)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
-                    .addComponent(btnGuardar1))
+                    .addComponent(Continuar))
                 .addContainerGap(133, Short.MAX_VALUE))
         );
 
@@ -180,10 +166,6 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSelectPlagaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectPlagaActionPerformed
-
-    }//GEN-LAST:event_btnSelectPlagaActionPerformed
-
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         limpiarCampos();
         Dashboard.ShowJPanel(new GestionEspeciesVegetales());
@@ -197,10 +179,10 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomCientificoActionPerformed
 
-    private void btnGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar1ActionPerformed
-             if (txtNomCientifico.getText().trim().isEmpty()
-                || txtNomComun.getText().trim().isEmpty()
-                || jBoxCiclos.getSelectedItem() == null) {
+    private void ContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContinuarActionPerformed
+        if (txtNomCientifico.getText().trim().isEmpty()
+            || txtNomComun.getText().trim().isEmpty()
+            || jBoxCiclos.getSelectedItem() == null) {
 
             JOptionPane.showMessageDialog(this,
                     "Por favor, complete todos los campos antes de guardar.",
@@ -217,12 +199,14 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
 
             // Llamar al DAO para guardar en BD
             Clases.dao.EspecieVegetalDAO especievegetalDAO = new Clases.dao.EspecieVegetalDAO();
-            boolean guardado = especievegetalDAO.insertar(especievegetal);
+            String idGenerado = especievegetalDAO.insertar(especievegetal);
+            especievegetal.setIdEspecie(idGenerado);
+            
 
-            if (guardado) {
-                JOptionPane.showMessageDialog(this, "Especie Vegetal guardada correctamente");
+            if (idGenerado != "0") {
+                JOptionPane.showMessageDialog(this, "Especie Vegetal guardada correctamente. A continuación, asocia las plagas a dicha especie");
                 limpiarCampos();
-                Dashboard.ShowJPanel(new GestionEspeciesVegetales());
+                Dashboard.ShowJPanel(new UpEspecieVegetalPlaga(especievegetal));
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo guardar la especie vegetal");
             }
@@ -232,13 +216,12 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
             e.printStackTrace();
         }
        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardar1ActionPerformed
+    }//GEN-LAST:event_ContinuarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Continuar;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnGuardar1;
-    private javax.swing.JButton btnSelectPlaga;
     private javax.swing.JComboBox<String> jBoxCiclos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
