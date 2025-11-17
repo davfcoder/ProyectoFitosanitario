@@ -4,42 +4,43 @@
  */
 package Clases.vistas;
 
-import Clases.dao.LoteDAO;
-import Clases.modelo.Lote;
+import Clases.dao.InspeccionFitosanitariaDAO;
+import Clases.modelo.InspeccionFitosanitaria;
 import Clases.libreria.Dashboard;
 import javax.swing.JOptionPane;
-import Clases.vistas.UpLote;
+import Clases.vistas.UpInspeccionFitosanitaria;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author ricar
  */
-public class GestionLotes extends javax.swing.JPanel {
+public class GestionInspeccionesFitosanitarias extends javax.swing.JPanel {
 
     /**
      * Creates new form Principal
      */
-    public GestionLotes() {
+    public GestionInspeccionesFitosanitarias() {
         initComponents();
-        LoadLote();
+        LoadInspeccionFitosanitaria();
     }
 
-    private void LoadLote() {
+    private void LoadInspeccionFitosanitaria() {
         try {
-            LoteDAO dao = new LoteDAO();
+            InspeccionFitosanitariaDAO dao = new InspeccionFitosanitariaDAO();
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0); // limpia la tabla
 
             dao.listarTodos().forEach((u) -> {
                 model.addRow(new Object[]{
-                    u.getIdLote(),
-                    u.getNumero(),
-                    u.getAreaTotal(),
-                    u.getFecSiembra(),
-                    u.getFecEliminacion(),
-                    u.getNombreVariedad(),
-                    u.getNombreLugarProduccion()
+                    u.getIdInspeccion(),
+                    u.getCantidadPlantas(),
+                    u.getEstadoFenologico(),
+                    u.getFecInspeccion(),
+                    u.getObservaciones(),
+                    u.getNombreUsuario(),
+                    u.getNombreLugarProduccion(),
+                    u.getNumeroLote()
                         
                         ,});
                 
@@ -68,7 +69,7 @@ public class GestionLotes extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        btnNuevoLote = new javax.swing.JButton();
+        btnNuevaInspeccion = new javax.swing.JButton();
         btnbuscar = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
@@ -79,14 +80,14 @@ public class GestionLotes extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Gestión de Lotes:");
+        jLabel1.setText("Gestión de Inspecciones:");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "id", "Numero", "Area Total", "Fecha de siembra", "Fecha de eliminacion", "Variedad Vegetal", "Lugar de Produccion"
+                "id", "Cantidad Plantas", "Estado Fenologico", "Fecha de Inspección", "Observaciones", "Asistente tecnico", "Lugar de Producción", "Numero de lote"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -94,10 +95,10 @@ public class GestionLotes extends javax.swing.JPanel {
             jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
         }
 
-        btnNuevoLote.setText("+ Nuevo Lote");
-        btnNuevoLote.addActionListener(new java.awt.event.ActionListener() {
+        btnNuevaInspeccion.setText("+ Nueva Inspección");
+        btnNuevaInspeccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoLoteActionPerformed(evt);
+                btnNuevaInspeccionActionPerformed(evt);
             }
         });
 
@@ -138,14 +139,14 @@ public class GestionLotes extends javax.swing.JPanel {
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 310, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 252, Short.MAX_VALUE)
                         .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnNuevoLote)
+                .addComponent(btnNuevaInspeccion)
                 .addGap(40, 40, 40)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
@@ -164,7 +165,7 @@ public class GestionLotes extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNuevoLote)
+                    .addComponent(btnNuevaInspeccion)
                     .addComponent(btnEditar)
                     .addComponent(btnBorrar))
                 .addGap(93, 93, 93))
@@ -182,23 +183,23 @@ public class GestionLotes extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnNuevoLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoLoteActionPerformed
-        Dashboard.ShowJPanel(new UpLote());
-    }//GEN-LAST:event_btnNuevoLoteActionPerformed
+    private void btnNuevaInspeccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaInspeccionActionPerformed
+        Dashboard.ShowJPanel(new UpInspeccionFitosanitaria());
+    }//GEN-LAST:event_btnNuevaInspeccionActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        LoteDAO dao = new LoteDAO();
+        InspeccionFitosanitariaDAO dao = new InspeccionFitosanitariaDAO();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
         int[] selected = jTable1.getSelectedRows();
         if (selected.length < 1) {
-            JOptionPane.showMessageDialog(this, "Debes seleccionar uno o más Lotes para eliminar.", "AVISO", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debes seleccionar uno o más Inspecciones para eliminar.", "AVISO", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         int confirmacion = JOptionPane.showConfirmDialog(
                 this,
-                "¿Está seguro de eliminar los lotes seleccionadas?",
+                "¿Está seguro de eliminar las inspecciones seleccionadas?",
                 "Confirmar eliminación",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE
@@ -228,16 +229,16 @@ public class GestionLotes extends javax.swing.JPanel {
                     continue;
                 }
 
-                String idLote = valorCelda.toString();
+                String idInspeccionFitosanitaria = valorCelda.toString();
 
-                boolean ok = dao.eliminar(idLote);
+                boolean ok = dao.eliminar(idInspeccionFitosanitaria);
                 if (ok) {
                     model.removeRow(row);
                     eliminados++;
                 } else {
                     JOptionPane.showMessageDialog(
                             this,
-                            "No se pudo eliminar el lote con ID: " + idLote,
+                            "No se pudo eliminar la inspección con ID: " + idInspeccionFitosanitaria,
                             "Error",
                             JOptionPane.ERROR_MESSAGE
                     );
@@ -255,9 +256,9 @@ public class GestionLotes extends javax.swing.JPanel {
         }
 
         if (eliminados > 0) {
-            JOptionPane.showMessageDialog(this, eliminados + " Lote(s) eliminadas correctamente.");
+            JOptionPane.showMessageDialog(this, eliminados + " Inspeccione(s) eliminadas correctamente.");
         } else {
-            JOptionPane.showMessageDialog(this, "No se eliminó ninguna lote.");
+            JOptionPane.showMessageDialog(this, "No se eliminó ninguna inspección.");
         }
 
     }//GEN-LAST:event_btnBorrarActionPerformed
@@ -266,33 +267,32 @@ public class GestionLotes extends javax.swing.JPanel {
         int fila = jTable1.getSelectedRow();
 
         if (fila == -1) {
-            JOptionPane.showMessageDialog(this, "Por favor, selecciona un lote de la tabla para editarlo.");
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona una inspección de la tabla para editarlo.");
             return;
         }
 
         // Supongamos que la columna 0 tiene el número de identificación
-        String idLote = jTable1.getValueAt(fila, 0).toString();
+        String idInspeccionFitosanitaria = jTable1.getValueAt(fila, 0).toString();
 
-        // Buscar el Lote en la BD
+        // Buscar la Inspección en la BD
         try {
-            // Buscar el Lote en la BD
-            Clases.dao.LoteDAO buscarId = new Clases.dao.LoteDAO();
-            Clases.modelo.Lote lote = buscarId.buscarPorId(idLote);
+                Clases.dao.InspeccionFitosanitariaDAO buscarId = new Clases.dao.InspeccionFitosanitariaDAO();
+            Clases.modelo.InspeccionFitosanitaria inspeccionfitosanitaria = buscarId.buscarPorId(idInspeccionFitosanitaria);
 
-            if (lote != null) {
-                // Crear el panel EditLote y pasarle el lote
-                EditLote panelEditar = new EditLote();
-                panelEditar.setLote(lote);
+            if (inspeccionfitosanitaria != null) {
+                // Crear el panel EditInspeccionFitosanitaria y pasarle la inspeccion
+                EditInspeccionFitosanitaria panelEditar = new EditInspeccionFitosanitaria();
+                panelEditar.setInspeccionFitosanitaria(inspeccionfitosanitaria);
 
                 // Mostrar el panel en el Dashboard
                 Dashboard.ShowJPanel(panelEditar);
             } else {
-                JOptionPane.showMessageDialog(this, "No se encontró la lote seleccionado.");
+                JOptionPane.showMessageDialog(this, "No se encontró la inspección seleccionado.");
             }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
-                    "Error al obtener el lote: " + e.getMessage(),
+                    "Error al obtener la inspección: " + e.getMessage(),
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
@@ -311,7 +311,7 @@ public class GestionLotes extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnEditar;
-    private javax.swing.JButton btnNuevoLote;
+    private javax.swing.JButton btnNuevaInspeccion;
     private javax.swing.JButton btnSearch;
     private javax.swing.JTextField btnbuscar;
     private javax.swing.JLabel jLabel1;

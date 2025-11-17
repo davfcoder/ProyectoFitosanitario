@@ -84,11 +84,11 @@ public class LoteDAO {
                 Lote v = new Lote();
                 v.setIdLote(rs.getString("id_lote"));
                 v.setNumero(rs.getString("numero"));
-                v.setAreaTotal(rs.getFloat("area_total"));        
-                v.setFecSiembra(rs.getDate("fec_siembra")); 
-                v.setFecEliminacion(rs.getDate("fec_eliminacion")); 
-                v.setNombreVariedad(rs.getString("nom_variedad")); 
-                v.setNombreLugarProduccion(rs.getString("nom_lugar_produccion")); 
+                v.setAreaTotal(rs.getFloat("area_total"));
+                v.setFecSiembra(rs.getDate("fec_siembra"));
+                v.setFecEliminacion(rs.getDate("fec_eliminacion"));
+                v.setNombreVariedad(rs.getString("nom_variedad"));
+                v.setNombreLugarProduccion(rs.getString("nom_lugar_produccion"));
 
                 lista.add(v);
             }
@@ -193,6 +193,7 @@ public class LoteDAO {
         }
     }
 // READ - Buscar lote por ID para abrir EditLote
+
     public Lote buscarPorId(String id) {
         Lote lote = null;
         Connection con = null;
@@ -252,7 +253,7 @@ public class LoteDAO {
     }
 
     // Obtener ID de Lote por nombre (AUTORRELLENABLE)
-    public String obtenerIdPorNombre(String nombreLote) {
+    public String obtenerIdPorNombre(String numeroLote) {
         String idLote = null;
         Connection con = null;
         CallableStatement cs = null;
@@ -267,7 +268,7 @@ public class LoteDAO {
             cs.registerOutParameter(1, java.sql.Types.VARCHAR);
 
             // Parámetro de entrada
-            cs.setString(2, nombreLote);
+            cs.setString(2, numeroLote);
 
             // Ejecutar función
             cs.execute();
@@ -294,6 +295,32 @@ public class LoteDAO {
         }
 
         return idLote;
+    }
+
+    ////////////AUTORRELLENA EL LOTE APARTIR DEL LUGAR DE PRODUCCION
+    public List<String> listarLotePorLugarProduccion(String idLote) {
+        List<String> Lotes = new ArrayList<>();
+
+        String sql = "{ ? = call fun_listarLotePorLugarProd(?) }";
+
+        try (Connection con = conexion.estableceConexion(); CallableStatement cs = con.prepareCall(sql)) {
+
+            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            cs.setString(2, idLote);
+            cs.execute();
+
+            try (ResultSet rs = (ResultSet) cs.getObject(1)) {
+                while (rs.next()) {
+                    Lotes.add(rs.getString("numero"));
+                }
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,
+                    "Error al listar lotes por lugar de producción: " + e.getMessage());
+        }
+
+        return Lotes;
     }
 
 }

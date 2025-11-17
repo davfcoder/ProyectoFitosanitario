@@ -15,6 +15,7 @@ import Clases.vistas.GestionPlagas;
 import Clases.vistas.GestionEspeciesVegetales;
 import Clases.vistas.GestionVariedadEspecies;
 import Clases.vistas.GestionLotes;
+import Clases.vistas.GestionInspeccionesFitosanitarias;
 import Clases.vistas.Principal;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.BorderLayout;
@@ -512,7 +513,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+         ShowJPanel(new GestionInspeccionesFitosanitarias()); // TODO add your handling code here:        // TODO add your handling code here:       // TODO add your handling code here:        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

@@ -314,5 +314,111 @@ public class UsuarioDAO {
 
         return idUsuario;
     }
+    
+    
+    // Trae solo el ID del usuario a partir del nombre completo (AUTORRELLENABLE)
+
+    public String obtenerIdUsuarioAsisPorNombre(String nombreCompletoAsis) {
+        String idUsuarioAsis = null;
+        Connection con = null;
+        CallableStatement cs = null;
+
+        try {
+            con = conexion.estableceConexion();
+            String sql = "{ ? = call fun_obtenerIdUsuario(?) }";
+            cs = con.prepareCall(sql);
+
+            // Registrar parámetro de salida
+            cs.registerOutParameter(1, java.sql.Types.VARCHAR);
+
+            // Parámetro de entrada (nombre completo)
+            cs.setString(2, nombreCompletoAsis);
+
+            cs.execute();
+
+            idUsuarioAsis = cs.getString(1);
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Error al obtener ID del usuario: " + e.getMessage()
+            );
+        } finally {
+            try {
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return idUsuarioAsis;
+    }
+    
+    // READ - Listar usuarios usando Function almacenada
+    public List<Usuarios> listarAsistentes() {
+        List<Usuarios> lista = new ArrayList<>();
+        Connection con = null;
+        CallableStatement cs = null;
+        ResultSet rs = null;
+
+        try {
+            con = conexion.estableceConexion();
+
+            // ✅ Llamar a la FUNCIÓN almacenada (no procedimiento)
+            String sql = "{ ? = call fun_listarAsistentes() }";
+            cs = con.prepareCall(sql);
+
+            // ✅ Registrar el parámetro de salida (la función retorna el cursor)
+            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+
+            // ✅ Ejecutar la función
+            cs.execute();
+
+            // ✅ Obtener el cursor como ResultSet
+            rs = (ResultSet) cs.getObject(1);
+
+            // ✅ Recorrer los resultados
+            while (rs.next()) {
+                Usuarios u = new Usuarios();
+                u.setIdUsuario(rs.getString("id_usuario"));
+                u.setNumIdentificacion(rs.getString("num_identificacion"));
+                u.setNombres(rs.getString("nombres"));
+                u.setApellidos(rs.getString("apellidos"));
+                u.setDireccion(rs.getString("direccion"));
+                u.setTelefono(rs.getString("telefono"));
+                u.setCorreoElectronico(rs.getString("correo_electronico"));
+                u.setIngresoUsuario(rs.getString("ingreso_usuario"));
+                u.setIngresoContrasenia(rs.getString("ingreso_contrasenia"));
+                u.setNroRegistroICA(rs.getString("nro_registro_ica"));
+                u.setTarjetaProfesional(rs.getString("tarjeta_profesional"));
+                u.setNomRol(rs.getString("nom_rol"));
+                lista.add(u);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al listar usuarios: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return lista;
+    }
 
 }

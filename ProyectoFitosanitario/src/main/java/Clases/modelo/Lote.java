@@ -86,15 +86,15 @@ public class Lote {
     }
     
     // En la parte de atributos (junto con los demás campos)
-    private String nombreEspecoe;
+    private String nombreEspecie;
 
 // Debajo de los getters y setters existentes, agrega estos:
     public String getNombreEspecie() {
-        return nombreEspecoe;
+        return nombreEspecie;
     }
 
-    public void setNombreEspecie(String nombreEspecoe) {
-        this.nombreEspecoe = nombreEspecoe;
+    public void setNombreEspecie(String nombreEspecie) {
+        this.nombreEspecie = nombreEspecie;
     }       
    
 //////////////TRAE Nombre Variedad 

@@ -143,6 +143,8 @@ public class Usuarios {
     public String getNombreCompleto() {
         return nombres + " " + apellidos;
     }
+    
+    
     // En la parte de atributos (junto con los demás campos)
     private String nomRol;
 

@@ -278,7 +278,7 @@ public class VariedadEspecieDAO {
         return idVariedadEspecie;
     }
     
-        ////////////AUTORRELLENA EL MUNCIPIO APARTIR DEL DPTO
+        ////////////AUTORRELLENA LA VARIEDAD APARTIR DE LA ESPECIE
     public List<String> listarPorEspecie(String idEspecie) {
         List<String> especievegetal = new ArrayList<>();
 
