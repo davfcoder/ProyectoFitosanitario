@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Clases.modelo;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EspecieVegetal {
 
@@ -10,6 +12,7 @@ public class EspecieVegetal {
     private String nomEspecie;
     private String nombreComun;
     private String cicloCultivo;
+    private List<Plaga> plagas;
 
     public EspecieVegetal(String idEspecie, String nomEspecie, String nombreComun, String cicloCultivo) {
         this.idEspecie = idEspecie;
@@ -18,10 +21,19 @@ public class EspecieVegetal {
         this.cicloCultivo = cicloCultivo;
     }
 
-    // Constructor vacío
     public EspecieVegetal() {
+        this.plagas = new ArrayList<>();
     }
 
+    // getters y setters...
+    public List<Plaga> getPlagas() {
+        return plagas;
+    }
+
+    public void setPlagas(List<Plaga> plagas) {
+        this.plagas = plagas;
+    }
+    
     public String getIdEspecie() {
         return idEspecie;
     }

@@ -45,7 +45,24 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
         jBoxCiclos.addItem("Medio (menor de cinco años)");
         jBoxCiclos.addItem("Largo (mayor a cinco años)");
     }
+    
+    
+    private void mensajeCompletarCampos(){
+        if (especievegetalActual == null) {
+            JOptionPane.showMessageDialog(this, "No hay una Especie Vegetal cargada para actualizar.");
+        }
 
+        if (txtNomCientifico.getText().trim().isEmpty()
+                || txtNomComun.getText().trim().isEmpty()
+                || jBoxCiclos.getSelectedItem() == null) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Por favor, complete todos los campos antes de actualizar.",
+                    "Campos incompletos",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -60,6 +77,10 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jBoxCiclos = new javax.swing.JComboBox<>();
+        btnAsociarPlagas = new javax.swing.JButton();
+        jLabel5PlagaAsociar = new javax.swing.JLabel();
+        jLabel5PlagaAsociar1 = new javax.swing.JLabel();
+        btnDesasociarPlagas = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(750, 430));
@@ -71,6 +92,12 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
         jLabel1.setText("Editar Especie Vegetal: ");
 
         jLabel2.setText("Nombre Cientifico");
+
+        txtNomCientifico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomCientificoActionPerformed(evt);
+            }
+        });
 
         txtNomComun.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,6 +131,31 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
 
         jBoxCiclos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        btnAsociarPlagas.setBackground(new java.awt.Color(102, 204, 255));
+        btnAsociarPlagas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnAsociarPlagas.setText("Asociar plagas a la especie");
+        btnAsociarPlagas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsociarPlagasActionPerformed(evt);
+            }
+        });
+
+        jLabel5PlagaAsociar.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        jLabel5PlagaAsociar.setText("Si deseas guardar los cambios, y además, ASOCIAR las plagas que afectan esta especie vegetal, da click en en el siguiente botón:");
+
+        jLabel5PlagaAsociar1.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        jLabel5PlagaAsociar1.setText("Si deseas guardar los cambios, y además, DESASOCIAR las plagas que afectan esta especie vegetal, da click en en el siguiente botón:");
+
+        btnDesasociarPlagas.setBackground(new java.awt.Color(255, 153, 0));
+        btnDesasociarPlagas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnDesasociarPlagas.setForeground(new java.awt.Color(255, 255, 255));
+        btnDesasociarPlagas.setText("Desasociar plagas de la especie");
+        btnDesasociarPlagas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDesasociarPlagasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -119,10 +171,14 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
                         .addComponent(btnCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2))
-                    .addComponent(txtNomCientifico, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
+                    .addComponent(txtNomCientifico)
                     .addComponent(txtNomComun)
-                    .addComponent(jBoxCiclos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(60, Short.MAX_VALUE))
+                    .addComponent(jBoxCiclos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAsociarPlagas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5PlagaAsociar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5PlagaAsociar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDesasociarPlagas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,7 +201,15 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(jButton2))
-                .addContainerGap(180, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(jLabel5PlagaAsociar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAsociarPlagas)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5PlagaAsociar1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDesasociarPlagas)
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -167,21 +231,7 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-        if (especievegetalActual == null) {
-            JOptionPane.showMessageDialog(this, "No hay una Especie Vegetal cargada para actualizar.");
-            return;
-        }
-
-        if (txtNomCientifico.getText().trim().isEmpty()
-                || txtNomComun.getText().trim().isEmpty()
-                || jBoxCiclos.getSelectedItem() == null) {
-
-            JOptionPane.showMessageDialog(this,
-                    "Por favor, complete todos los campos antes de actualizar.",
-                    "Campos incompletos",
-                    JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+        mensajeCompletarCampos();
 
         try {
 
@@ -212,15 +262,77 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
 
     }//GEN-LAST:event_txtNomComunActionPerformed
 
+    private void btnAsociarPlagasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsociarPlagasActionPerformed
+        mensajeCompletarCampos();
+        
+        try {
+
+            // Actualizar los valores en el objeto usuarioActual
+            especievegetalActual.setNomEspecie(txtNomCientifico.getText());
+            especievegetalActual.setNombreComun(txtNomComun.getText());
+            especievegetalActual.setCicloCultivo(jBoxCiclos.getSelectedItem().toString());
+
+            // Llamar al DAO para actualizar en BD
+            EspecieVegetalDAO especievegetalDAO = new EspecieVegetalDAO();
+            boolean actualizado = especievegetalDAO.actualizar(especievegetalActual);
+            
+            if (actualizado) {
+                JOptionPane.showMessageDialog(this, "Especie Vegetal actualizada correctamente. A continuación, asocia las plagas a dicha especie");
+                Dashboard.ShowJPanel(new UpEspecieVegetalPlaga(especievegetalActual));
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo actualizar la Especie Vegetal.");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnAsociarPlagasActionPerformed
+
+    private void txtNomCientificoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomCientificoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomCientificoActionPerformed
+
+    private void btnDesasociarPlagasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesasociarPlagasActionPerformed
+        mensajeCompletarCampos();
+        
+        try {
+
+            // Actualizar los valores en el objeto usuarioActual
+            especievegetalActual.setNomEspecie(txtNomCientifico.getText());
+            especievegetalActual.setNombreComun(txtNomComun.getText());
+            especievegetalActual.setCicloCultivo(jBoxCiclos.getSelectedItem().toString());
+
+            // Llamar al DAO para actualizar en BD
+            EspecieVegetalDAO especievegetalDAO = new EspecieVegetalDAO();
+            boolean actualizado = especievegetalDAO.actualizar(especievegetalActual);
+            
+            if (actualizado) {
+                JOptionPane.showMessageDialog(this, "Especie Vegetal actualizada correctamente. A continuación, desasocia las plagas de dicha especie");
+                Dashboard.ShowJPanel(new UpEliminarEspecieVegetalPlaga(especievegetalActual));
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo actualizar la Especie Vegetal.");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnDesasociarPlagasActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAsociarPlagas;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnDesasociarPlagas;
     private javax.swing.JComboBox<String> jBoxCiclos;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5PlagaAsociar;
+    private javax.swing.JLabel jLabel5PlagaAsociar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtNomCientifico;
     private javax.swing.JTextField txtNomComun;
