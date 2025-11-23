@@ -305,7 +305,7 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inspeccion.png"))); // NOI18N
-        jLabel2.setText("Gestión Inspecciones:");
+        jLabel2.setText("Gestión de Inspecciones:");
         menu.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 437, 260, 40));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -329,7 +329,7 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/catalogo.png"))); // NOI18N
-        jLabel6.setText("Gestión Catálogos:");
+        jLabel6.setText("Gestión de Catálogos:");
         menu.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 260, -1));
 
         jSeparator2.setForeground(new java.awt.Color(204, 204, 204));

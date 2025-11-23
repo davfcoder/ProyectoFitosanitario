@@ -459,7 +459,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/inspeccion.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Gesti&#xf3;n Inspecciones:"/>
+                <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de Inspecciones:"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -535,7 +535,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/catalogo.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Gesti&#xf3;n Cat&#xe1;logos:"/>
+                <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de Cat&#xe1;logos:"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
