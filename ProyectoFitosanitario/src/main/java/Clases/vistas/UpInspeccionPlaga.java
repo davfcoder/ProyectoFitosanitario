@@ -8,6 +8,7 @@ import Clases.dao.InspeccionPlagaDAO;
 import Clases.dao.PlagaDAO;
 import Clases.libreria.Dashboard;
 import Clases.modelo.InspeccionFitosanitaria;
+import Clases.modelo.InspeccionPlaga;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,9 +26,10 @@ public class UpInspeccionPlaga extends javax.swing.JPanel {
         initComponents();
         inspeccionActual = inspeccionPlaga;
         IdInspeccion = inspeccionPlaga.getIdInspeccion();
-        cargarPlagasNoAsociadas();
         lblNombreLugar.setText(inspeccionPlaga.getNombreLugarProduccion());
         lblNumLote.setText(inspeccionPlaga.getNumeroLote());
+        lblFechaInspec.setText(inspeccionPlaga.getFecInspeccion().toString());
+        cargarPlagasNoAsociadas();
     }
     
     private void cargarPlagasNoAsociadas() {
@@ -68,6 +70,8 @@ public class UpInspeccionPlaga extends javax.swing.JPanel {
         lblNumLote = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        lblFechaInspec = new javax.swing.JLabel();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -128,36 +132,38 @@ public class UpInspeccionPlaga extends javax.swing.JPanel {
 
         jLabel6.setText("Número de Lote:");
 
+        jLabel7.setText("Fecha inspección:");
+
+        lblFechaInspec.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblFechaInspec.setForeground(new java.awt.Color(0, 153, 51));
+        lblFechaInspec.setText("FechaInspec");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addComponent(btnCancelar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnGuardarPlagasInspec))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnCancelar)
+                        .addComponent(lblNombreLugar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGuardarPlagasInspec))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addContainerGap())
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 710, Short.MAX_VALUE)
-                    .addComponent(listPlagas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblNombreLugar)
-                                    .addComponent(lblNumLote))))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jLabel7))
+                    .addComponent(lblNumLote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(lblFechaInspec, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(listPlagas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,12 +173,14 @@ public class UpInspeccionPlaga extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNombreLugar)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel7)
+                    .addComponent(lblFechaInspec))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNumLote)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(listPlagas, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -180,11 +188,11 @@ public class UpInspeccionPlaga extends javax.swing.JPanel {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
-                .addGap(39, 39, 39)
+                .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardarPlagasInspec)
-                    .addComponent(btnCancelar))
-                .addGap(27, 27, 27))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnGuardarPlagasInspec))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -192,8 +200,9 @@ public class UpInspeccionPlaga extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 20, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,15 +234,14 @@ public class UpInspeccionPlaga extends javax.swing.JPanel {
 
             // Opcional: recargar lista para desaparecer las plagas ya asociadas
             cargarPlagasNoAsociadas();
-            Dashboard.ShowJPanel(new UpInspeccionPlagaExtra(inspeccionActual, idPlaga, nomPlaga));
+            InspeccionPlaga plaga = plagaDao.obtenerInspecPlaga(IdInspeccion, idPlaga);
+            Dashboard.ShowJPanel(new UpInspeccionPlagaExtra(false, inspeccionActual, idPlaga, nomPlaga, plaga.getCantidadPlantasInfestadas()));
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, 
                 "Error al guardar: " + e.getMessage());
             e.printStackTrace();
         }
-        
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnGuardarPlagasInspecActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -254,10 +262,12 @@ public class UpInspeccionPlaga extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblFechaInspec;
     private javax.swing.JLabel lblNombreLugar;
     private javax.swing.JLabel lblNumLote;
     private java.awt.List listPlagas;

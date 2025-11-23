@@ -22,9 +22,10 @@ public class UpInspeccionPlagaExtra extends javax.swing.JPanel {
     private int cantidadPlantas;
     private String nomPlaga;
     private int cantidadInfest;
+    private boolean valorCondicion; 
     InspeccionFitosanitaria inspeccionActual;
     
-    public UpInspeccionPlagaExtra(InspeccionFitosanitaria inspeccionActual, String idPlaga, String nomPlaga) {
+    public UpInspeccionPlagaExtra(boolean valorCondicion, InspeccionFitosanitaria inspeccionActual, String idPlaga, String nomPlaga, int cantidadInfestada) {
         initComponents();
         configurarCamposEditables();
         this.inspeccionActual = inspeccionActual;
@@ -34,8 +35,25 @@ public class UpInspeccionPlagaExtra extends javax.swing.JPanel {
         lblNombrePlaga.setText(nomPlaga);
         lblNombreLugar.setText(inspeccionActual.getNombreLugarProduccion());
         lblNumLote.setText(inspeccionActual.getNumeroLote());
+        lblFechaInspec.setText(inspeccionActual.getFecInspeccion().toString());
         cantidadPlantas = inspeccionActual.getCantidadPlantas();
         txtCantidadPlantas.setText(Integer.toString(cantidadPlantas));
+        this.cantidadInfest = cantidadInfestada;
+        txtCantidadInfestada.setText(Integer.toString(cantidadInfest));
+        txtPorcentajeInfest.setText(Float.toString(((float)cantidadInfest/cantidadPlantas)*100));
+        this.valorCondicion = valorCondicion;
+        configurarVisibilidadBoton();
+    }
+    
+    private void configurarVisibilidadBoton() {
+        if (valorCondicion) {
+            btnVolverMenu.setVisible(true);
+        } else {
+            btnVolverMenu.setVisible(false);
+        }
+        
+        // Forma abreviada:
+        // btnCondicional.setVisible(esCondicionX);
     }
     
     private void configurarCamposEditables() {
@@ -112,6 +130,9 @@ public class UpInspeccionPlagaExtra extends javax.swing.JPanel {
         jLabel14 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        btnVolverMenu = new javax.swing.JButton();
+        jLabel15 = new javax.swing.JLabel();
+        lblFechaInspec = new javax.swing.JLabel();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -123,10 +144,11 @@ public class UpInspeccionPlagaExtra extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(750, 430));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel1.setPreferredSize(new java.awt.Dimension(750, 430));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("A continuación, llena la siguiente información para la plaga que asociaste al lote y lugar de producción:");
+        jLabel1.setText("A continuación, actualiza la siguiente información para la plaga que asociaste al lote y lugar de producción:");
 
         jLabel2.setText("Cantidad de plantas:");
 
@@ -143,7 +165,7 @@ public class UpInspeccionPlagaExtra extends javax.swing.JPanel {
         btnGuardarPlagasInspec.setBackground(new java.awt.Color(51, 153, 0));
         btnGuardarPlagasInspec.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnGuardarPlagasInspec.setForeground(new java.awt.Color(255, 255, 255));
-        btnGuardarPlagasInspec.setText("Finalizar");
+        btnGuardarPlagasInspec.setText("Guardar");
         btnGuardarPlagasInspec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarPlagasInspecActionPerformed(evt);
@@ -196,16 +218,28 @@ public class UpInspeccionPlagaExtra extends javax.swing.JPanel {
         jLabel14.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         jLabel14.setText("Este tercer campo se calcula y rellena automáticamente.");
 
+        btnVolverMenu.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnVolverMenu.setForeground(new java.awt.Color(204, 153, 0));
+        btnVolverMenu.setText("Volver al menú anterior");
+        btnVolverMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverMenuActionPerformed(evt);
+            }
+        });
+
+        jLabel15.setText("Fecha inspección:");
+
+        lblFechaInspec.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblFechaInspec.setForeground(new java.awt.Color(0, 153, 51));
+        lblFechaInspec.setText("FechaInspec");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -216,49 +250,57 @@ public class UpInspeccionPlagaExtra extends javax.swing.JPanel {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
                                     .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtCantidadPlantas, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtCantidadInfestada, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel11))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(lblNombreLugar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel6)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(lblNumLote)
-                                        .addGap(114, 114, 114))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(lblNombrePlaga)
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
-                        .addGap(18, 18, 18))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnCancelar)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel11))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNombreLugar)
+                            .addComponent(lblNombrePlaga))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGuardarPlagasInspec)
-                        .addContainerGap())))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblNumLote))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblFechaInspec, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(61, 61, 61))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnVolverMenu)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCancelar)
+                        .addGap(117, 117, 117)
+                        .addComponent(btnGuardarPlagasInspec))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtCantidadPlantas, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCantidadInfestada, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(32, 32, 32))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(10, 10, 10))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(1, 1, 1))))
+                    .addComponent(jSeparator2)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -274,7 +316,10 @@ public class UpInspeccionPlagaExtra extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(lblNombrePlaga))
+                    .addComponent(lblNombrePlaga)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel15)
+                        .addComponent(lblFechaInspec)))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -289,9 +334,11 @@ public class UpInspeccionPlagaExtra extends javax.swing.JPanel {
                             .addComponent(jLabel9)
                             .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(txtCantidadInfestada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCantidadInfestada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(15, 15, 15)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -305,11 +352,12 @@ public class UpInspeccionPlagaExtra extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8)
                         .addComponent(txtCantidadPlantas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(60, 60, 60)
+                .addGap(55, 55, 55)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardarPlagasInspec)
                     .addComponent(btnCancelar)
-                    .addComponent(btnGuardarPlagasInspec))
-                .addGap(35, 35, 35))
+                    .addComponent(btnVolverMenu))
+                .addGap(40, 40, 40))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -317,12 +365,15 @@ public class UpInspeccionPlagaExtra extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -351,33 +402,62 @@ public class UpInspeccionPlagaExtra extends javax.swing.JPanel {
             float porcentaje = Float.parseFloat(porcentajeStr);
             boolean guardado = plagaDao.insertarInspecPlagaCantidad(IdInspeccion, IdPlaga, cantidad, porcentaje);
             if (guardado) {
-                Object[] opciones = {"Asociar Otra Plaga", "Menú Principal"};
-
+                
+                if(valorCondicion) {
+                    Object[] opciones = {"Editar Otra Plaga", "Menú Principal"};
                 // 2. Muestra el cuadro de diálogo con las opciones personalizadas
-                int seleccion = JOptionPane.showOptionDialog(
-                    this, // Componente padre
-                    "Se guardó satisfactoriamente la información.\n¿Deseas volver al menú principal o asociar una nueva plaga en la inspección?", // Mensaje
-                    "Guardado Exitoso", // Título de la ventana
-                    JOptionPane.YES_NO_OPTION, // Tipo de opciones (usamos YES_NO_OPTION como base)
-                    JOptionPane.QUESTION_MESSAGE, // Tipo de icono (o INFORMATION_MESSAGE, como prefieras)
-                    null, // Icono personalizado (null para usar el predeterminado)
-                    opciones, // Array de los textos de los botones
-                    opciones[0] // Opción predeterminada (Asociar Otra Plaga)
-                );
-
-                // 3. Maneja la respuesta del usuario
-                // showOptionDialog devuelve el índice del botón presionado (0 para la primera opción, 1 para la segunda)
-                if (seleccion == 0) {
-                    // El usuario seleccionó "Asociar Otra Plaga" (índice 0)
-                    Dashboard.ShowJPanel(new UpInspeccionPlaga(inspeccionActual));
-                } else if (seleccion == 1) {
-                    // El usuario seleccionó "Menú Principal" (índice 1)
-                    Dashboard.ShowJPanel(new GestionInspeccionesFitosanitarias());
-                } else {
-                    // El usuario cerró el diálogo sin seleccionar nada (opcional)
-                    System.out.println("Diálogo cerrado sin selección.");
-                    Dashboard.ShowJPanel(new GestionInspeccionesFitosanitarias());
+                    int seleccion = JOptionPane.showOptionDialog(
+                        this, // Componente padre
+                        "Se guardó satisfactoriamente la información.\n¿Deseas volver al menú principal o editar otra plaga asociada a la inspección?", // Mensaje
+                        "Guardado Exitoso", // Título de la ventana
+                        JOptionPane.YES_NO_OPTION, // Tipo de opciones (usamos YES_NO_OPTION como base)
+                        JOptionPane.QUESTION_MESSAGE, // Tipo de icono (o INFORMATION_MESSAGE, como prefieras)
+                        null, // Icono personalizado (null para usar el predeterminado)
+                        opciones, // Array de los textos de los botones
+                        opciones[0] // Opción predeterminada (Asociar Otra Plaga)
+                    );
+                    // 3. Maneja la respuesta del usuario
+                    // showOptionDialog devuelve el índice del botón presionado (0 para la primera opción, 1 para la segunda)
+                    if (seleccion == 0) {
+                        // El usuario seleccionó "Asociar Otra Plaga" (índice 0)
+                        Dashboard.ShowJPanel(new UpUpdateInspeccionPlaga(inspeccionActual));
+                    } else if (seleccion == 1) {
+                        // El usuario seleccionó "Menú Principal" (índice 1)
+                        Dashboard.ShowJPanel(new GestionInspeccionesFitosanitarias());
+                    } else {
+                        // El usuario cerró el diálogo sin seleccionar nada (opcional)
+                        System.out.println("Diálogo cerrado sin selección.");
+                        Dashboard.ShowJPanel(new GestionInspeccionesFitosanitarias());
+                    }
+                } else if(!valorCondicion){
+                    Object[] opciones = {"Asociar Otra Plaga", "Menú Principal"};
+                // 2. Muestra el cuadro de diálogo con las opciones personalizadas
+                    int seleccion = JOptionPane.showOptionDialog(
+                        this, // Componente padre
+                        "Se guardó satisfactoriamente la información.\n¿Deseas volver al menú principal o asociar una nueva plaga en la inspección?", // Mensaje
+                        "Guardado Exitoso", // Título de la ventana
+                        JOptionPane.YES_NO_OPTION, // Tipo de opciones (usamos YES_NO_OPTION como base)
+                        JOptionPane.QUESTION_MESSAGE, // Tipo de icono (o INFORMATION_MESSAGE, como prefieras)
+                        null, // Icono personalizado (null para usar el predeterminado)
+                        opciones, // Array de los textos de los botones
+                        opciones[0] // Opción predeterminada (Asociar Otra Plaga)
+                    );
+                    // 3. Maneja la respuesta del usuario
+                    // showOptionDialog devuelve el índice del botón presionado (0 para la primera opción, 1 para la segunda)
+                    if (seleccion == 0) {
+                        // El usuario seleccionó "Asociar Otra Plaga" (índice 0)
+                        Dashboard.ShowJPanel(new UpInspeccionPlaga(inspeccionActual));
+                    } else if (seleccion == 1) {
+                        // El usuario seleccionó "Menú Principal" (índice 1)
+                        Dashboard.ShowJPanel(new GestionInspeccionesFitosanitarias());
+                    } else {
+                        // El usuario cerró el diálogo sin seleccionar nada (opcional)
+                        System.out.println("Diálogo cerrado sin selección.");
+                        Dashboard.ShowJPanel(new GestionInspeccionesFitosanitarias());
+                    }
                 }
+                
+                
             } else {
                 JOptionPane.showMessageDialog(this,
                         "No se pudo guardar la información de la cantidad de plantas infestadas.");
@@ -399,16 +479,22 @@ public class UpInspeccionPlagaExtra extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPorcentajeInfestActionPerformed
 
+    private void btnVolverMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverMenuActionPerformed
+        Dashboard.ShowJPanel(new UpUpdateInspeccionPlaga(inspeccionActual));
+    }//GEN-LAST:event_btnVolverMenuActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardarPlagasInspec;
+    private javax.swing.JButton btnVolverMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -422,6 +508,7 @@ public class UpInspeccionPlagaExtra extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lblFechaInspec;
     private javax.swing.JLabel lblNombreLugar;
     private javax.swing.JLabel lblNombrePlaga;
     private javax.swing.JLabel lblNumLote;

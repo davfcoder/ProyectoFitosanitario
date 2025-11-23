@@ -5,7 +5,10 @@
 package Clases.dao;
 
 import Clases.db.CConexion;
+import Clases.modelo.InspeccionPlaga;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class InspeccionPlagaDAO {
@@ -73,7 +76,7 @@ public class InspeccionPlagaDAO {
         }
     }
     
-    public boolean eliminar(String idEspecie, String idPlaga) {
+    public boolean eliminar(String idInspeccion, String idPlaga) {
         Connection con = null;
         CallableStatement cs = null;
 
@@ -82,7 +85,7 @@ public class InspeccionPlagaDAO {
             String sql = "{ call PRO_ELIMINSPECCIONPLAGA(?, ?) }";
 
             cs = con.prepareCall(sql);
-            cs.setString(1, idEspecie);
+            cs.setString(1, idInspeccion);
             cs.setString(2, idPlaga);
 
             cs.execute();
@@ -102,7 +105,103 @@ public class InspeccionPlagaDAO {
             }
         }
     }
-
     
+    public List<InspeccionPlaga> listarPlagasInspeccion(String idInspeccion) {
+        List<InspeccionPlaga> lista = new ArrayList<>();
+        Connection con = null;
+        CallableStatement cs = null;
+        ResultSet rs = null;
+
+        try {
+            con = conexion.estableceConexion();
+
+            //  Llamada a la función que devuelve un SYS_REFCURSOR
+            String sql = "{ ? = call FUN_LISTAR_PLAGAS_INSPECCION(?) }";
+            cs = con.prepareCall(sql);
+
+            //  Registrar el parámetro de salida (el cursor devuelto por la función)
+            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            
+            //  Establecer el parámetro de entrada para la inspección específica
+            cs.setString(2, idInspeccion);
+
+            //  Ejecutar la función
+            cs.execute();
+
+            //  Obtener el cursor como ResultSet
+            rs = (ResultSet) cs.getObject(1);
+
+            //  Recorrer resultados y llenar la lista
+            while (rs.next()) {
+                InspeccionPlaga ip = new InspeccionPlaga();
+                // Mapeamos los resultados de la consulta JOIN
+                ip.setIdPlaga(rs.getString("ID_PLAGA")); // El ID real lo ocultamos/no lo traemos si no es necesario
+                ip.setNomComun(rs.getString("Nombre_Plaga")); // Usamos el alias de la función SQL
+                ip.setCantidadPlantasInfestadas(rs.getInt("Cantidad_Infestada"));
+                ip.setPorcentajeInfestacion(rs.getFloat("Porcentaje_Infestacion")); 
+
+                lista.add(ip);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al listar plagas de la inspeccion: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (cs != null) cs.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return lista;
+    }
+
+    public InspeccionPlaga obtenerInspecPlaga(String idInspeccion, String idPlaga) {
+        Connection con = null;
+        CallableStatement cs = null;
+        ResultSet rs = null;
+        InspeccionPlaga inspPlaga = null;
+        
+        try {
+            con = conexion.estableceConexion();
+            // Llama a la FUNCIÓN. { ? = call ... } indica que esperamos un valor de retorno.
+            String sql = "{ ? = call FUN_GETINSPECCIONPLAGA(?, ?) }";
+
+            cs = con.prepareCall(sql);
+            // Registramos el primer parámetro como el tipo de retorno (CURSOR)
+            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            cs.setString(2, idInspeccion); // Parámetro de entrada 1
+            cs.setString(3, idPlaga);      // Parámetro de entrada 2
+
+            cs.execute();
+            
+            // Obtenemos el cursor devuelto como un ResultSet
+            rs = (ResultSet) cs.getObject(1);
+            
+            // Si hay un registro, lo leemos y mapeamos al objeto
+            if (rs.next()) {
+                inspPlaga = new InspeccionPlaga();
+                inspPlaga.setIdInspeccion(rs.getString("ID_INSPECCION"));
+                inspPlaga.setIdPlaga(rs.getString("ID_PLAGA"));
+                inspPlaga.setCantidadPlantasInfestadas(rs.getInt("CANTIDAD_PLANTAS_INFESTADAS"));
+                inspPlaga.setPorcentajeInfestacion(rs.getFloat("PORCENTAJE_INFESTACION"));
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, 
+                "Error al obtener datos de Inspeccion-Plaga: " + ex.getMessage());
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (cs != null) cs.close();
+                if (con != null) con.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return inspPlaga;
+    }
 
 }

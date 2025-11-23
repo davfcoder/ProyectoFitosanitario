@@ -368,7 +368,7 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
         txtCantidadPlantas = new javax.swing.JTextField();
         txtFecInspeccion = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -376,12 +376,14 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         jBoxLugarProd = new javax.swing.JComboBox<>();
         jBoxNumeroLote = new javax.swing.JComboBox<>();
-        jLabel14 = new javax.swing.JLabel();
         jBoxEstado = new javax.swing.JComboBox<>();
         txtObservaciones = new javax.swing.JTextField();
         jBoxAsistente = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
-        btnInspeccionPlagas = new javax.swing.JButton();
+        btnAsociarInspeccionPlagas = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        btnModificarInspeccionPlaga = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(750, 430));
@@ -416,13 +418,13 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(51, 153, 0));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Actualizar inspección");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizar.setBackground(new java.awt.Color(51, 153, 0));
+        btnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizar.setText("Actualizar inspección");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnActualizarActionPerformed(evt);
             }
         });
 
@@ -450,20 +452,31 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
             }
         });
 
-        jLabel14.setText("Observaciones");
-
         jBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jBoxAsistente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel12.setText("Si deseas guardar los cambios e indicar las plagas que se evidenciaron durante la inspección, da click en en el siguiente botón:");
+        jLabel12.setText("Si deseas indicar las plagas que se evidenciaron durante la inspección, da click en en el siguiente botón:");
 
-        btnInspeccionPlagas.setBackground(new java.awt.Color(102, 204, 255));
-        btnInspeccionPlagas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnInspeccionPlagas.setText("Asociar las plagas que se evidenciaron durante la inspección");
-        btnInspeccionPlagas.addActionListener(new java.awt.event.ActionListener() {
+        btnAsociarInspeccionPlagas.setBackground(new java.awt.Color(102, 204, 255));
+        btnAsociarInspeccionPlagas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnAsociarInspeccionPlagas.setText("Asociar las plagas que se evidenciaron durante la inspección");
+        btnAsociarInspeccionPlagas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInspeccionPlagasActionPerformed(evt);
+                btnAsociarInspeccionPlagasActionPerformed(evt);
+            }
+        });
+
+        jLabel14.setText("Observaciones");
+
+        jLabel8.setText("Si deseas eliminar/modificar la información de las plagas asociadas a la inspección, haz click en el siguiente botón:");
+
+        btnModificarInspeccionPlaga.setBackground(new java.awt.Color(255, 204, 0));
+        btnModificarInspeccionPlaga.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnModificarInspeccionPlaga.setText("Modificar/eliminar las plagas evidenciadas durante la inspección");
+        btnModificarInspeccionPlaga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarInspeccionPlagaActionPerformed(evt);
             }
         });
 
@@ -471,38 +484,36 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4)
+                    .addComponent(txtFecInspeccion, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(jBoxLugarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCantidadPlantas, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel3)
+                    .addComponent(jBoxNumeroLote, 0, 250, Short.MAX_VALUE)
+                    .addComponent(jBoxAsistente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBoxEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(btnCancelar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnActualizar))
+            .addComponent(txtObservaciones, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(btnModificarInspeccionPlaga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnAsociarInspeccionPlagas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtObservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnInspeccionPlagas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel14)
-                                .addComponent(jLabel1)
-                                .addComponent(txtCantidadPlantas, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel4)
-                                .addComponent(txtFecInspeccion, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel6))
-                            .addGap(239, 239, 239))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(btnCancelar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jBoxLugarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(196, 196, 196)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jBoxNumeroLote, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBoxAsistente, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)
-                            .addComponent(jBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(0, 38, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -525,27 +536,33 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFecInspeccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBoxAsistente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
-                .addGap(4, 4, 4)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBoxLugarProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBoxNumeroLote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBoxNumeroLote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBoxLugarProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(12, 12, 12)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtObservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtObservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
-                    .addComponent(jButton2))
-                .addGap(18, 18, 18)
+                    .addComponent(btnActualizar))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnInspeccionPlagas)
-                .addContainerGap())
+                .addComponent(btnAsociarInspeccionPlagas)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnModificarInspeccionPlaga)
+                .addGap(21, 21, 21))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -553,16 +570,17 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(20, 20, 20)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnInspeccionPlagasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInspeccionPlagasActionPerformed
+    private void btnAsociarInspeccionPlagasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsociarInspeccionPlagasActionPerformed
         mensajeCompletarCampos();
         try {
             guardarInspeccion();
@@ -583,13 +601,13 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Error al actualizar: " + e.getMessage());
             e.printStackTrace();
         }
-    }//GEN-LAST:event_btnInspeccionPlagasActionPerformed
+    }//GEN-LAST:event_btnAsociarInspeccionPlagasActionPerformed
 
     private void jBoxLugarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBoxLugarProdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jBoxLugarProdActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         mensajeCompletarCampos();
         try {
             guardarInspeccion();
@@ -611,7 +629,7 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
             e.printStackTrace();
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         limpiarCampos();
@@ -630,15 +648,39 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jBoxNumeroLoteActionPerformed
 
+    private void btnModificarInspeccionPlagaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarInspeccionPlagaActionPerformed
+                mensajeCompletarCampos();
+        try {
+            guardarInspeccion();
+            // =======================
+            // 6️⃣ ACTUALIZAR BD
+            // =======================
+            boolean ok = new InspeccionFitosanitariaDAO().actualizar(inspeccionfitosanitariaActual);
+
+            if (ok) {
+                JOptionPane.showMessageDialog(this,"Inspección actualizada correctamente. A continuación, puedes editar las plagas que están asociadas a la inspección");
+                Dashboard.ShowJPanel(new UpUpdateInspeccionPlaga(inspeccionfitosanitariaActual));
+            } else {
+                JOptionPane.showMessageDialog(this,
+                    "No se pudo actualizar la inspección.");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnModificarInspeccionPlagaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnAsociarInspeccionPlagas;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnInspeccionPlagas;
+    private javax.swing.JButton btnModificarInspeccionPlaga;
     private javax.swing.JComboBox<String> jBoxAsistente;
     private javax.swing.JComboBox<String> jBoxEstado;
     private javax.swing.JComboBox<String> jBoxLugarProd;
     private javax.swing.JComboBox<String> jBoxNumeroLote;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
@@ -648,6 +690,7 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtCantidadPlantas;
     private javax.swing.JTextField txtFecInspeccion;
