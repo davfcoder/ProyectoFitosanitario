@@ -273,6 +273,8 @@ public class GestionInspeccionesFitosanitarias extends javax.swing.JPanel {
 
         // Supongamos que la columna 0 tiene el número de identificación
         String idInspeccionFitosanitaria = jTable1.getValueAt(fila, 0).toString();
+        String lugarInspec = jTable1.getValueAt(fila, 6).toString();
+        String loteLugar = jTable1.getValueAt(fila, 7).toString();
 
         // Buscar la Inspección en la BD
         try {
@@ -281,6 +283,8 @@ public class GestionInspeccionesFitosanitarias extends javax.swing.JPanel {
 
             if (inspeccionfitosanitaria != null) {
                 // Crear el panel EditInspeccionFitosanitaria y pasarle la inspeccion
+                inspeccionfitosanitaria.setNombreLugarProduccion(lugarInspec);
+                inspeccionfitosanitaria.setNumeroLote(loteLugar);
                 EditInspeccionFitosanitaria panelEditar = new EditInspeccionFitosanitaria();
                 panelEditar.setInspeccionFitosanitaria(inspeccionfitosanitaria);
 

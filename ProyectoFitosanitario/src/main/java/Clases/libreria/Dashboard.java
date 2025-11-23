@@ -101,6 +101,7 @@ public class Dashboard extends javax.swing.JFrame {
         lblBienvenida = new javax.swing.JLabel();
         lblRol = new javax.swing.JLabel();
         logo = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -330,15 +331,23 @@ public class Dashboard extends javax.swing.JFrame {
         logo.setBackground(new java.awt.Color(27, 94, 32));
         logo.setPreferredSize(new java.awt.Dimension(270, 135));
 
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\ferch\\OneDrive\\Documentos\\UNIVERSIDAD UDI - 20252\\ProyectoFitosanitario\\ProyectoFitosanitario\\src\\main\\resources\\icon.png")); // NOI18N
+
         javax.swing.GroupLayout logoLayout = new javax.swing.GroupLayout(logo);
         logo.setLayout(logoLayout);
         logoLayout.setHorizontalGroup(
             logoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 270, Short.MAX_VALUE)
+            .addGroup(logoLayout.createSequentialGroup()
+                .addGap(69, 69, 69)
+                .addComponent(jLabel1)
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         logoLayout.setVerticalGroup(
             logoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 135, Short.MAX_VALUE)
+            .addGroup(logoLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel1)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         content.setBackground(new java.awt.Color(255, 255, 255));
@@ -514,6 +523,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JButton btnGestionarDepartamentos;
     private static javax.swing.JPanel content;
     private javax.swing.JPanel header;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblBienvenida;
     private javax.swing.JLabel lblRol;

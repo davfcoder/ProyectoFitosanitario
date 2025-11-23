@@ -40,7 +40,89 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
         cargarLugarProduccion();
         configurarPlaceholderFecha();
     }
+    
+    private void mensajeCompletarCampos(){
+        // =======================
+        // VALIDACIÓN RÁPIDA
+        // =======================
+        if (txtCantidadPlantas.getText().trim().isEmpty()
+            || txtFecInspeccion.getText().trim().isEmpty()
+            || jBoxEstado.getSelectedIndex() <= 0
+            || jBoxAsistente.getSelectedIndex() <= 0
+            || jBoxNumeroLote.getSelectedIndex() <= 0) {
 
+            JOptionPane.showMessageDialog(this,
+                "Complete todos los campos obligatorios.");
+            return;
+        }
+    }    
+    
+    private void guardarInspeccion(){
+        if (inspeccionfitosanitariaActual == null) {
+            JOptionPane.showMessageDialog(this, "No hay una inspección cargada.");
+            return;
+        }
+        // =======================
+            // 1️⃣ CONVERTIR CANTIDAD DE PLANTAS
+            // =======================
+            int cantidadPlantas;
+            try {
+                cantidadPlantas = Integer.parseInt(txtCantidadPlantas.getText().trim());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this,
+                    "La cantidad de plantas debe ser numérica.");
+                return;
+            }
+
+            // =======================
+            // 2️⃣ OBTENER ID ASISTENTE
+            // =======================
+            String nombreAsistente = (String) jBoxAsistente.getSelectedItem();
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            String idUsuario = usuarioDAO.obtenerIdUsuarioPorNombre(nombreAsistente);
+
+            if (idUsuario == null) {
+                JOptionPane.showMessageDialog(this, "No se encontró el asistente técnico.");
+                return;
+            }
+
+            // =======================
+            // 3️⃣ OBTENER ID LOTE
+            // =======================
+            String numeroLote = (String) jBoxNumeroLote.getSelectedItem();
+            LoteDAO loteDAO = new LoteDAO();
+            String idLote = loteDAO.obtenerIdPorNombre(numeroLote);
+
+            if (idLote == null) {
+                JOptionPane.showMessageDialog(this, "No se encontró el lote seleccionado.");
+                return;
+            }
+
+            // =======================
+            // 4️⃣ CONVERTIR FECHA
+            // =======================
+            Date fechaInspeccion;
+            try {
+                fechaInspeccion = Date.valueOf(txtFecInspeccion.getText().trim());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this,
+                    "La fecha debe estar en formato YYYY-MM-DD.");
+                return;
+            }
+
+            // =======================
+            // 5️⃣ ACTUALIZAR OBJETO
+            // =======================
+            inspeccionfitosanitariaActual.setCantidadPlantas(cantidadPlantas);
+            inspeccionfitosanitariaActual.setFecInspeccion(fechaInspeccion);
+            inspeccionfitosanitariaActual.setObservaciones(txtObservaciones.getText().trim());
+
+            // Estado fenológico viene del combo
+            inspeccionfitosanitariaActual.setEstadoFenologico((String) jBoxEstado.getSelectedItem());
+            inspeccionfitosanitariaActual.setIdUsuarioAsistente(idUsuario);
+            inspeccionfitosanitariaActual.setIdLote(idLote);
+    }
+    
     private void configurarCamposEditables() {
         txtCantidadPlantas.setEditable(true);
         txtFecInspeccion.setEditable(true);
@@ -58,22 +140,22 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
         txtCantidadPlantas.setText(String.valueOf(insp.getCantidadPlantas()));
 
         txtFecInspeccion.setText(
-                insp.getFecInspeccion() != null
-                ? insp.getFecInspeccion().toString()
+                inspeccionfitosanitariaActual.getFecInspeccion() != null
+                ? inspeccionfitosanitariaActual.getFecInspeccion().toString()
                 : ""
         );
 
         txtObservaciones.setText(
-                insp.getObservaciones() != null
-                ? insp.getObservaciones()
+                inspeccionfitosanitariaActual.getObservaciones() != null
+                ? inspeccionfitosanitariaActual.getObservaciones()
                 : ""
         );
 
         // ============================
         // 2️⃣ ESTADO FENOLÓGICO
         // ============================
-        if (insp.getEstadoFenologico() != null) {
-            jBoxEstado.setSelectedItem(insp.getEstadoFenologico());
+        if (inspeccionfitosanitariaActual.getEstadoFenologico() != null) {
+            jBoxEstado.setSelectedItem(inspeccionfitosanitariaActual.getEstadoFenologico());
         } else {
             jBoxEstado.setSelectedIndex(0);
         }
@@ -81,8 +163,8 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
         // ============================
         // 3️⃣ LUGAR DE PRODUCCIÓN (SOLO VISUALIZAR)
         // ============================
-        if (insp.getNombreLugarProduccion() != null) {
-            jBoxLugarProd.setSelectedItem(insp.getNombreLugarProduccion());
+        if (inspeccionfitosanitariaActual.getNombreLugarProduccion() != null) {
+            jBoxLugarProd.setSelectedItem(inspeccionfitosanitariaActual.getNombreLugarProduccion());
         } else {
             jBoxLugarProd.setSelectedIndex(0);
         }
@@ -90,8 +172,8 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
         // ============================
         // 4️⃣ LOTE SEGÚN LUGAR
         // ============================
-        if (insp.getNumeroLote() != null) {
-            jBoxNumeroLote.setSelectedItem(insp.getNumeroLote());
+        if (inspeccionfitosanitariaActual.getNumeroLote() != null) {
+            jBoxNumeroLote.setSelectedItem(inspeccionfitosanitariaActual.getNumeroLote());
         } else {
             jBoxNumeroLote.setSelectedIndex(0);
         }
@@ -99,8 +181,8 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
         // ============================
         // 5️⃣ ASISTENTE TÉCNICO
         // ============================
-        if (insp.getNombreUsuario() != null) {
-            jBoxAsistente.setSelectedItem(insp.getNombreUsuario());
+        if (inspeccionfitosanitariaActual.getNombreUsuario() != null) {
+            jBoxAsistente.setSelectedItem(inspeccionfitosanitariaActual.getNombreUsuario());
         } else {
             jBoxAsistente.setSelectedIndex(0);
         }
@@ -119,6 +201,7 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
         jBoxEstado.addItem("Fructificación");
         jBoxEstado.addItem("Maduración");
         jBoxEstado.addItem("Senescencia");
+        jBoxEstado.addItem("Vegetativo ");
 
     }
 
@@ -297,6 +380,8 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
         jBoxEstado = new javax.swing.JComboBox<>();
         txtObservaciones = new javax.swing.JTextField();
         jBoxAsistente = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
+        btnInspeccionPlagas = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(750, 430));
@@ -359,6 +444,11 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
         });
 
         jBoxNumeroLote.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jBoxNumeroLote.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBoxNumeroLoteActionPerformed(evt);
+            }
+        });
 
         jLabel14.setText("Observaciones");
 
@@ -366,39 +456,53 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
 
         jBoxAsistente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jLabel12.setText("Si deseas guardar los cambios e indicar las plagas que se evidenciaron durante la inspección, da click en en el siguiente botón:");
+
+        btnInspeccionPlagas.setBackground(new java.awt.Color(102, 204, 255));
+        btnInspeccionPlagas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnInspeccionPlagas.setText("Asociar las plagas que se evidenciaron durante la inspección");
+        btnInspeccionPlagas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInspeccionPlagasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCancelar)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtObservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnInspeccionPlagas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel14)
+                                .addComponent(jLabel1)
+                                .addComponent(txtCantidadPlantas, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel4)
+                                .addComponent(txtFecInspeccion, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6))
+                            .addGap(239, 239, 239))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(btnCancelar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton2)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jBoxLugarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(196, 196, 196)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCantidadPlantas, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(txtFecInspeccion, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addGap(142, 142, 142)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel7)
+                            .addComponent(jBoxNumeroLote, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBoxAsistente, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel3)
-                            .addComponent(jBoxEstado, 0, 250, Short.MAX_VALUE)
-                            .addComponent(jBoxAsistente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtObservaciones, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton2)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jBoxLugarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(142, 142, 142)
-                                .addComponent(jBoxNumeroLote, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(46, Short.MAX_VALUE))
+                            .addComponent(jBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -437,6 +541,10 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(jButton2))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnInspeccionPlagas)
                 .addContainerGap())
         );
 
@@ -444,7 +552,9 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -452,137 +562,85 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFecInspeccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFecInspeccionActionPerformed
-
-    }//GEN-LAST:event_txtFecInspeccionActionPerformed
-
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        limpiarCampos();
-        Dashboard.ShowJPanel(new GestionInspeccionesFitosanitarias());
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (inspeccionfitosanitariaActual == null) {
-            JOptionPane.showMessageDialog(this, "No hay una inspección cargada.");
-            return;
-        }
-
-        // =======================
-        // VALIDACIÓN RÁPIDA
-        // =======================
-        if (txtCantidadPlantas.getText().trim().isEmpty()
-                || txtFecInspeccion.getText().trim().isEmpty()
-                || jBoxEstado.getSelectedIndex() <= 0
-                || jBoxAsistente.getSelectedIndex() <= 0
-                || jBoxNumeroLote.getSelectedIndex() <= 0) {
-
-            JOptionPane.showMessageDialog(this,
-                    "Complete todos los campos obligatorios.");
-            return;
-        }
-
+    private void btnInspeccionPlagasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInspeccionPlagasActionPerformed
+        mensajeCompletarCampos();
         try {
-            // =======================
-            // 1️⃣ CONVERTIR CANTIDAD DE PLANTAS
-            // =======================
-            int cantidadPlantas;
-            try {
-                cantidadPlantas = Integer.parseInt(txtCantidadPlantas.getText().trim());
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this,
-                        "La cantidad de plantas debe ser numérica.");
-                return;
-            }
-
-            // =======================
-            // 2️⃣ OBTENER ID ASISTENTE
-            // =======================
-            String nombreAsistente = (String) jBoxAsistente.getSelectedItem();
-            UsuarioDAO usuarioDAO = new UsuarioDAO();
-            String idUsuario = usuarioDAO.obtenerIdUsuarioPorNombre(nombreAsistente);
-
-            if (idUsuario == null) {
-                JOptionPane.showMessageDialog(this, "No se encontró el asistente técnico.");
-                return;
-            }
-
-            // =======================
-            // 3️⃣ OBTENER ID LOTE
-            // =======================
-            String numeroLote = (String) jBoxNumeroLote.getSelectedItem();
-            LoteDAO loteDAO = new LoteDAO();
-            String idLote = loteDAO.obtenerIdPorNombre(numeroLote);
-
-            if (idLote == null) {
-                JOptionPane.showMessageDialog(this, "No se encontró el lote seleccionado.");
-                return;
-            }
-
-            // =======================
-            // 4️⃣ CONVERTIR FECHA
-            // =======================
-            Date fechaInspeccion;
-            try {
-                fechaInspeccion = Date.valueOf(txtFecInspeccion.getText().trim());
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this,
-                        "La fecha debe estar en formato YYYY-MM-DD.");
-                return;
-            }
-
-            // =======================
-            // 5️⃣ ACTUALIZAR OBJETO
-            // =======================
-            inspeccionfitosanitariaActual.setCantidadPlantas(cantidadPlantas);
-            inspeccionfitosanitariaActual.setFecInspeccion(fechaInspeccion);
-            inspeccionfitosanitariaActual.setObservaciones(txtObservaciones.getText().trim());
-
-            // Estado fenológico viene del combo
-            inspeccionfitosanitariaActual.setEstadoFenologico((String) jBoxEstado.getSelectedItem());
-            inspeccionfitosanitariaActual.setIdUsuarioAsistente(idUsuario);
-            inspeccionfitosanitariaActual.setIdLote(idLote);
-
-            // jBoxLugarProd es solo visual → NO SE USA
+            guardarInspeccion();
             // =======================
             // 6️⃣ ACTUALIZAR BD
             // =======================
-            boolean ok = new InspeccionFitosanitariaDAO()
-                    .actualizar(inspeccionfitosanitariaActual);
+            boolean ok = new InspeccionFitosanitariaDAO().actualizar(inspeccionfitosanitariaActual);
+
+            if (ok) {
+                JOptionPane.showMessageDialog(this,"Inspección actualizada correctamente. A continuación, asocia las plagas a dicha inspección");
+                Dashboard.ShowJPanel(new UpInspeccionPlaga(inspeccionfitosanitariaActual));
+            } else {
+                JOptionPane.showMessageDialog(this,
+                    "No se pudo actualizar la inspección.");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnInspeccionPlagasActionPerformed
+
+    private void jBoxLugarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBoxLugarProdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBoxLugarProdActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        mensajeCompletarCampos();
+        try {
+            guardarInspeccion();
+            // =======================
+            // 6️⃣ ACTUALIZAR BD
+            // =======================
+            boolean ok = new InspeccionFitosanitariaDAO().actualizar(inspeccionfitosanitariaActual);
 
             if (ok) {
                 JOptionPane.showMessageDialog(this,
-                        "Inspección actualizada correctamente.");
+                    "Inspección actualizada correctamente.");
                 Dashboard.ShowJPanel(new GestionInspeccionesFitosanitarias());
             } else {
                 JOptionPane.showMessageDialog(this,
-                        "No se pudo actualizar la inspección.");
+                    "No se pudo actualizar la inspección.");
             }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
             e.printStackTrace();
         }
-
-
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        limpiarCampos();
+        Dashboard.ShowJPanel(new GestionInspeccionesFitosanitarias());
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void txtFecInspeccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFecInspeccionActionPerformed
+
+    }//GEN-LAST:event_txtFecInspeccionActionPerformed
 
     private void txtCantidadPlantasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadPlantasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCantidadPlantasActionPerformed
 
-    private void jBoxLugarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBoxLugarProdActionPerformed
+    private void jBoxNumeroLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBoxNumeroLoteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jBoxLugarProdActionPerformed
+    }//GEN-LAST:event_jBoxNumeroLoteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnInspeccionPlagas;
     private javax.swing.JComboBox<String> jBoxAsistente;
     private javax.swing.JComboBox<String> jBoxEstado;
     private javax.swing.JComboBox<String> jBoxLugarProd;
     private javax.swing.JComboBox<String> jBoxNumeroLote;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

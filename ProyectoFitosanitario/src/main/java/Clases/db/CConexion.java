@@ -13,10 +13,10 @@ public class CConexion {
     Connection conectar;
 
     // Datos de conexión Oracle XE
-    String usuario = "proyectofitosanitario";        // tu usuario en Oracle
+    String usuario = "proyectofitosanitario";        // tu usuario en Oracle: proyectofitosanitario / proy_fito
     String contrasenia = "col2025";  // tu contraseña
-    String bd = "XE";              // SID por defecto de Oracle XE
-    String ip = "localhost";
+    String bd = "XE";              // SID por defecto de Oracle: "XE" / "orcl"
+    String ip = "localhost";        // Para local: "localhost" / "192.168.254.215"
     String puerto = "1521";        // puerto Oracle
 
     // Cadena de conexión para Oracle

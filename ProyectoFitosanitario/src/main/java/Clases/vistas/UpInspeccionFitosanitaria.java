@@ -256,6 +256,12 @@ public class UpInspeccionFitosanitaria extends javax.swing.JPanel {
 
         jLabel2.setText("Cantidad de plantas");
 
+        txtCantidadPlantas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCantidadPlantasActionPerformed(evt);
+            }
+        });
+
         txtFecInspeccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFecInspeccionActionPerformed(evt);
@@ -511,6 +517,10 @@ public class UpInspeccionFitosanitaria extends javax.swing.JPanel {
     private void txtFecInspeccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFecInspeccionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFecInspeccionActionPerformed
+
+    private void txtCantidadPlantasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadPlantasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCantidadPlantasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
