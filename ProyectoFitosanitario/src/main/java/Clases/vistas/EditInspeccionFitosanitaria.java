@@ -137,7 +137,7 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
         // ============================
         // 1️⃣ CAMPOS DIRECTOS
         // ============================
-        txtCantidadPlantas.setText(String.valueOf(insp.getCantidadPlantas()));
+        txtCantidadPlantas.setText(String.valueOf(inspeccionfitosanitariaActual.getCantidadPlantas()));
 
         txtFecInspeccion.setText(
                 inspeccionfitosanitariaActual.getFecInspeccion() != null
@@ -155,7 +155,7 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
         // 2️⃣ ESTADO FENOLÓGICO
         // ============================
         if (inspeccionfitosanitariaActual.getEstadoFenologico() != null) {
-            jBoxEstado.setSelectedItem(inspeccionfitosanitariaActual.getEstadoFenologico());
+            jBoxEstado.setSelectedItem(insp.getEstadoFenologico());
         } else {
             jBoxEstado.setSelectedIndex(0);
         }

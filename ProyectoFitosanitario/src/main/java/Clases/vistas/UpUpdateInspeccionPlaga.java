@@ -333,19 +333,14 @@ public class UpUpdateInspeccionPlaga extends javax.swing.JPanel {
 
         // Supongamos que la columna 0 tiene el id
         String idPlagaS = tblPlagasAsociadas.getValueAt(plagaS, 0).toString();
+        String nomPlagaS = tblPlagasAsociadas.getValueAt(plagaS, 1).toString();
+        int cantidadPlagaS = (int) tblPlagasAsociadas.getValueAt(plagaS, 2);
         // Buscar la plaga en la BD
         try {
-            InspeccionPlagaDAO plagaDao = new InspeccionPlagaDAO();
-            InspeccionPlaga plaga = plagaDao.obtenerInspecPlaga(IdInspeccion, idPlagaS);
-            
-            if (plaga != null){
-            Dashboard.ShowJPanel(new UpInspeccionPlagaExtra(true, inspeccionActual, idPlagaS, plaga.getNomEspecie(), plaga.getCantidadPlantasInfestadas()));
-            } else {
-                JOptionPane.showMessageDialog(this, "No se encontró la plaga seleccionado.");
-            }
+            Dashboard.ShowJPanel(new UpInspeccionPlagaExtra(true, inspeccionActual, idPlagaS, nomPlagaS, cantidadPlagaS));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
-                    "Error al obtener el usuario: " + e.getMessage(),
+                    "Error al obtener la plaga: " + e.getMessage(),
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();

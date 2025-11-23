@@ -47,9 +47,9 @@ public class GestionInspeccionesFitosanitarias extends javax.swing.JPanel {
             });
 
             // Ocultar la primera columna (ID)
-            //jTable1.getColumnModel().getColumn(0).setMinWidth(0);
-            //jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
-            //jTable1.getColumnModel().getColumn(0).setWidth(0);
+            jTable1.getColumnModel().getColumn(0).setMinWidth(0);
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
+            jTable1.getColumnModel().getColumn(0).setWidth(0);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -321,7 +321,6 @@ public class GestionInspeccionesFitosanitarias extends javax.swing.JPanel {
             if (inspeccionfitosanitaria != null) {
                 // Crear el panel EditInspeccionFitosanitaria y pasarle la inspeccion
                 inspeccionfitosanitaria.setNombreLugarProduccion(lugarInspec);
-                inspeccionfitosanitaria.setNumeroLote(loteLugar);
                 EditInspeccionFitosanitaria panelEditar = new EditInspeccionFitosanitaria();
                 panelEditar.setInspeccionFitosanitaria(inspeccionfitosanitaria);
 

@@ -3,20 +3,54 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Clases.vistas;
+import Clases.dao.DashboardDAO;
+import java.awt.EventQueue; // Para asegurar que la carga se haga después de inicializar
 
-/**
- *
- * @author ricar
- */
 public class Principal extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Principal
-     */
+    
     public Principal() {
         initComponents();
+        cargarTotalesDashboard();
     }
-
+    
+    private void cargarTotalesDashboard() {
+        // Ejecutar la carga en el hilo de la interfaz para evitar bloqueos
+        EventQueue.invokeLater(() -> {
+            DashboardDAO dao = new DashboardDAO();
+            
+            try {
+                // 1. Total de Usuarios Registrados
+                int totalUsuarios = dao.obtenerConteoTotal("FUN_COUNT_USUARIOS");
+                lblUsuariosT.setText(String.valueOf(totalUsuarios));
+                
+                // 2. Total de Predios Registrados
+                int totalPredios = dao.obtenerConteoTotal("FUN_COUNT_PREDIOS");
+                lblPrediosT.setText(String.valueOf(totalPredios));
+                
+                // 3. Total de Lugares de Producción
+                int totalLugares = dao.obtenerConteoTotal("FUN_COUNT_LUGARES_PROD");
+                lblLugarT.setText(String.valueOf(totalLugares));
+                
+                // 4. Total de Lotes Registrados
+                int totalLotes = dao.obtenerConteoTotal("FUN_COUNT_LOTES");
+                lblLotesT.setText(String.valueOf(totalLotes));
+                
+                // 5. Total de Especies Vegetales
+                int totalEspecies = dao.obtenerConteoTotal("FUN_COUNT_ESPECIES");
+                lblEspeciesT.setText(String.valueOf(totalEspecies));
+                
+                // 6. Total de Plagas Registradas
+                int totalPlagas = dao.obtenerConteoTotal("FUN_COUNT_PLAGAS");
+                lblPlagasT.setText(String.valueOf(totalPlagas));
+                
+            } catch (Exception e) {
+                System.err.println("Error al cargar los totales: " + e.getMessage());
+                // Opcional: Mostrar un mensaje de error en la UI o los labels
+            }
+        });
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,55 +62,152 @@ public class Principal extends javax.swing.JPanel {
 
         bg = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lblUsuariosT = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        lblPrediosT = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblLugarT = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        lblLotesT = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        lblEspeciesT = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        lblPlagasT = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(241, 249, 233));
 
-        bg.setBackground(new java.awt.Color(213, 242, 185));
+        bg.setBackground(new java.awt.Color(241, 249, 233));
         bg.setPreferredSize(new java.awt.Dimension(750, 436));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel2.setText("PRINCIPAL");
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel2.setText("MENÚ PRINCIPAL");
 
-        jButton1.setText("GESTION USUARIO");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setText("Información de interés:");
 
-        jButton2.setText("GESTION VARIABLES");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel3.setText("- Total de usuarios registrados:");
+
+        lblUsuariosT.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblUsuariosT.setForeground(new java.awt.Color(51, 102, 0));
+        lblUsuariosT.setText("UsuariosTotal");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel4.setText("- Total de predios registrados:");
+
+        lblPrediosT.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblPrediosT.setForeground(new java.awt.Color(51, 102, 0));
+        lblPrediosT.setText("PrediosTotal");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel5.setText("- Total de lugares de producción registrados:");
+
+        lblLugarT.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblLugarT.setForeground(new java.awt.Color(51, 102, 0));
+        lblLugarT.setText("LugarTotal");
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel7.setText("- Total de lotes registrados:");
+
+        lblLotesT.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblLotesT.setForeground(new java.awt.Color(51, 102, 0));
+        lblLotesT.setText("LotesTotal");
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel8.setText("- Total de especies vegetales registradas:");
+
+        lblEspeciesT.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblEspeciesT.setForeground(new java.awt.Color(51, 102, 0));
+        lblEspeciesT.setText("EspeciesTotal");
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel9.setText("- Total de plagas registradas:");
+
+        lblPlagasT.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblPlagasT.setForeground(new java.awt.Color(51, 102, 0));
+        lblPlagasT.setText("PlagasTotal");
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
-                .addGap(280, 280, 280)
-                .addComponent(jLabel2))
+                .addComponent(jLabel2)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(bgLayout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addComponent(jButton2)
-                .addGap(393, 393, 393)
-                .addComponent(jButton1))
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1))
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3))
+                                .addGap(18, 18, 18)
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblUsuariosT)
+                                    .addComponent(lblPrediosT)
+                                    .addComponent(lblLugarT)))
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9))
+                                .addGap(42, 42, 42)
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblEspeciesT)
+                                    .addComponent(lblLotesT)
+                                    .addComponent(lblPlagasT))))))
+                .addContainerGap(338, Short.MAX_VALUE))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
-                .addGap(119, 119, 119)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(105, 105, 105)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1)))
+                .addGap(27, 27, 27)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(lblUsuariosT))
+                .addGap(18, 18, 18)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(lblPrediosT))
+                .addGap(18, 18, 18)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(lblLugarT))
+                .addGap(19, 19, 19)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblLotesT)
+                    .addComponent(jLabel7))
+                .addGap(18, 18, 18)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEspeciesT)
+                    .addComponent(jLabel8))
+                .addGap(18, 18, 18)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPlagasT)
+                    .addComponent(jLabel9))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 754, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -84,15 +215,22 @@ public class Principal extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel lblEspeciesT;
+    private javax.swing.JLabel lblLotesT;
+    private javax.swing.JLabel lblLugarT;
+    private javax.swing.JLabel lblPlagasT;
+    private javax.swing.JLabel lblPrediosT;
+    private javax.swing.JLabel lblUsuariosT;
     // End of variables declaration//GEN-END:variables
 }

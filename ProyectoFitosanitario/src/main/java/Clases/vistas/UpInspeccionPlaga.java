@@ -234,8 +234,7 @@ public class UpInspeccionPlaga extends javax.swing.JPanel {
 
             // Opcional: recargar lista para desaparecer las plagas ya asociadas
             cargarPlagasNoAsociadas();
-            InspeccionPlaga plaga = plagaDao.obtenerInspecPlaga(IdInspeccion, idPlaga);
-            Dashboard.ShowJPanel(new UpInspeccionPlagaExtra(false, inspeccionActual, idPlaga, nomPlaga, plaga.getCantidadPlantasInfestadas()));
+            Dashboard.ShowJPanel(new UpInspeccionPlagaExtra(false, inspeccionActual, idPlaga, nomPlaga, 0));
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, 
