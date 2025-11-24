@@ -6,6 +6,7 @@ package Clases.libreria;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.Image;
 
 public class FormLogin extends javax.swing.JFrame {
     
@@ -19,6 +20,7 @@ public class FormLogin extends javax.swing.JFrame {
         getRootPane().setDefaultButton(jButton1);
 
         txtContrasenia.addActionListener(e -> jButton1.doClick());
+        
 
                     
     }
@@ -194,11 +196,14 @@ public class FormLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtContraseniaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-             JOptionPane.showMessageDialog(
+        
+        ImageIcon icon = new ImageIcon(getClass().getResource("/imagen_olvido_contra.jpg"));
+        
+        JOptionPane.showMessageDialog(
             this,
+            "",
             "Por favor comunicate con el administrador",
-            "Mensaje",
-            JOptionPane.INFORMATION_MESSAGE
+            JOptionPane.INFORMATION_MESSAGE, icon
         );
     }//GEN-LAST:event_jButton2ActionPerformed
 

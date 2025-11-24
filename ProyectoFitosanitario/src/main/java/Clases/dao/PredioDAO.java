@@ -109,6 +109,60 @@ public class PredioDAO {
 
         return lista;
     }
+    
+    // En Clases.dao.PredioDAO.java
+
+    public List<Predio> listarNoAsociadosLugarProduccion() {
+        List<Predio> lista = new ArrayList<>();
+        Connection con = null;
+        CallableStatement cs = null;
+        ResultSet rs = null;
+
+        try {
+            con = conexion.estableceConexion();
+
+            String sql = "{ ? = call fun_listPrediosNoAsociadosLP() }";
+            cs = con.prepareCall(sql);
+
+            // Registrar parámetro de salida (cursor)
+            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+
+            // Ejecutar la función
+            cs.execute();
+
+            // Obtener el cursor como ResultSet
+            rs = (ResultSet) cs.getObject(1);
+
+            // Recorrer resultados
+            while (rs.next()) {
+                Predio p = new Predio();
+
+                // 2. Mapeo de solo los 4 campos solicitados
+                p.setIdPredio(rs.getString("id_predio"));
+                p.setNumPredial(rs.getString("num_predial"));
+                p.setNroRegistroICA(rs.getString("nro_registro_ica"));
+                p.setNomPredio(rs.getString("nom_predio"));
+
+                // El resto de campos (Direccion, Vereda, Usuario, LugarProduccion)
+                // se dejan como null o vacíos en este método.
+
+                lista.add(p);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al listar predios no asociados: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (cs != null) cs.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return lista;
+    }
 
     // ============================================================
     // UPDATE - Actualizar predio
@@ -141,6 +195,44 @@ public class PredioDAO {
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al actualizar predio: " + e.getMessage());
+            return false;
+        } finally {
+            try {
+                if (cs != null) cs.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // En Clases.dao.PredioDAO.java
+
+    public boolean asociarLugarProduccion(String idPredio, String idLugarProduccion) {
+        Connection con = null;
+        CallableStatement cs = null;
+
+        try {
+            con = conexion.estableceConexion();
+
+            // Llama al nuevo procedure
+            String sql = "{ call pro_asociarPredioALugar(?, ?) }";
+            cs = con.prepareCall(sql);
+
+            // Parámetros: ID_PREDIO, ID_LUGAR_PRODUCCION
+            cs.setString(1, idPredio);
+
+            // El ID del Lugar de Producción que se le quiere asignar
+            // Si quieres desasociarlo, enviarías NULL aquí.
+            cs.setString(2, idLugarProduccion); 
+
+            cs.execute();
+            return true;
+
+        } catch (SQLException e) {
+            // Muestra el mensaje de error, incluyendo si el trigger (TRG_LOTE_PREDIO_EXISTE) 
+            // llegara a afectar operaciones futuras o si hay un error de FK.
+            JOptionPane.showMessageDialog(null, "Error al asociar predio al lugar de producción: " + e.getMessage());
             return false;
         } finally {
             try {

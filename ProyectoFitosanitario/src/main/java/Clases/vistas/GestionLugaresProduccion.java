@@ -290,11 +290,9 @@ public class GestionLugaresProduccion extends javax.swing.JPanel {
             // Buscar el lugar de produccion en la BD
             Clases.dao.LugarProduccionDAO buscarId = new Clases.dao.LugarProduccionDAO();
             Clases.modelo.LugarProduccion lugarproduccion = buscarId.buscarPorId(idLugarProduccion);
-
             if (lugarproduccion != null) {
                 // Crear el panel EditLugarProduccion y pasarle el lugar de produccion
-                EditLugarProduccion panelEditar = new EditLugarProduccion();
-                panelEditar.setLugarProduccion(lugarproduccion);
+                EditLugarProduccion panelEditar = new EditLugarProduccion(lugarproduccion);
 
                 // Mostrar el panel en el Dashboard
                 Dashboard.ShowJPanel(panelEditar);

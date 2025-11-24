@@ -17,14 +17,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ricar
  */
-public class UpUpdateInspeccionPlaga extends javax.swing.JPanel {
+public class UpInspeccionPlagaUpdate extends javax.swing.JPanel {
     
     private String IdInspeccion;
     private String idPlaga;
     private InspeccionFitosanitaria inspeccionActual;
     private String nomPlaga;
 
-    public UpUpdateInspeccionPlaga(InspeccionFitosanitaria inspeccionPlaga) {
+    public UpInspeccionPlagaUpdate(InspeccionFitosanitaria inspeccionPlaga) {
         initComponents();
         inspeccionActual = inspeccionPlaga;
         IdInspeccion = inspeccionPlaga.getIdInspeccion();

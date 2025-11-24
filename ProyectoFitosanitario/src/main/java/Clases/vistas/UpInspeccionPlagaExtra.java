@@ -240,9 +240,6 @@ public class UpInspeccionPlagaExtra extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jSeparator1)
-                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
@@ -267,7 +264,7 @@ public class UpInspeccionPlagaExtra extends javax.swing.JPanel {
                         .addComponent(btnCancelar)
                         .addGap(117, 117, 117)
                         .addComponent(btnGuardarPlagasInspec))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 728, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtPorcentajeInfest, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -288,7 +285,8 @@ public class UpInspeccionPlagaExtra extends javax.swing.JPanel {
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jSeparator2)))
+                    .addComponent(jSeparator2)
+                    .addComponent(jSeparator1)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -353,8 +351,8 @@ public class UpInspeccionPlagaExtra extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -413,7 +411,7 @@ public class UpInspeccionPlagaExtra extends javax.swing.JPanel {
                     // showOptionDialog devuelve el índice del botón presionado (0 para la primera opción, 1 para la segunda)
                     if (seleccion == 0) {
                         // El usuario seleccionó "Asociar Otra Plaga" (índice 0)
-                        Dashboard.ShowJPanel(new UpUpdateInspeccionPlaga(inspeccionActual));
+                        Dashboard.ShowJPanel(new UpInspeccionPlagaUpdate(inspeccionActual));
                     } else if (seleccion == 1) {
                         // El usuario seleccionó "Menú Principal" (índice 1)
                         Dashboard.ShowJPanel(new GestionInspeccionesFitosanitarias());
@@ -473,7 +471,7 @@ public class UpInspeccionPlagaExtra extends javax.swing.JPanel {
     }//GEN-LAST:event_txtPorcentajeInfestActionPerformed
 
     private void btnVolverMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverMenuActionPerformed
-        Dashboard.ShowJPanel(new UpUpdateInspeccionPlaga(inspeccionActual));
+        Dashboard.ShowJPanel(new UpInspeccionPlagaUpdate(inspeccionActual));
     }//GEN-LAST:event_btnVolverMenuActionPerformed
 
 

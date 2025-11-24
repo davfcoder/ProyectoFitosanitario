@@ -104,7 +104,7 @@ public class PlagaDAO {
         return lista;
     }
     // ============================================================================================================
-    // READ - Listar las plagas que no estén asociadas a la especie vegetal específica (función con SYS_REFCURSOR)
+    // READ - Listar las plagas que no estén asociadas a la inspección específica (función con SYS_REFCURSOR)
     // ============================================================================================================
     public List<Plaga> listarNoAsociadasAInspeccion(String idInspeccion) {
         List<Plaga> lista = new ArrayList<>();
