@@ -60,7 +60,7 @@ public class Dashboard extends javax.swing.JFrame {
     }
 
     public static void ShowJPanel(JPanel p) {
-        p.setSize(750, 430);
+        p.setSize(770, 480);
         p.setLocation(0, 0);
 
         content.removeAll();

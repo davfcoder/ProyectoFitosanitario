@@ -97,7 +97,7 @@ public class UpUpdateInspeccionPlaga extends javax.swing.JPanel {
         jMenuBar1.add(jMenu2);
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(750, 430));
+        setPreferredSize(new java.awt.Dimension(770, 430));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(750, 430));
@@ -337,7 +337,9 @@ public class UpUpdateInspeccionPlaga extends javax.swing.JPanel {
         int cantidadPlagaS = (int) tblPlagasAsociadas.getValueAt(plagaS, 2);
         // Buscar la plaga en la BD
         try {
-            Dashboard.ShowJPanel(new UpInspeccionPlagaExtra(true, inspeccionActual, idPlagaS, nomPlagaS, cantidadPlagaS));
+            UpInspeccionPlagaExtra panelEditar = new UpInspeccionPlagaExtra(true, inspeccionActual, idPlagaS, nomPlagaS, cantidadPlagaS);
+            // Mostrar el panel en el Dashboard
+            Dashboard.ShowJPanel(panelEditar);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
                     "Error al obtener la plaga: " + e.getMessage(),

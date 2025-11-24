@@ -80,7 +80,7 @@ public class UpInspeccionPlaga extends javax.swing.JPanel {
         jMenuBar1.add(jMenu2);
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(750, 430));
+        setPreferredSize(new java.awt.Dimension(770, 430));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(750, 430));
@@ -202,7 +202,7 @@ public class UpInspeccionPlaga extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,14 +228,14 @@ public class UpInspeccionPlaga extends javax.swing.JPanel {
             plagaDao.insertarInspecPlaga(IdInspeccion, idPlaga);
             JOptionPane.showMessageDialog(this, 
                 "Plaga asociada correctamente a la inspección fitosanitaria");
-
             // Opcional: limpiar selección
             listPlagas.deselect(listPlagas.getSelectedIndex());
-
             // Opcional: recargar lista para desaparecer las plagas ya asociadas
             cargarPlagasNoAsociadas();
-            Dashboard.ShowJPanel(new UpInspeccionPlagaExtra(false, inspeccionActual, idPlaga, nomPlaga, 0));
-
+            UpInspeccionPlagaExtra panelEditar = new UpInspeccionPlagaExtra(false, inspeccionActual, idPlaga, nomPlaga, 0);
+            // Mostrar el panel en el Dashboard
+            Dashboard.ShowJPanel(panelEditar);
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, 
                 "Error al guardar: " + e.getMessage());

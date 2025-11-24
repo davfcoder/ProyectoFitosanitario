@@ -29,33 +29,18 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
 
     private InspeccionFitosanitaria inspeccionfitosanitariaActual;
 
-    public EditInspeccionFitosanitaria() {
+    public EditInspeccionFitosanitaria(InspeccionFitosanitaria inspeccionfitosanitaria) {
+        this.inspeccionfitosanitariaActual = inspeccionfitosanitaria;
         initComponents();
         configurarCamposEditables();
-        ///OK
         cargarUsuarios();
         configurarLoteInactiva();
         configurarEventoLugarProd();
         cargarEstados();
         cargarLugarProduccion();
         configurarPlaceholderFecha();
+        setCamposInspeccion();
     }
-    
-    private void mensajeCompletarCampos(){
-        // =======================
-        // VALIDACIÓN RÁPIDA
-        // =======================
-        if (txtCantidadPlantas.getText().trim().isEmpty()
-            || txtFecInspeccion.getText().trim().isEmpty()
-            || jBoxEstado.getSelectedIndex() <= 0
-            || jBoxAsistente.getSelectedIndex() <= 0
-            || jBoxNumeroLote.getSelectedIndex() <= 0) {
-
-            JOptionPane.showMessageDialog(this,
-                "Complete todos los campos obligatorios.");
-            return;
-        }
-    }    
     
     private void guardarInspeccion(){
         if (inspeccionfitosanitariaActual == null) {
@@ -130,13 +115,15 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
     }
 
 // Cargar datos de la inspección seleccionada (versión segura)
-    public void setInspeccionFitosanitaria(InspeccionFitosanitaria insp) {
-
-        this.inspeccionfitosanitariaActual = insp;
-
+    public void setCamposInspeccion() {
         // ============================
         // 1️⃣ CAMPOS DIRECTOS
         // ============================
+        if (inspeccionfitosanitariaActual.getEstadoFenologico() != null) {
+            jBoxEstado.setSelectedItem(inspeccionfitosanitariaActual.getEstadoFenologico());
+        } else {
+            jBoxEstado.setSelectedIndex(0);
+        }
         txtCantidadPlantas.setText(String.valueOf(inspeccionfitosanitariaActual.getCantidadPlantas()));
 
         txtFecInspeccion.setText(
@@ -150,15 +137,6 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
                 ? inspeccionfitosanitariaActual.getObservaciones()
                 : ""
         );
-
-        // ============================
-        // 2️⃣ ESTADO FENOLÓGICO
-        // ============================
-        if (inspeccionfitosanitariaActual.getEstadoFenologico() != null) {
-            jBoxEstado.setSelectedItem(insp.getEstadoFenologico());
-        } else {
-            jBoxEstado.setSelectedIndex(0);
-        }
 
         // ============================
         // 3️⃣ LUGAR DE PRODUCCIÓN (SOLO VISUALIZAR)
@@ -386,7 +364,8 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
         btnModificarInspeccionPlaga = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(750, 430));
+        setPreferredSize(new java.awt.Dimension(770, 490));
+        setRequestFocusEnabled(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(750, 430));
@@ -572,7 +551,7 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -581,7 +560,16 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAsociarInspeccionPlagasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsociarInspeccionPlagasActionPerformed
-        mensajeCompletarCampos();
+        if (txtCantidadPlantas.getText().trim().isEmpty()
+            || txtFecInspeccion.getText().trim().isEmpty()
+            || jBoxEstado.getSelectedIndex() <= 0
+            || jBoxAsistente.getSelectedIndex() <= 0
+            || jBoxNumeroLote.getSelectedIndex() <= 0) {
+
+            JOptionPane.showMessageDialog(this,
+                "Complete todos los campos obligatorios.");
+            return;
+        }
         try {
             guardarInspeccion();
             // =======================
@@ -608,7 +596,16 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
     }//GEN-LAST:event_jBoxLugarProdActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        mensajeCompletarCampos();
+        if (txtCantidadPlantas.getText().trim().isEmpty()
+            || txtFecInspeccion.getText().trim().isEmpty()
+            || jBoxEstado.getSelectedIndex() <= 0
+            || jBoxAsistente.getSelectedIndex() <= 0
+            || jBoxNumeroLote.getSelectedIndex() <= 0) {
+
+            JOptionPane.showMessageDialog(this,
+                "Complete todos los campos obligatorios.");
+            return;
+        }
         try {
             guardarInspeccion();
             // =======================
@@ -649,7 +646,16 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
     }//GEN-LAST:event_jBoxNumeroLoteActionPerformed
 
     private void btnModificarInspeccionPlagaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarInspeccionPlagaActionPerformed
-                mensajeCompletarCampos();
+        if (txtCantidadPlantas.getText().trim().isEmpty()
+            || txtFecInspeccion.getText().trim().isEmpty()
+            || jBoxEstado.getSelectedIndex() <= 0
+            || jBoxAsistente.getSelectedIndex() <= 0
+            || jBoxNumeroLote.getSelectedIndex() <= 0) {
+
+            JOptionPane.showMessageDialog(this,
+                "Complete todos los campos obligatorios.");
+            return;
+        }
         try {
             guardarInspeccion();
             // =======================

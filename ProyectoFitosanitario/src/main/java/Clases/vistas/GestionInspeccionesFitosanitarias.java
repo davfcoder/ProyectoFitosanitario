@@ -75,12 +75,13 @@ public class GestionInspeccionesFitosanitarias extends javax.swing.JPanel {
         btnEditar = new javax.swing.JButton();
         btnBorrar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setPreferredSize(new java.awt.Dimension(770, 480));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(750, 430));
@@ -135,19 +136,15 @@ public class GestionInspeccionesFitosanitarias extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setText("Si deseas añadir las plagas que evidenciaste durante cierta inspección, sigue los siguientes pasos:");
+        jLabel2.setText("Para poder añadir las plagas que evidenciaste durante cierta inspección, primero debes tener creada la inspección. Para crear nuevas");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        jLabel3.setText("1. Si no tienes ninguna inspección creada, presiona \"+ Nueva Inspeccion\" e ingresa todos los datos solicitados para crear una nueva inspección. ");
+        jLabel7.setText("inspeecciones, presiona el botón \"+ Nueva Inspeccion\"; se abrirá una nueva ventana e ingresa todos los datos solicitados.");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        jLabel4.setText("2. Si ya registraste una inspección, presiona el botón \"Editar\". Allí podrás editar los datos que ingresaste previamente, y gestionar las plagas evidenciadas.");
+        jLabel8.setText("Posteriormente, podrás presionar el botón \"Editar\", en donde se abrirá una nueva ventana. Allí podrás gestionar las plagas evidenciadas,");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        jLabel5.setText("3. En la ventana que se abre al presionar \"Editar\", tendrás dos opciones para gestionar las plagas evidenciadas: podrás añadir nuevas plagas e ingresar los datos de");
+        jLabel9.setText("es decir, podrás añadir nuevas plagas e ingresar los datos de la cantidad de plantas infestadas (plaga por plaga); y podrás editar o eliminar");
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        jLabel6.setText("    cantidad de plantas infestadas y porcentaje de infestación, por cada plaga; y podrás editar o eliminar las plagas ya añadidas.");
+        jLabel10.setText("las plagas ya añadidas. Igualmente, podrás modificar los datos correspondientes a la inspección.");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -161,9 +158,6 @@ public class GestionInspeccionesFitosanitarias extends javax.swing.JPanel {
                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnNuevaInspeccion)
@@ -171,9 +165,10 @@ public class GestionInspeccionesFitosanitarias extends javax.swing.JPanel {
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
                 .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
+            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,14 +188,14 @@ public class GestionInspeccionesFitosanitarias extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
+                .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addComponent(jLabel10)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -214,9 +209,7 @@ public class GestionInspeccionesFitosanitarias extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -321,8 +314,7 @@ public class GestionInspeccionesFitosanitarias extends javax.swing.JPanel {
             if (inspeccionfitosanitaria != null) {
                 // Crear el panel EditInspeccionFitosanitaria y pasarle la inspeccion
                 inspeccionfitosanitaria.setNombreLugarProduccion(lugarInspec);
-                EditInspeccionFitosanitaria panelEditar = new EditInspeccionFitosanitaria();
-                panelEditar.setInspeccionFitosanitaria(inspeccionfitosanitaria);
+                EditInspeccionFitosanitaria panelEditar = new EditInspeccionFitosanitaria(inspeccionfitosanitaria);
 
                 // Mostrar el panel en el Dashboard
                 Dashboard.ShowJPanel(panelEditar);
@@ -355,11 +347,11 @@ public class GestionInspeccionesFitosanitarias extends javax.swing.JPanel {
     private javax.swing.JButton btnSearch;
     private javax.swing.JTextField btnbuscar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
