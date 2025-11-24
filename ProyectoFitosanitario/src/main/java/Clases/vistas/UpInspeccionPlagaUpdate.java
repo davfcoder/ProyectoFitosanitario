@@ -330,7 +330,11 @@ public class UpInspeccionPlagaUpdate extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Por favor, seleccione una plaga de la tabla para editar.");
             return;
         }
-
+        int [] plagasS = tblPlagasAsociadas.getSelectedRows();
+        if (plagasS.length>1){
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione SOLO UNA plaga de la tabla para editar.");
+            return;
+        }
         // Supongamos que la columna 0 tiene el id
         String idPlagaS = tblPlagasAsociadas.getValueAt(plagaS, 0).toString();
         String nomPlagaS = tblPlagasAsociadas.getValueAt(plagaS, 1).toString();

@@ -63,6 +63,50 @@ public class EspecieVegetalDAO {
         }
     }
 
+    public List<EspecieVegetal> listarNoAsociadasLugarProduccion(String idLugarProduccion) {
+        List<EspecieVegetal> lista = new ArrayList<>();
+        Connection con = null;
+        CallableStatement cs = null;
+        ResultSet rs = null;
+
+        try {
+            con = conexion.estableceConexion();
+
+            String sql = "{ ? = call fun_listEspeciesNoAsocLP(?) }";
+            cs = con.prepareCall(sql);
+
+            // Parámetro de entrada: ID del Lugar de Producción
+            cs.setString(2, idLugarProduccion); 
+
+            // Parámetro de salida (cursor)
+            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+
+            cs.execute();
+            rs = (ResultSet) cs.getObject(1);
+
+            while (rs.next()) {
+                EspecieVegetal e = new EspecieVegetal();
+                e.setIdEspecie(rs.getString("id_especie"));
+                e.setNomEspecie(rs.getString("nom_especie"));
+                e.setNombreComun(rs.getString("nom_comun"));
+                e.setCicloCultivo(rs.getString("ciclo_cultivo"));
+                lista.add(e);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al listar especies NO asociadas: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (cs != null) cs.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return lista;
+    }
     // ============================================================
     // READ - Listar todas las Especies Vegetales (función con SYS_REFCURSOR)
     // ============================================================

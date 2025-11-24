@@ -360,10 +360,12 @@ public class EditLugarProduccion extends javax.swing.JPanel {
         try {
             boolean actualizado = actualizarLugar();
             if (actualizado) {
-                JOptionPane.showMessageDialog(this, "Lugar de producción actualizado correctamente.");
-                Dashboard.ShowJPanel(new GestionMunicipios());
+                // Crear el panel EditLugarProduccion y pasarle el lugar de produccion
+                UpLugarProdEliminarPredios panelEditar = new UpLugarProdEliminarPredios(lugarproduccionActual);
+                JOptionPane.showMessageDialog(this, "Lugar de producción actualizado correctamente. Ahora procede a seleccionar los predios que quieres desvincular del lugar");
+                Dashboard.ShowJPanel(panelEditar);
             } else {
-                JOptionPane.showMessageDialog(this, "No se pudo actualizar el Lugar de produccion.");
+                JOptionPane.showMessageDialog(this, "No se pudo actualizar el Lugar de Produccion.");
             }
 
         } catch (Exception e) {
@@ -385,8 +387,10 @@ public class EditLugarProduccion extends javax.swing.JPanel {
         try {
             boolean actualizado = actualizarLugar();
             if (actualizado) {
-                JOptionPane.showMessageDialog(this, "Lugar de producción actualizado correctamente.");
-                Dashboard.ShowJPanel(new GestionMunicipios());
+                // Crear el panel EditLugarProduccion y pasarle el lugar de produccion
+                UpLugarProdRegistrarProyeccion panelEditar = new UpLugarProdRegistrarProyeccion(lugarproduccionActual);
+                JOptionPane.showMessageDialog(this, "Lugar de producción actualizado correctamente. Ahora procede a registrar los datos de proyección de producción");
+                Dashboard.ShowJPanel(panelEditar);
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo actualizar el Lugar de produccion.");
             }
@@ -410,8 +414,10 @@ public class EditLugarProduccion extends javax.swing.JPanel {
         try {
             boolean actualizado = actualizarLugar();
             if (actualizado) {
-                JOptionPane.showMessageDialog(this, "Lugar de producción actualizado correctamente.");
-                Dashboard.ShowJPanel(new GestionMunicipios());
+                // Crear el panel EditLugarProduccion y pasarle el lugar de produccion
+                UpLugarProdModificarProyeccion panelEditar = new UpLugarProdModificarProyeccion(lugarproduccionActual);
+                JOptionPane.showMessageDialog(this, "Lugar de producción actualizado correctamente. Ahora procede a modificar/eliminar los datos de proyección de producción");
+                Dashboard.ShowJPanel(panelEditar);
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo actualizar el Lugar de produccion.");
             }

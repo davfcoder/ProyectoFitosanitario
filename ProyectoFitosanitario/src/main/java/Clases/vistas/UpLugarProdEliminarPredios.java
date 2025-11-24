@@ -15,29 +15,27 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ricar
  */
-public class UpLugarProdPredios extends javax.swing.JPanel {
+public class UpLugarProdEliminarPredios extends javax.swing.JPanel {
     
     private String idLugarProduccion;
     private LugarProduccion lugarproduccionActual;
-    private String nombreLP;
-    public UpLugarProdPredios(LugarProduccion lugarProduccion) {
+    public UpLugarProdEliminarPredios(LugarProduccion lugarProduccion) {
         initComponents();
-        LoadPrediosSinLP();
         lugarproduccionActual = lugarProduccion;
         idLugarProduccion = lugarproduccionActual.getIdLugarProduccion();
-        nombreLP = lugarproduccionActual.getNomLugarProduccion();
-        lblNombreLugarProd.setText(nombreLP);
+        lblNombreLugarProd.setText(lugarproduccionActual.getNomLugarProduccion());
         lblRegistroICA.setText(lugarproduccionActual.getNroRegistroICA());
+        LoadPrediosLP();
     }
     
-    private void LoadPrediosSinLP() {
+    private void LoadPrediosLP() {
         try {
             PredioDAO dao = new PredioDAO();
             DefaultTableModel model = (DefaultTableModel) tblPrediosLP.getModel();
             model.setRowCount(0); // limpia la tabla
 
             // Llamamos al nuevo método DAO que devuelve la lista de objetos
-            dao.listarNoAsociadosLugarProduccion().forEach((predio) -> {
+            dao.listarAsociadosLugarProduccion(idLugarProduccion).forEach((predio) -> {
                 model.addRow(new Object[]{
                     predio.getIdPredio(),
                     predio.getNumPredial(),
@@ -76,13 +74,13 @@ public class UpLugarProdPredios extends javax.swing.JPanel {
         lblNombreLugarProd = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPrediosLP = new javax.swing.JTable();
-        btnAsociarPredios = new javax.swing.JButton();
+        btnDesasociarPredios = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         lblRegistroICA = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(770, 430));
+        setPreferredSize(new java.awt.Dimension(770, 470));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(750, 430));
@@ -90,7 +88,7 @@ public class UpLugarProdPredios extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Selecciona el(los) predio(s) que conformará(n) el lugar de producción:");
 
-        jLabel2.setText("Se presentan los predios disponibles (sin asociar a ningún lugar).  Puedes seleccionar varios manteniendo presionada la tecla \"Ctrl\":");
+        jLabel2.setText("Se presenta los predios que se encuentran vinculados al lugar. Puedes seleccionar varios manteniendo presionada la tecla \"Ctrl\":");
 
         btnCancelar.setBackground(new java.awt.Color(255, 102, 102));
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -102,7 +100,7 @@ public class UpLugarProdPredios extends javax.swing.JPanel {
             }
         });
 
-        jLabel3.setText("Una vez seleccionado el o los predios que conformarán el lugar de producción, presiona \"Asociar Predios al Lugar\" para guardar ");
+        jLabel3.setText("Una vez seleccionado el o los predios que deseas desvincular del lugar de producción, presiona \"Desasociar Predios al Lugar\" para guardar ");
 
         jLabel4.setText("los cambios y volver al menú principal, o \"Cancelar\" para abortar la operación.");
 
@@ -123,13 +121,13 @@ public class UpLugarProdPredios extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblPrediosLP);
 
-        btnAsociarPredios.setBackground(new java.awt.Color(51, 153, 0));
-        btnAsociarPredios.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnAsociarPredios.setForeground(new java.awt.Color(255, 255, 255));
-        btnAsociarPredios.setText("Asociar Predios al Lugar");
-        btnAsociarPredios.addActionListener(new java.awt.event.ActionListener() {
+        btnDesasociarPredios.setBackground(new java.awt.Color(51, 153, 0));
+        btnDesasociarPredios.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnDesasociarPredios.setForeground(new java.awt.Color(255, 255, 255));
+        btnDesasociarPredios.setText("Deasociar Predios al Lugar");
+        btnDesasociarPredios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAsociarPrediosActionPerformed(evt);
+                btnDesasociarPrediosActionPerformed(evt);
             }
         });
 
@@ -148,22 +146,21 @@ public class UpLugarProdPredios extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAsociarPredios, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)
+                        .addComponent(btnDesasociarPredios, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
                         .addComponent(lblRegistroICA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -177,8 +174,8 @@ public class UpLugarProdPredios extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(lblNombreLugarProd))
+                    .addComponent(lblNombreLugarProd)
+                    .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -194,8 +191,8 @@ public class UpLugarProdPredios extends javax.swing.JPanel {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
-                    .addComponent(btnAsociarPredios))
-                .addContainerGap(26, Short.MAX_VALUE))
+                    .addComponent(btnDesasociarPredios))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -209,11 +206,11 @@ public class UpLugarProdPredios extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAsociarPrediosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsociarPrediosActionPerformed
+    private void btnDesasociarPrediosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesasociarPrediosActionPerformed
     PredioDAO daoPredioLP = new PredioDAO();
     DefaultTableModel model = (DefaultTableModel) tblPrediosLP.getModel();
     
@@ -221,11 +218,11 @@ public class UpLugarProdPredios extends javax.swing.JPanel {
     
     if (selectedRows.length < 1) {
         JOptionPane.showMessageDialog(this,
-            "Debes seleccionar uno o más predios para asociarlos al lugar.",
+            "Debes seleccionar uno o más predios para desvincular del lugar.",
             "Sin predio seleccionado",
             JOptionPane.WARNING_MESSAGE);
     } else {
-        int asociados = 0;
+        int desasociados = 0;
         // Ordenamos los índices de mayor a menor para eliminar correctamente del modelo
         java.util.Arrays.sort(selectedRows);
         
@@ -241,16 +238,16 @@ public class UpLugarProdPredios extends javax.swing.JPanel {
                 String numPredial = tblPrediosLP.getValueAt(row, 1).toString();
                 
                 // ⭐ LLAMAR AL NUEVO MÉTODO PARA ASOCIAR EL PREDIO
-                boolean ok = daoPredioLP.asociarLugarProduccion(idPredio, this.idLugarProduccion);
+                boolean ok = daoPredioLP.desasociarLugarProduccion(idPredio);
                 
                 if (ok) {
                     model.removeRow(row); // Quitar el predio de la tabla de "no asociados"
-                    asociados++;
+                    desasociados++;
                 } else {
                     // El error se muestra dentro del método DAO, pero puedes poner un mensaje extra aquí
                     JOptionPane.showMessageDialog(
                         this,
-                        "No se pudo asociar el predio " + numPredial + " al lugar de producción.",
+                        "No se pudo desasociar el predio " + numPredial + " del lugar de producción.",
                         "Error de Asociación",
                         JOptionPane.ERROR_MESSAGE
                     );
@@ -259,24 +256,24 @@ public class UpLugarProdPredios extends javax.swing.JPanel {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(
                     this,
-                    "Error inesperado al asociar predio en la fila " + row + ": " + e.getMessage(),
+                    "Error inesperado al desasociar predio en la fila " + row + ": " + e.getMessage(),
                     "Error",
                     JOptionPane.ERROR_MESSAGE
                 );
             }
         }
         
-        if (asociados > 0){
+        if (desasociados > 0){
             JOptionPane.showMessageDialog(
                 this,
-                asociados + " predio(s) asociado(s) correctamente"
+                desasociados + " predio(s) desasociado(s) correctamente"
             );
             
-            Object[] opciones = {"Asociar más predios", "Menú Principal"};
+            Object[] opciones = {"Desasociar más predios", "Menú Principal"};
                 // 2. Muestra el cuadro de diálogo con las opciones personalizadas
                     int seleccion = JOptionPane.showOptionDialog(
                         this, // Componente padre
-                        "¿Deseas volver al menú principal o asociar otro predio al lugar de producción?", // Mensaje
+                        "¿Deseas volver al menú principal o desvincular otro predio del lugar de producción?", // Mensaje
                         "Guardado Exitoso", // Título de la ventana
                         JOptionPane.YES_NO_OPTION, // Tipo de opciones (usamos YES_NO_OPTION como base)
                         JOptionPane.QUESTION_MESSAGE, // Tipo de icono (o INFORMATION_MESSAGE, como prefieras)
@@ -294,14 +291,14 @@ public class UpLugarProdPredios extends javax.swing.JPanel {
             // Si hay un error, el mensaje de error se mostrará en el bucle
             JOptionPane.showMessageDialog(
                 this,
-                "No se asoció ningún predio."
+                "No se desasoció ningún predio."
             );
         }
     }
         
         
         
-    }//GEN-LAST:event_btnAsociarPrediosActionPerformed
+    }//GEN-LAST:event_btnDesasociarPrediosActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         Dashboard.ShowJPanel(new GestionLugaresProduccion());
@@ -309,8 +306,8 @@ public class UpLugarProdPredios extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAsociarPredios;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnDesasociarPredios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

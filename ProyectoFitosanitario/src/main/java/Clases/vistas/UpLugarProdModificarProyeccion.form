@@ -33,7 +33,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" pref="477" max="32767" attributes="0"/>
+          <Component id="jPanel1" alignment="0" pref="478" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -53,31 +53,30 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                      <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="btnAsociarPredios" min="-2" pref="189" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="jLabel3" min="-2" pref="730" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel6" min="-2" pref="74" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="lblRegistroICA" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="btnEditarProyeccion" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="btnEliminarProyeccion" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jLabel3" alignment="0" pref="730" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel5" min="-2" pref="86" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel6" min="-2" pref="74" max="-2" attributes="0"/>
+                              <Component id="jLabel7" min="-2" pref="86" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="lblNombreLugarProd" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblNombreLugarProd" max="32767" attributes="0"/>
+                              <Component id="lblRegistroICA" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -91,8 +90,8 @@
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblNombreLugarProd" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -110,9 +109,10 @@
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnAsociarPredios" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnEliminarProyeccion" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnEditarProyeccion" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="26" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -123,12 +123,12 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Selecciona el(los) predio(s) que conformar&#xe1;(n) el lugar de producci&#xf3;n:"/>
+            <Property name="text" type="java.lang.String" value="Selecciona la especie vegetal que desees modificar o eliminar de la proyecci&#xf3;n de producci&#xf3;n del lugar:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Se presentan los predios disponibles (sin asociar a ning&#xfa;n lugar).  Puedes seleccionar varios manteniendo presionada la tecla &quot;Ctrl&quot;:"/>
+            <Property name="text" type="java.lang.String" value="Se presentan las especies vegetales que est&#xe1;n asociadas al lugar.  Para seleccionar varios registros mantenga presionada la tecla &quot;Ctrl&quot;:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnCancelar">
@@ -150,12 +150,12 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Una vez seleccionado el o los predios que conformar&#xe1;n el lugar de producci&#xf3;n, presiona &quot;Asociar Predios al Lugar&quot; para guardar "/>
+            <Property name="text" type="java.lang.String" value="Una vez seleccionada la especie vegetal, presiona &quot;Continuar&quot; para ingresar los datos de &#xe1;rea destinada al cultivo y la capacidad de"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="los cambios y volver al men&#xfa; principal, o &quot;Cancelar&quot; para abortar la operaci&#xf3;n."/>
+            <Property name="text" type="java.lang.String" value="producci&#xf3;n m&#xe1;xima. O si deseas volver al men&#xfa; principal, presiona &quot;Cancelar&quot; para abortar la operaci&#xf3;n."/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblNombreLugarProd">
@@ -176,14 +176,14 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="tblPrediosLP">
+            <Component class="javax.swing.JTable" name="tblEspeciesLP">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="4" rowCount="4">
-                    <Column editable="true" title="id_predio" type="java.lang.Object"/>
-                    <Column editable="true" title="N&#xfa;mero Predial" type="java.lang.Object"/>
-                    <Column editable="true" title="Registro ICA" type="java.lang.Object"/>
-                    <Column editable="true" title="Nombre del Predio" type="java.lang.Object"/>
+                    <Column editable="true" title="id_especie" type="java.lang.Object"/>
+                    <Column editable="true" title="Especie Vegetal" type="java.lang.Object"/>
+                    <Column editable="true" title="&#xc1;rea de cultivo [ha]" type="java.lang.Object"/>
+                    <Column editable="true" title="Capacidad producci&#xf3;n m&#xe1;x [kg]" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -217,27 +217,21 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="btnAsociarPredios">
+        <Component class="javax.swing.JButton" name="btnEditarProyeccion">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="99" red="33" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="12" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Asociar Predios al Lugar"/>
+            <Property name="text" type="java.lang.String" value="Editar informaci&#xf3;n de proyecci&#xf3;n"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAsociarPrediosActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarProyeccionActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel5">
+        <Component class="javax.swing.JButton" name="btnEliminarProyeccion">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nombre Lugar:"/>
+            <Property name="text" type="java.lang.String" value="Eliminar proyecci&#xf3;n de la inspecci&#xf3;n"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarProyeccionActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
@@ -253,6 +247,11 @@
               <Color blue="33" green="99" red="0" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="RegistroICA"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel7">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Nombre Lugar:"/>
           </Properties>
         </Component>
       </SubComponents>

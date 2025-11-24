@@ -164,6 +164,85 @@ public class PredioDAO {
         return lista;
     }
 
+    public List<Predio> listarAsociadosLugarProduccion(String idLugarProduccion) {
+        List<Predio> lista = new ArrayList<>();
+        Connection con = null;
+        CallableStatement cs = null;
+        ResultSet rs = null;
+
+        try {
+            con = conexion.estableceConexion();
+
+            // Llama a la nueva función de Oracle
+            String sql = "{ ? = call fun_listPrediosAsociadosLP(?) }";
+            cs = con.prepareCall(sql);
+
+            // Parámetro de entrada: ID del Lugar de Producción
+            cs.setString(2, idLugarProduccion); 
+
+            // Registrar parámetro de salida (cursor)
+            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+
+            // Ejecutar la función
+            cs.execute();
+
+            // Obtener el cursor como ResultSet
+            rs = (ResultSet) cs.getObject(1);
+
+            // Recorrer resultados y mapear los campos esenciales
+            while (rs.next()) {
+                Predio p = new Predio();
+                p.setIdPredio(rs.getString("id_predio"));
+                p.setNumPredial(rs.getString("num_predial"));
+                p.setNroRegistroICA(rs.getString("nro_registro_ica"));
+                p.setNomPredio(rs.getString("nom_predio"));
+                lista.add(p);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al listar predios asociados: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (cs != null) cs.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return lista;
+    }
+    
+    public boolean desasociarLugarProduccion(String idPredio) {
+        Connection con = null;
+        CallableStatement cs = null;
+
+        try {
+            con = conexion.estableceConexion();
+
+            // Llama al nuevo procedure
+            String sql = "{ call pro_desasociarPredioDeLugar(?) }";
+            cs = con.prepareCall(sql);
+
+            // Parámetro: ID_PREDIO
+            cs.setString(1, idPredio);
+
+            cs.execute();
+            return true;
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al desasociar predio del lugar de producción: " + e.getMessage());
+            return false;
+        } finally {
+            try {
+                if (cs != null) cs.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     // ============================================================
     // UPDATE - Actualizar predio
     // ============================================================
