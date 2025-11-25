@@ -48,7 +48,7 @@ public class InspeccionPlaga {
     public String getNomEspecie() {
         return nomEspecie;
     }
-    public void setNomComun(String nomEspecie) {
+    public void setNomEspecie(String nomEspecie) {
         this.nomEspecie = nomEspecie;
     }
 }

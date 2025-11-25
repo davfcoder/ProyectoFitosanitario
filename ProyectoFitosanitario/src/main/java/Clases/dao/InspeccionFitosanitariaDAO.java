@@ -6,6 +6,7 @@ package Clases.dao;
 
 import Clases.db.CConexion;
 import Clases.modelo.InspeccionFitosanitaria;
+import Clases.modelo.InspeccionReporte;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,83 @@ public class InspeccionFitosanitariaDAO {
             }
         }
     }
+    
+    public List<InspeccionReporte> listarInspeccionesReporte(
+        java.util.Date fechaInicio, java.util.Date fechaFin, String idLugar, 
+        String idLote, String idEspecie) {
 
+        List<InspeccionReporte> lista = new ArrayList<>();
+        Connection con = null;
+        CallableStatement cs = null;
+        ResultSet rs = null;
+
+        try {
+            con = conexion.estableceConexion(); // Usando tu método de conexión
+
+            // 1. Llamada a la Function de Reporte
+            String sql = "{ ? = call FUN_LISTAR_INSPECCIONES_REPOR(?, ?, ?, ?, ?) }";
+            cs = con.prepareCall(sql);
+
+            // 2. Registrar el parámetro de salida (Cursor)
+            cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+
+            if (fechaInicio != null) {
+                cs.setDate(2, new java.sql.Date(fechaInicio.getTime()));
+            } else {
+                cs.setNull(2, java.sql.Types.DATE); // Si es null, pasamos NULL a la BD
+            }
+
+            if (fechaFin != null) {
+                cs.setDate(3, new java.sql.Date(fechaFin.getTime())); //
+            } else {
+                cs.setNull(3, java.sql.Types.DATE); // Si es null, pasamos NULL a la BD
+            }
+            // Manejo de valores NULL para filtros opcionales (Oracle necesita Types.VARCHAR)
+            if (idLugar == null || idLugar.isEmpty()) cs.setNull(4, java.sql.Types.VARCHAR);
+            else cs.setString(4, idLugar);
+
+            if (idLote == null || idLote.isEmpty()) cs.setNull(5, java.sql.Types.VARCHAR);
+            else cs.setString(5, idLote);
+
+            if (idEspecie == null || idEspecie.isEmpty()) cs.setNull(6, java.sql.Types.VARCHAR);
+            else cs.setString(6, idEspecie);
+
+            // 4. Ejecutar y obtener el cursor
+            cs.execute();
+            rs = (ResultSet) cs.getObject(1);
+
+            // 5. Mapear resultados
+            while (rs.next()) {
+                InspeccionReporte dto = new InspeccionReporte();
+                dto.setIdInspeccion(rs.getString("ID_INSPECCION"));
+                dto.setFecInspeccion(rs.getDate("FEC_INSPECCION"));
+                dto.setCantidadPlantas(rs.getInt("CANTIDAD_PLANTAS"));
+                dto.setEstadoFenologico(rs.getString("ESTADO_FENOLOGICO"));
+                dto.setAsistenteTecnico(rs.getString("ASISTENTE_TECNICO"));
+                dto.setNombreLugarProduccion(rs.getString("NOM_LUGAR_PRODUCCION")); // Nuevo campo
+                dto.setNumeroLote(rs.getString("NRO_LOTE"));
+                dto.setNombreEspecie(rs.getString("NOMBRE_ESPECIE"));
+                dto.setObservaciones(rs.getString("OBSERVACIONES"));
+                dto.setTotalPlagas(rs.getInt("TOTAL_PLAGAS")); // Campo calculado
+                
+                lista.add(dto);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al listar el Reporte: " + e.getMessage());
+        } finally {
+            // Cierre seguro de recursos
+            try {
+                if (rs != null) rs.close();
+                if (cs != null) cs.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return lista;
+    }
+    
 //  READ - Listar todas las inspeccion fitosanitarias (usando función almacenada)
     public List<InspeccionFitosanitaria> listarTodos() {
         List<InspeccionFitosanitaria> lista = new ArrayList<>();

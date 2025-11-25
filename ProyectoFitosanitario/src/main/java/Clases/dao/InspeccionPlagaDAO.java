@@ -105,7 +105,7 @@ public class InspeccionPlagaDAO {
             }
         }
     }
-    
+
     public List<InspeccionPlaga> listarPlagasInspeccion(String idInspeccion) {
         List<InspeccionPlaga> lista = new ArrayList<>();
         Connection con = null;
@@ -136,7 +136,7 @@ public class InspeccionPlagaDAO {
                 InspeccionPlaga ip = new InspeccionPlaga();
                 // Mapeamos los resultados de la consulta JOIN
                 ip.setIdPlaga(rs.getString("ID_PLAGA")); // El ID real lo ocultamos/no lo traemos si no es necesario
-                ip.setNomComun(rs.getString("Nombre_Plaga")); // Usamos el alias de la función SQL
+                ip.setNomEspecie(rs.getString("Nombre_Plaga")); // Usamos el alias de la función SQL
                 ip.setCantidadPlantasInfestadas(rs.getInt("Cantidad_Infestada"));
                 ip.setPorcentajeInfestacion(rs.getFloat("Porcentaje_Infestacion")); 
 
