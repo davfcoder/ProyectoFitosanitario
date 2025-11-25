@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import Clases.vistas.UpMunicipio;
 import javax.swing.table.DefaultTableModel;
 
-
 /**
  *
  * @author ricar
@@ -21,9 +20,42 @@ public class GestionMunicipios extends javax.swing.JPanel {
     /**
      * Creates new form Principal
      */
-    public GestionMunicipios() {
+    private String nombreRol;
+
+    public GestionMunicipios(String nombreRol) {
+        this.nombreRol = nombreRol;
         initComponents();
         LoadMunicipio();
+        aplicarPermisos();
+
+    }
+
+    public GestionMunicipios() {
+        this("Consulta"); // Rol por defecto si no envían nombreRol
+    }
+
+    private void aplicarPermisos() {
+
+        switch (nombreRol) {
+
+            case "Administrador ICA":
+                btnNuevoMunicipio.setVisible(true);
+                btnEditar.setVisible(true);
+                btnBorrar.setVisible(true);
+                break;
+
+            case "Propietario":
+                btnNuevoMunicipio.setVisible(false);
+                btnEditar.setVisible(false);
+                btnBorrar.setVisible(false);
+                break;
+
+            default:
+                btnNuevoMunicipio.setVisible(false);
+                btnEditar.setVisible(false);
+                btnBorrar.setVisible(false);
+                break;
+        }
     }
 
     private void LoadMunicipio() {
@@ -34,11 +66,10 @@ public class GestionMunicipios extends javax.swing.JPanel {
 
             dao.listarTodos().forEach((u) -> {
                 model.addRow(new Object[]{
-                    u.getIdMunicipio(), 
+                    u.getIdMunicipio(),
                     u.getCodigoDane(),
                     u.getNombre(),
-                    u.getNombreDepartamento(),
-                });
+                    u.getNombreDepartamento(),});
             });
 
             // Ocultar la primera columna (ID)

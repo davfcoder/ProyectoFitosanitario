@@ -20,9 +20,43 @@ public class GestionLotes extends javax.swing.JPanel {
     /**
      * Creates new form Principal
      */
-    public GestionLotes() {
+    private String nombreRol;
+
+    public GestionLotes(String nombreRol) {
+        this.nombreRol = nombreRol;
         initComponents();
         LoadLote();
+        aplicarPermisos();
+
+    }
+
+    public GestionLotes() {
+        this("Consulta"); // Rol por defecto si no envían nombreRol
+    }
+
+    private void aplicarPermisos() {
+
+        switch (nombreRol) {
+
+            case "Administrador ICA":
+            case "Productor":
+                btnNuevoLote.setVisible(true);
+                btnEditar.setVisible(true);
+                btnBorrar.setVisible(true);
+                break;
+
+            case "Asistente Tecnico":
+                btnNuevoLote.setVisible(false);
+                btnEditar.setVisible(false);
+                btnBorrar.setVisible(false);
+                break;
+
+            default:
+                btnNuevoLote.setVisible(false);
+                btnEditar.setVisible(false);
+                btnBorrar.setVisible(false);
+                break;
+        }
     }
 
     private void LoadLote() {
@@ -39,10 +73,8 @@ public class GestionLotes extends javax.swing.JPanel {
                     u.getFecSiembra(),
                     u.getFecEliminacion(),
                     u.getNombreVariedad(),
-                    u.getNombreLugarProduccion()
-                        
-                        ,});
-                
+                    u.getNombreLugarProduccion(),});
+
             });
 
             // Ocultar la primera columna (ID)

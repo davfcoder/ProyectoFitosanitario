@@ -20,9 +20,41 @@ public class GestionEspeciesVegetales extends javax.swing.JPanel {
     /**
      * Creates new form Principal
      */
-    public GestionEspeciesVegetales() {
+    private String nombreRol;
+
+    public GestionEspeciesVegetales(String nombreRol) {
+        this.nombreRol = nombreRol;
         initComponents();
         LoadEspecieVegetal();
+        aplicarPermisos();
+    }
+
+    public GestionEspeciesVegetales() {
+        this("Consulta"); // Rol por defecto si no envían nombreRol
+    }
+
+    private void aplicarPermisos() {
+
+        switch (nombreRol) {
+
+            case "Administrador ICA":
+                btnNuevaEspecieVegetal.setVisible(true);
+                btnEditar.setVisible(true);
+                btnBorrar.setVisible(true);
+                break;
+
+            case "Productor":
+                btnNuevaEspecieVegetal.setVisible(false);
+                btnEditar.setVisible(false);
+                btnBorrar.setVisible(false);
+                break;
+
+            default:
+                btnNuevaEspecieVegetal.setVisible(false);
+                btnEditar.setVisible(false);
+                btnBorrar.setVisible(false);
+                break;
+        }
     }
 
     private void LoadEspecieVegetal() {

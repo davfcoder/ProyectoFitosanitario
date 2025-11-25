@@ -524,39 +524,88 @@ public class Dashboard extends javax.swing.JFrame {
 
     // Control de visibilidad según Rol
     private void configurarMenuSegunRol() {
+
         lblBienvenida.setText("Bienvenido: " + nombreUsuario);
         lblRol.setText("Rol: " + nombreRol);
 
         switch (nombreRol) {
+
             case "Administrador ICA":
+                // Todo visible (o ajusta según necesites)
                 break;
+
             case "Propietario":
-                btnGestionVereda.setVisible(false);
-                btnGestionMunicipio.setVisible(false);
-                btnGestionarDepartamentos.setVisible(false);
-                btnGestionPredio.setVisible(false);
-                break;
-            case "Productor":
+                btnGestionRol.setVisible(false);
+                btnGestionUsuario.setVisible(false);
+                btnGestionarDepartamentos.setVisible(true);
+                btnGestionMunicipio.setVisible(true);
+                btnGestionVereda.setVisible(true);
+                btnGestionPredio.setVisible(true);
                 btnGestionLugarProd.setVisible(false);
-                btnGestionPredio.setVisible(false);
-                btnGestionPlaga.setVisible(false);
-                btnGestionInspeccion.setVisible(false);
-                break;
-            case "Asistente Técnico":
-                btnGestionInspeccion.setVisible(false);
                 btnGestionLote.setVisible(false);
-                btnGestionLugarProd.setVisible(false);
+                btnGestionEspecie.setVisible(false);
                 btnGestionVariedad.setVisible(false);
                 btnGestionPlaga.setVisible(false);
+                btnGestionInspeccion.setVisible(false);
+                break;
+
+            case "Productor":
+                btnGestionRol.setVisible(false);
+                btnGestionUsuario.setVisible(false);
+                btnGestionarDepartamentos.setVisible(false);
+                btnGestionMunicipio.setVisible(false);
+                btnGestionVereda.setVisible(false);
+                btnGestionPredio.setVisible(true);
+                btnGestionLugarProd.setVisible(true);
+                btnGestionLote.setVisible(true);
+                btnGestionEspecie.setVisible(true);
+                btnGestionVariedad.setVisible(true);
+                btnGestionPlaga.setVisible(false);
+                btnGestionInspeccion.setVisible(true);
+                break;
+
+            case "Asistente Tecnico":
+                btnGestionRol.setVisible(false);
+                btnGestionUsuario.setVisible(false);
+                btnGestionarDepartamentos.setVisible(false);
+                btnGestionMunicipio.setVisible(false);
+                btnGestionVereda.setVisible(false);
+                btnGestionPredio.setVisible(false);
+                btnGestionLugarProd.setVisible(true);
+                btnGestionLote.setVisible(true);
+                btnGestionEspecie.setVisible(true);
+                btnGestionVariedad.setVisible(true);
+                btnGestionPlaga.setVisible(true);
+                btnGestionInspeccion.setVisible(true);
+                break;
+
+            default:
+                // Ocultar todo si el rol no existe
+                btnGestionRol.setVisible(false);
+                btnGestionUsuario.setVisible(false);
+                btnGestionarDepartamentos.setVisible(false);
+                btnGestionMunicipio.setVisible(false);
+                btnGestionVereda.setVisible(false);
+                btnGestionPredio.setVisible(false);
+                btnGestionLugarProd.setVisible(false);
+                btnGestionLote.setVisible(false);
+                btnGestionEspecie.setVisible(false);
+                btnGestionVariedad.setVisible(false);
+                btnGestionPlaga.setVisible(false);
+                btnGestionInspeccion.setVisible(false);
+
+                // Indicar rol inexistente
+                lblRol.setText("Rol: No tiene rol asignado");
                 break;
         }
     }
+
     private void btnGestionarDepartamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionarDepartamentosActionPerformed
-        ShowJPanel(new GestionDepartamentos());         // TODO add your handling code here:
+        ShowJPanel(new GestionDepartamentos(nombreRol));         // TODO add your handling code here:
     }//GEN-LAST:event_btnGestionarDepartamentosActionPerformed
 
     private void btnGestionVeredaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionVeredaActionPerformed
-         ShowJPanel(new GestionVeredas());
+        ShowJPanel(new GestionVeredas(nombreRol));
     }//GEN-LAST:event_btnGestionVeredaActionPerformed
 
     private void btnGestionUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionUsuarioActionPerformed
@@ -582,36 +631,36 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGestionRolActionPerformed
 
     private void btnGestionMunicipioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionMunicipioActionPerformed
-        ShowJPanel(new GestionMunicipios()); // TODO add your handling code here:
+        ShowJPanel(new GestionMunicipios(nombreRol)); // TODO add your handling code here:
     }//GEN-LAST:event_btnGestionMunicipioActionPerformed
 
     private void btnGestionPredioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionPredioActionPerformed
-        ShowJPanel(new GestionPredios()); // TODO add your handling code here:        // TODO add your handling code here:
+        ShowJPanel(new GestionPredios(nombreRol)); // TODO add your handling code here:        // TODO add your handling code here:
     }//GEN-LAST:event_btnGestionPredioActionPerformed
 
     private void btnGestionLugarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionLugarProdActionPerformed
-        ShowJPanel(new GestionLugaresProduccion()); // TODO add your handling code here:        // TODO add your handling code here:
+        ShowJPanel(new GestionLugaresProduccion(nombreRol)); // TODO add your handling code here:        // TODO add your handling code here:
 
     }//GEN-LAST:event_btnGestionLugarProdActionPerformed
 
     private void btnGestionLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionLoteActionPerformed
-        ShowJPanel(new GestionLotes()); // TODO add your handling code here:        // TODO add your handling code here:
+        ShowJPanel(new GestionLotes(nombreRol)); // TODO add your handling code here:        // TODO add your handling code here:
        }//GEN-LAST:event_btnGestionLoteActionPerformed
 
     private void btnGestionEspecieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionEspecieActionPerformed
-        ShowJPanel(new GestionEspeciesVegetales()); // TODO add your handling code here:        // TODO add your handling code here:
+        ShowJPanel(new GestionEspeciesVegetales(nombreRol)); // TODO add your handling code here:        // TODO add your handling code here:
     }//GEN-LAST:event_btnGestionEspecieActionPerformed
 
     private void btnGestionVariedadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionVariedadActionPerformed
-         ShowJPanel(new GestionVariedadEspecies()); // TODO add your handling code here:        // TODO add your handling code here:       // TODO add your handling code here:
+        ShowJPanel(new GestionVariedadEspecies(nombreRol)); // TODO add your handling code here:        // TODO add your handling code here:       // TODO add your handling code here:
     }//GEN-LAST:event_btnGestionVariedadActionPerformed
 
     private void btnGestionPlagaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionPlagaActionPerformed
-          ShowJPanel(new GestionPlagas()); // TODO add your handling code here:        // TODO add your handling code here:       // TODO add your handling code here:       // TODO add your handling code here:
+        ShowJPanel(new GestionPlagas(nombreRol)); // TODO add your handling code here:        // TODO add your handling code here:       // TODO add your handling code here:       // TODO add your handling code here:
     }//GEN-LAST:event_btnGestionPlagaActionPerformed
 
     private void btnGestionInspeccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionInspeccionActionPerformed
-         ShowJPanel(new GestionInspeccionesFitosanitarias()); // TODO add your handling code here:        // TODO add your handling code here:       // TODO add your handling code here:        // TODO add your handling code here:
+        ShowJPanel(new GestionInspeccionesFitosanitarias(nombreRol)); // TODO add your handling code here:        // TODO add your handling code here:       // TODO add your handling code here:        // TODO add your handling code here:
     }//GEN-LAST:event_btnGestionInspeccionActionPerformed
 
     private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed

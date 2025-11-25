@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import Clases.vistas.UpVariedadEspecie;
 import javax.swing.table.DefaultTableModel;
 
-
 /**
  *
  * @author ricar
@@ -21,9 +20,42 @@ public class GestionVariedadEspecies extends javax.swing.JPanel {
     /**
      * Creates new form Principal
      */
-    public GestionVariedadEspecies() {
+    private String nombreRol;
+
+    public GestionVariedadEspecies(String nombreRol) {
+        this.nombreRol = nombreRol;
         initComponents();
+        aplicarPermisos();
         LoadVariedadEspecie();
+    }
+
+    public GestionVariedadEspecies() {
+        this("Consulta"); // Rol por defecto si no envían nombreRol
+    }
+
+    private void aplicarPermisos() {
+
+        switch (nombreRol) {
+
+            case "Administrador ICA":
+                btnNuevaVariedad.setVisible(true);
+                btnEditar.setVisible(true);
+                btnBorrar.setVisible(true);
+                break;
+            
+            case "Productor":
+            case "Asistente Tecnico":
+                btnNuevaVariedad.setVisible(false);
+                btnEditar.setVisible(false);
+                btnBorrar.setVisible(false);
+                break;
+
+            default:
+                btnNuevaVariedad.setVisible(false);
+                btnEditar.setVisible(false);
+                btnBorrar.setVisible(false);
+                break;
+        }
     }
 
     private void LoadVariedadEspecie() {
@@ -34,10 +66,9 @@ public class GestionVariedadEspecies extends javax.swing.JPanel {
 
             dao.listarTodos().forEach((u) -> {
                 model.addRow(new Object[]{
-                    u.getIdVariedad(), 
+                    u.getIdVariedad(),
                     u.getNomVariedad(),
-                    u.getNombreEspecie(),
-                });
+                    u.getNombreEspecie(),});
             });
 
             // Ocultar la primera columna (ID)

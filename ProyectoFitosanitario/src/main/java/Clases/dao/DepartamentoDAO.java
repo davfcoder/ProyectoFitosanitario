@@ -19,7 +19,7 @@ public class DepartamentoDAO {
         this.conexion = new CConexion();
     }
 
-// CREATE - Insertar rol usando procedimiento almacenado
+// CREATE - Insertar departamento usando procedimiento almacenado
     public boolean insertar(Departamento departamento) {
         Connection con = null;
         CallableStatement cs = null;
@@ -245,7 +245,7 @@ public class DepartamentoDAO {
 
         return dep;
     }
-/////Tra solo el nombre del campo departamento para el AUTORRELLENABLE
+/////Trae solo el nombre del campo departamento para el AUTORRELLENABLE
     public String obtenerIdPorNombre(String nombreDepartamento) {
         String idDepartamento = null;
         Connection con = null;

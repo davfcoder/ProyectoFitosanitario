@@ -20,9 +20,49 @@ public class GestionInspeccionesFitosanitarias extends javax.swing.JPanel {
     /**
      * Creates new form Principal
      */
-    public GestionInspeccionesFitosanitarias() {
+    private String nombreRol;
+
+    public GestionInspeccionesFitosanitarias(String nombreRol) {
+        this.nombreRol = nombreRol;
         initComponents();
         LoadInspeccionFitosanitaria();
+        aplicarPermisos();
+    }
+
+    public GestionInspeccionesFitosanitarias() {
+        this("Consulta"); // Rol por defecto si no envían nombreRol
+    }
+
+    private void aplicarPermisos() {
+
+        switch (nombreRol) {
+
+            case "Administrador ICA":
+            case "Asistente Tecnico":
+
+                btnNuevaInspeccion.setVisible(true);
+                btnEditar.setVisible(true);
+                btnBorrar.setVisible(true);
+                break;
+
+            case "Productor":
+                btnNuevaInspeccion.setVisible(false);
+                btnEditar.setVisible(false);
+                btnBorrar.setVisible(false);
+                jLabel2.setVisible(false);
+                jLabel7.setVisible(false);
+                jLabel8.setVisible(false);
+                jLabel9.setVisible(false);
+                jLabel10.setVisible(false);
+
+                break;
+
+            default:
+                btnNuevaInspeccion.setVisible(false);
+                btnEditar.setVisible(false);
+                btnBorrar.setVisible(false);
+                break;
+        }
     }
 
     private void LoadInspeccionFitosanitaria() {
@@ -40,10 +80,8 @@ public class GestionInspeccionesFitosanitarias extends javax.swing.JPanel {
                     u.getObservaciones(),
                     u.getNombreUsuario(),
                     u.getNombreLugarProduccion(),
-                    u.getNumeroLote()
-                        
-                        ,});
-                
+                    u.getNumeroLote(),});
+
             });
 
             // Ocultar la primera columna (ID)

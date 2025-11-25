@@ -20,9 +20,41 @@ public class GestionPlagas extends javax.swing.JPanel {
     /**
      * Creates new form Principal
      */
-    public GestionPlagas() {
+    private String nombreRol;
+
+    public GestionPlagas(String nombreRol) {
+        this.nombreRol = nombreRol;
         initComponents();
         LoadPlaga();
+        aplicarPermisos();
+    }
+
+    public GestionPlagas() {
+        this("Consulta"); // Rol por defecto si no envían nombreRol
+    }
+
+    private void aplicarPermisos() {
+
+        switch (nombreRol) {
+
+            case "Administrador ICA":
+                btnNuevaPlaga.setVisible(true);
+                btnEditar.setVisible(true);
+                btnBorrar.setVisible(true);
+                break;
+
+            case "Asistente Tecnico":
+                btnNuevaPlaga.setVisible(false);
+                btnEditar.setVisible(false);
+                btnBorrar.setVisible(false);
+                break;
+
+            default:
+                btnNuevaPlaga.setVisible(false);
+                btnEditar.setVisible(false);
+                btnBorrar.setVisible(false);
+                break;
+        }
     }
 
     private void LoadPlaga() {

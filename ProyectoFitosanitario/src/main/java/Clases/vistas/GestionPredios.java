@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import Clases.vistas.UpPredio;
 import javax.swing.table.DefaultTableModel;
 
-
 /**
  *
  * @author ricar
@@ -21,9 +20,42 @@ public class GestionPredios extends javax.swing.JPanel {
     /**
      * Creates new form Principal
      */
-    public GestionPredios() {
+    private String nombreRol;
+
+    public GestionPredios(String nombreRol) {
+        this.nombreRol = nombreRol;
         initComponents();
         LoadPredio();
+        aplicarPermisos();
+    }
+
+    public GestionPredios() {
+        this("Consulta"); // Rol por defecto si no envían nombreRol
+    }
+
+    private void aplicarPermisos() {
+
+        switch (nombreRol) {
+
+            case "Administrador ICA":
+            case "Propietario":
+                btnNuevoPredio.setVisible(true);
+                btnEditar.setVisible(true);
+                btnBorrar.setVisible(true);
+                break;
+
+            case "Productor":
+                btnNuevoPredio.setVisible(false);
+                btnEditar.setVisible(false);
+                btnBorrar.setVisible(false);
+                break;
+
+            default:
+                btnNuevoPredio.setVisible(false);
+                btnEditar.setVisible(false);
+                btnBorrar.setVisible(false);
+                break;
+        }
     }
 
     private void LoadPredio() {
@@ -34,15 +66,14 @@ public class GestionPredios extends javax.swing.JPanel {
 
             dao.listarTodos().forEach((u) -> {
                 model.addRow(new Object[]{
-                    u.getIdPredio(), 
+                    u.getIdPredio(),
                     u.getNumPredial(),
                     u.getNroRegistroICA(),
                     u.getNomPredio(),
                     u.getDireccion(),
                     u.getNombreVereda(),
                     u.getNombreUsuario(),
-                    u.getNombreLugarProduccion(),
-                });
+                    u.getNombreLugarProduccion(),});
             });
 
             // Ocultar la primera columna (ID)
@@ -54,8 +85,6 @@ public class GestionPredios extends javax.swing.JPanel {
             System.out.println(e.getMessage());
         }
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.

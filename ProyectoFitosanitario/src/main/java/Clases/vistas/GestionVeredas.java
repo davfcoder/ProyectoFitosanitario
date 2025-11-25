@@ -20,9 +20,41 @@ public class GestionVeredas extends javax.swing.JPanel {
     /**
      * Creates new form Principal
      */
-    public GestionVeredas() {
+    private String nombreRol;
+
+    public GestionVeredas(String nombreRol) {
+        this.nombreRol = nombreRol;
         initComponents();
         LoadVereda();
+        aplicarPermisos();
+    }
+
+    public GestionVeredas() {
+        this("Consulta"); // Rol por defecto si no envían nombreRol
+    }
+
+    private void aplicarPermisos() {
+
+        switch (nombreRol) {
+
+            case "Administrador ICA":
+                btnNuevaVereda.setVisible(true);
+                btnEditar.setVisible(true);
+                btnBorrar.setVisible(true);
+                break;
+
+            case "Propietario":
+                btnNuevaVereda.setVisible(false);
+                btnEditar.setVisible(false);
+                btnBorrar.setVisible(false);
+                break;
+
+            default:
+                btnNuevaVereda.setVisible(false);
+                btnEditar.setVisible(false);
+                btnBorrar.setVisible(false);
+                break;
+        }
     }
 
     private void LoadVereda() {
@@ -37,9 +69,8 @@ public class GestionVeredas extends javax.swing.JPanel {
                     u.getCodigoDane(),
                     u.getNombre(),
                     u.getNombreMunicipio(),
-                    u.getNombreDepartamento()                        
-                        ,});
-                
+                    u.getNombreDepartamento(),});
+
             });
 
             // Ocultar la primera columna (ID)

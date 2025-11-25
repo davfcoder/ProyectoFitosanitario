@@ -20,9 +20,42 @@ public class GestionDepartamentos extends javax.swing.JPanel {
     /**
      * Creates new form Principal
      */
-    public GestionDepartamentos() {
+    private String nombreRol;
+
+    public GestionDepartamentos(String nombreRol) {
+        this.nombreRol = nombreRol;
         initComponents();
         LoadDepartamento();
+        aplicarPermisos();
+
+    }
+
+    public GestionDepartamentos() {
+        this("Consulta"); // Rol por defecto si no envían nombreRol
+    }
+
+    private void aplicarPermisos() {
+
+        switch (nombreRol) {
+
+            case "Administrador ICA":
+                btnNuevoDepartamento.setVisible(true);
+                btnEditar.setVisible(true);
+                btnBorrar.setVisible(true);
+                break;
+
+            case "Propietario":
+                btnNuevoDepartamento.setVisible(false);
+                btnEditar.setVisible(false);
+                btnBorrar.setVisible(false);
+                break;
+
+            default:
+                btnNuevoDepartamento.setVisible(false);
+                btnEditar.setVisible(false);
+                btnBorrar.setVisible(false);
+                break;
+        }
     }
 
     private void LoadDepartamento() {
