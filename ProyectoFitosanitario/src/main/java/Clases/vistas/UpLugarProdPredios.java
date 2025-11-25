@@ -2,8 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-
 package Clases.vistas;
+
 import Clases.dao.PredioDAO;
 import Clases.libreria.Dashboard;
 import Clases.modelo.LugarProduccion;
@@ -16,10 +16,12 @@ import javax.swing.table.DefaultTableModel;
  * @author ricar
  */
 public class UpLugarProdPredios extends javax.swing.JPanel {
-    
+
     private String idLugarProduccion;
     private LugarProduccion lugarproduccionActual;
     private String nombreLP;
+
+
     public UpLugarProdPredios(LugarProduccion lugarProduccion) {
         initComponents();
         LoadPrediosSinLP();
@@ -29,7 +31,7 @@ public class UpLugarProdPredios extends javax.swing.JPanel {
         lblNombreLugarProd.setText(nombreLP);
         lblRegistroICA.setText(lugarproduccionActual.getNroRegistroICA());
     }
-    
+
     private void LoadPrediosSinLP() {
         try {
             PredioDAO dao = new PredioDAO();
@@ -45,18 +47,17 @@ public class UpLugarProdPredios extends javax.swing.JPanel {
                     predio.getNomPredio()
                 });
             });
-            
+
             // 🔹 Ocultar la primera columna (id_usuario)
             tblPrediosLP.getColumnModel().getColumn(0).setMinWidth(0);
             tblPrediosLP.getColumnModel().getColumn(0).setMaxWidth(0);
             tblPrediosLP.getColumnModel().getColumn(0).setWidth(0);
-            
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(this, "Error al cargar la tabla de predios: " + e.getMessage());
         }
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -186,8 +187,8 @@ public class UpLugarProdPredios extends javax.swing.JPanel {
                 .addGap(29, 29, 29)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
@@ -195,7 +196,7 @@ public class UpLugarProdPredios extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnAsociarPredios))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -204,77 +205,77 @@ public class UpLugarProdPredios extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 730, Short.MAX_VALUE)
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAsociarPrediosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsociarPrediosActionPerformed
-    PredioDAO daoPredioLP = new PredioDAO();
-    DefaultTableModel model = (DefaultTableModel) tblPrediosLP.getModel();
-    
-    int [] selectedRows = tblPrediosLP.getSelectedRows();
-    
-    if (selectedRows.length < 1) {
-        JOptionPane.showMessageDialog(this,
-            "Debes seleccionar uno o más predios para asociarlos al lugar.",
-            "Sin predio seleccionado",
-            JOptionPane.WARNING_MESSAGE);
-    } else {
-        int asociados = 0;
-        // Ordenamos los índices de mayor a menor para eliminar correctamente del modelo
-        java.util.Arrays.sort(selectedRows);
-        
-        // Iteramos de atrás hacia adelante para que la eliminación de filas no afecte los índices.
-        for (int idx = selectedRows.length - 1; idx >= 0; idx--){
-            int row = selectedRows[idx];
-            
-            try {
-                // Columna 0 contiene el ID_PREDIO
-                String idPredio = tblPrediosLP.getValueAt(row, 0).toString();
-                
-                // Columna 1 contiene el NUM_PREDIAL (solo para mensaje de error)
-                String numPredial = tblPrediosLP.getValueAt(row, 1).toString();
-                
-                // ⭐ LLAMAR AL NUEVO MÉTODO PARA ASOCIAR EL PREDIO
-                boolean ok = daoPredioLP.asociarLugarProduccion(idPredio, this.idLugarProduccion);
-                
-                if (ok) {
-                    model.removeRow(row); // Quitar el predio de la tabla de "no asociados"
-                    asociados++;
-                } else {
-                    // El error se muestra dentro del método DAO, pero puedes poner un mensaje extra aquí
+        PredioDAO daoPredioLP = new PredioDAO();
+        DefaultTableModel model = (DefaultTableModel) tblPrediosLP.getModel();
+
+        int[] selectedRows = tblPrediosLP.getSelectedRows();
+
+        if (selectedRows.length < 1) {
+            JOptionPane.showMessageDialog(this,
+                    "Debes seleccionar uno o más predios para asociarlos al lugar.",
+                    "Sin predio seleccionado",
+                    JOptionPane.WARNING_MESSAGE);
+        } else {
+            int asociados = 0;
+            // Ordenamos los índices de mayor a menor para eliminar correctamente del modelo
+            java.util.Arrays.sort(selectedRows);
+
+            // Iteramos de atrás hacia adelante para que la eliminación de filas no afecte los índices.
+            for (int idx = selectedRows.length - 1; idx >= 0; idx--) {
+                int row = selectedRows[idx];
+
+                try {
+                    // Columna 0 contiene el ID_PREDIO
+                    String idPredio = tblPrediosLP.getValueAt(row, 0).toString();
+
+                    // Columna 1 contiene el NUM_PREDIAL (solo para mensaje de error)
+                    String numPredial = tblPrediosLP.getValueAt(row, 1).toString();
+
+                    // ⭐ LLAMAR AL NUEVO MÉTODO PARA ASOCIAR EL PREDIO
+                    boolean ok = daoPredioLP.asociarLugarProduccion(idPredio, this.idLugarProduccion);
+
+                    if (ok) {
+                        model.removeRow(row); // Quitar el predio de la tabla de "no asociados"
+                        asociados++;
+                    } else {
+                        // El error se muestra dentro del método DAO, pero puedes poner un mensaje extra aquí
+                        JOptionPane.showMessageDialog(
+                                this,
+                                "No se pudo asociar el predio " + numPredial + " al lugar de producción.",
+                                "Error de Asociación",
+                                JOptionPane.ERROR_MESSAGE
+                        );
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                     JOptionPane.showMessageDialog(
-                        this,
-                        "No se pudo asociar el predio " + numPredial + " al lugar de producción.",
-                        "Error de Asociación",
-                        JOptionPane.ERROR_MESSAGE
+                            this,
+                            "Error inesperado al asociar predio en la fila " + row + ": " + e.getMessage(),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE
                     );
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(
-                    this,
-                    "Error inesperado al asociar predio en la fila " + row + ": " + e.getMessage(),
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE
-                );
             }
-        }
-        
-        if (asociados > 0){
-            JOptionPane.showMessageDialog(
-                this,
-                asociados + " predio(s) asociado(s) correctamente"
-            );
-            
-            Object[] opciones = {"Asociar más predios", "Menú Principal"};
+
+            if (asociados > 0) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        asociados + " predio(s) asociado(s) correctamente"
+                );
+
+                Object[] opciones = {"Asociar más predios", "Menú Principal"};
                 // 2. Muestra el cuadro de diálogo con las opciones personalizadas
-                    int seleccion = JOptionPane.showOptionDialog(
+                int seleccion = JOptionPane.showOptionDialog(
                         this, // Componente padre
                         "¿Deseas volver al menú principal o asociar otro predio al lugar de producción?", // Mensaje
                         "Guardado Exitoso", // Título de la ventana
@@ -283,24 +284,23 @@ public class UpLugarProdPredios extends javax.swing.JPanel {
                         null, // Icono personalizado (null para usar el predeterminado)
                         opciones, // Array de los textos de los botones
                         opciones[0] // Opción predeterminada (Asociar Otra Plaga)
-                    );
-                    // 3. Maneja la respuesta del usuario
-                    // showOptionDialog devuelve el índice del botón presionado (0 para la primera opción, 1 para la segunda)
-                    if (seleccion == 1) {
-                        Dashboard.ShowJPanel(new GestionLugaresProduccion());
-                    }
-            
-        } else {
-            // Si hay un error, el mensaje de error se mostrará en el bucle
-            JOptionPane.showMessageDialog(
-                this,
-                "No se asoció ningún predio."
-            );
+                );
+                // 3. Maneja la respuesta del usuario
+                // showOptionDialog devuelve el índice del botón presionado (0 para la primera opción, 1 para la segunda)
+                if (seleccion == 1) {
+                    Dashboard.ShowJPanel(new GestionLugaresProduccion());
+                }
+
+            } else {
+                // Si hay un error, el mensaje de error se mostrará en el bucle
+                JOptionPane.showMessageDialog(
+                        this,
+                        "No se asoció ningún predio."
+                );
+            }
         }
-    }
-        
-        
-        
+
+
     }//GEN-LAST:event_btnAsociarPrediosActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

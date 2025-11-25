@@ -19,8 +19,11 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 public class EditMunicipio extends javax.swing.JPanel {
 
     private Municipio municipioActual;
+    
+        private String nombreRol;
 
-    public EditMunicipio() {
+    public EditMunicipio(String nombreRol) {
+        this.nombreRol = nombreRol;
         initComponents();
         cargarDepartamentos();
     }
@@ -168,7 +171,7 @@ public class EditMunicipio extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,7 +181,7 @@ public class EditMunicipio extends javax.swing.JPanel {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         limpiarCampos();
-        Dashboard.ShowJPanel(new GestionMunicipios());
+        Dashboard.ShowJPanel(new GestionMunicipios(nombreRol));
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

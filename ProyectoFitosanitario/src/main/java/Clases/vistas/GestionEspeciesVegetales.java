@@ -211,7 +211,7 @@ public class GestionEspeciesVegetales extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevaEspecieVegetalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaEspecieVegetalActionPerformed
-        Dashboard.ShowJPanel(new UpEspecieVegetal());
+        Dashboard.ShowJPanel(new UpEspecieVegetal(nombreRol));
     }//GEN-LAST:event_btnNuevaEspecieVegetalActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
@@ -293,7 +293,7 @@ public class GestionEspeciesVegetales extends javax.swing.JPanel {
 
             if (especievegetal != null) {
                 // Crear el panel EditEspecieVegetal y pasarle la especie vegetal
-                EditEspecieVegetal panelEditar = new EditEspecieVegetal();
+                EditEspecieVegetal panelEditar = new EditEspecieVegetal(nombreRol);
                 panelEditar.setEspecieVegetal(especievegetal);
 
                 // Mostrar el panel en el Dashboard

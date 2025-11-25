@@ -23,7 +23,10 @@ public class EditVereda extends javax.swing.JPanel {
 
     private Vereda veredaActual;
 
-    public EditVereda() {
+    private String nombreRol;
+
+    public EditVereda(String nombreRol) {
+        this.nombreRol = nombreRol;
         initComponents();
         configurarMunicipioInactivo();
         cargarDepartamentos();
@@ -204,7 +207,7 @@ public class EditVereda extends javax.swing.JPanel {
                                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(0, 575, Short.MAX_VALUE))
+                                .addGap(0, 571, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnCancelar)
                                 .addGap(460, 460, 460)
@@ -243,7 +246,7 @@ public class EditVereda extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,7 +256,7 @@ public class EditVereda extends javax.swing.JPanel {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         limpiarCampos();
-        Dashboard.ShowJPanel(new GestionMunicipios());
+        Dashboard.ShowJPanel(new GestionVeredas(nombreRol));
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -294,7 +297,7 @@ public class EditVereda extends javax.swing.JPanel {
 
             if (actualizado) {
                 JOptionPane.showMessageDialog(this, "Vereda actualizada correctamente.");
-                Dashboard.ShowJPanel(new GestionVeredas());
+                Dashboard.ShowJPanel(new GestionVeredas(nombreRol));
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo actualizar la Vereda.");
             }

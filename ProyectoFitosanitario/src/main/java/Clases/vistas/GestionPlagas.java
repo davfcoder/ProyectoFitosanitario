@@ -209,7 +209,7 @@ public class GestionPlagas extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevaPlagaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaPlagaActionPerformed
-        Dashboard.ShowJPanel(new UpPlaga());
+        Dashboard.ShowJPanel(new UpPlaga(nombreRol));
     }//GEN-LAST:event_btnNuevaPlagaActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
@@ -291,7 +291,7 @@ public class GestionPlagas extends javax.swing.JPanel {
 
             if (plaga != null) {
                 // Crear el panel EditPlaga y pasarle la plaga
-                EditPlaga panelEditar = new EditPlaga();
+                EditPlaga panelEditar = new EditPlaga(nombreRol);
                 panelEditar.setPlaga(plaga);
 
                 // Mostrar el panel en el Dashboard

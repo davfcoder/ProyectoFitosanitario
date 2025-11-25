@@ -20,7 +20,10 @@ public class EditVariedadEspecie extends javax.swing.JPanel {
 
     private VariedadEspecie variedadespecieActual;
 
-    public EditVariedadEspecie() {
+    private String nombreRol;
+
+    public EditVariedadEspecie(String nombreRol) {
+        this.nombreRol = nombreRol;
         initComponents();
         cargarVariedadEspecie();
     }
@@ -158,7 +161,7 @@ public class EditVariedadEspecie extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,7 +171,7 @@ public class EditVariedadEspecie extends javax.swing.JPanel {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         limpiarCampos();
-        Dashboard.ShowJPanel(new GestionVariedadEspecies());
+        Dashboard.ShowJPanel(new GestionVariedadEspecies(nombreRol));
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -209,7 +212,7 @@ public class EditVariedadEspecie extends javax.swing.JPanel {
 
             if (actualizado) {
                 JOptionPane.showMessageDialog(this, "Variedad Especie actualizada correctamente.");
-                Dashboard.ShowJPanel(new GestionVariedadEspecies());
+                Dashboard.ShowJPanel(new GestionVariedadEspecies(nombreRol));
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo actualizar la Variedad Especie.");
             }

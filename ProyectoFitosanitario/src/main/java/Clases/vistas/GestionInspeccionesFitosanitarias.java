@@ -241,18 +241,18 @@ public class GestionInspeccionesFitosanitarias extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevaInspeccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaInspeccionActionPerformed
-        Dashboard.ShowJPanel(new UpInspeccionFitosanitaria());
+        Dashboard.ShowJPanel(new UpInspeccionFitosanitaria(nombreRol));
     }//GEN-LAST:event_btnNuevaInspeccionActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
@@ -352,7 +352,7 @@ public class GestionInspeccionesFitosanitarias extends javax.swing.JPanel {
             if (inspeccionfitosanitaria != null) {
                 // Crear el panel EditInspeccionFitosanitaria y pasarle la inspeccion
                 inspeccionfitosanitaria.setNombreLugarProduccion(lugarInspec);
-                EditInspeccionFitosanitaria panelEditar = new EditInspeccionFitosanitaria(inspeccionfitosanitaria);
+                EditInspeccionFitosanitaria panelEditar = new EditInspeccionFitosanitaria(inspeccionfitosanitaria,nombreRol);
 
                 // Mostrar el panel en el Dashboard
                 Dashboard.ShowJPanel(panelEditar);

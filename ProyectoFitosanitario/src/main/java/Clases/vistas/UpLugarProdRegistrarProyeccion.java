@@ -2,8 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-
 package Clases.vistas;
+
 import Clases.dao.EspecieVegetalDAO;
 import Clases.dao.LugarEspecieDAO;
 import Clases.dao.PredioDAO;
@@ -17,11 +17,13 @@ import javax.swing.table.DefaultTableModel;
  * @author ricar
  */
 public class UpLugarProdRegistrarProyeccion extends javax.swing.JPanel {
-    
+
     private String idLugarProduccion;
     private LugarProduccion lugarproduccionActual;
     private String nombreLP;
-    
+
+    private String nombreRol;
+
     public UpLugarProdRegistrarProyeccion(LugarProduccion lugarProduccion) {
         initComponents();
         lugarproduccionActual = lugarProduccion;
@@ -31,7 +33,7 @@ public class UpLugarProdRegistrarProyeccion extends javax.swing.JPanel {
         lblRegistroICA.setText(lugarproduccionActual.getNroRegistroICA());
         LoadEspecieVNoLP();
     }
-    
+
     private void LoadEspecieVNoLP() {
         try {
             EspecieVegetalDAO dao = new EspecieVegetalDAO();
@@ -47,18 +49,17 @@ public class UpLugarProdRegistrarProyeccion extends javax.swing.JPanel {
                     especie.getCicloCultivo()
                 });
             });
-            
+
             // 🔹 Ocultar la primera columna (id_usuario)
             tblEspeciesNoLP.getColumnModel().getColumn(0).setMinWidth(0);
             tblEspeciesNoLP.getColumnModel().getColumn(0).setMaxWidth(0);
             tblEspeciesNoLP.getColumnModel().getColumn(0).setWidth(0);
-            
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(this, "Error al cargar la tabla de especies vegetales disponibles: " + e.getMessage());
         }
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -149,18 +150,15 @@ public class UpLugarProdRegistrarProyeccion extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnContinuarProyecc, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnContinuarProyecc, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
@@ -187,8 +185,8 @@ public class UpLugarProdRegistrarProyeccion extends javax.swing.JPanel {
                 .addGap(29, 29, 29)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
@@ -205,8 +203,8 @@ public class UpLugarProdRegistrarProyeccion extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,8 +218,8 @@ public class UpLugarProdRegistrarProyeccion extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Por favor, seleccione una especie de la tabla para continuar.");
             return;
         }
-        int [] especiesS = tblEspeciesNoLP.getSelectedRows();
-        if (especiesS.length>1){
+        int[] especiesS = tblEspeciesNoLP.getSelectedRows();
+        if (especiesS.length > 1) {
             JOptionPane.showMessageDialog(this, "Por favor, seleccione SOLO UNA especie de la tabla para continuar.");
             return;
         }
@@ -229,16 +227,14 @@ public class UpLugarProdRegistrarProyeccion extends javax.swing.JPanel {
         String idEspecieS = tblEspeciesNoLP.getValueAt(especieS, 0).toString();
         EspecieVegetalDAO daoEspecie = new EspecieVegetalDAO();
         Clases.modelo.EspecieVegetal especieV = daoEspecie.buscarPorId(idEspecieS);
-        
-        
-        
-    // Buscar la especie en la BD
+
+        // Buscar la especie en la BD
         try {
             LugarEspecieDAO lugarEspec = new LugarEspecieDAO();
             lugarEspec.insertar(idLugarProduccion, idEspecieS);
             UpLugarProdRegProyecContinuar panelEditar = new UpLugarProdRegProyecContinuar(false, lugarproduccionActual, especieV, 0.0f, 0.0f);
-            JOptionPane.showMessageDialog(this, 
-                "Especie asociada correctamente a la proyección de producción del lugar");
+            JOptionPane.showMessageDialog(this,
+                    "Especie asociada correctamente a la proyección de producción del lugar");
             // Mostrar el panel en el Dashboard
             Dashboard.ShowJPanel(panelEditar);
         } catch (Exception e) {

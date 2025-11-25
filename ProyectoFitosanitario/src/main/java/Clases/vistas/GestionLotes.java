@@ -215,7 +215,7 @@ public class GestionLotes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoLoteActionPerformed
-        Dashboard.ShowJPanel(new UpLote());
+        Dashboard.ShowJPanel(new UpLote(nombreRol));
     }//GEN-LAST:event_btnNuevoLoteActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
@@ -313,7 +313,7 @@ public class GestionLotes extends javax.swing.JPanel {
 
             if (lote != null) {
                 // Crear el panel EditLote y pasarle el lote
-                EditLote panelEditar = new EditLote();
+                EditLote panelEditar = new EditLote(nombreRol);
                 panelEditar.setLote(lote);
 
                 // Mostrar el panel en el Dashboard

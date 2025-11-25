@@ -210,7 +210,7 @@ public class GestionDepartamentos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoDepartamentoActionPerformed
-        Dashboard.ShowJPanel(new UpDepartamento());
+        Dashboard.ShowJPanel(new UpDepartamento(nombreRol));
     }//GEN-LAST:event_btnNuevoDepartamentoActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
@@ -292,7 +292,7 @@ public class GestionDepartamentos extends javax.swing.JPanel {
 
             if (departamento != null) {
                 // Crear el panel EditDepartamento y pasarle el departamento
-                EditDepartamento panelEditar = new EditDepartamento();
+                EditDepartamento panelEditar = new EditDepartamento(nombreRol);
                 panelEditar.setDepartamento(departamento);
 
                 // Mostrar el panel en el Dashboard

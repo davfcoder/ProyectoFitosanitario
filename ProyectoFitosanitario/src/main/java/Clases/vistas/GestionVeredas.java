@@ -211,7 +211,7 @@ public class GestionVeredas extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevaVeredaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaVeredaActionPerformed
-        Dashboard.ShowJPanel(new UpVereda());
+        Dashboard.ShowJPanel(new UpVereda(nombreRol));
     }//GEN-LAST:event_btnNuevaVeredaActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
@@ -309,7 +309,7 @@ public class GestionVeredas extends javax.swing.JPanel {
 
             if (vereda != null) {
                 // Crear el panel EditVereda y pasarle el vereda
-                EditVereda panelEditar = new EditVereda();
+                EditVereda panelEditar = new EditVereda(nombreRol);
                 panelEditar.setVereda(vereda);
 
                 // Mostrar el panel en el Dashboard

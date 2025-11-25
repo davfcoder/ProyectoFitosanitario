@@ -18,16 +18,19 @@ public class EditDepartamento extends javax.swing.JPanel {
 
     private Departamento departamentoActual;
 
-    public EditDepartamento() {
+    private String nombreRol;
+
+    public EditDepartamento(String nombreRol) {
+        this.nombreRol = nombreRol;
         initComponents();
     }
-    
+
     public void setDepartamento(Departamento departamento) {
         this.departamentoActual = departamento;
-        
+
         txtCodigoDane.setText(departamento.getCodigoDane());
         txtNombre.setText(departamento.getNombre());
-        
+
     }
 
     private void limpiarCampos() {
@@ -97,14 +100,14 @@ public class EditDepartamento extends javax.swing.JPanel {
                     .addComponent(jLabel1)
                     .addComponent(jLabel4)
                     .addComponent(jLabel2)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addComponent(btnCancelar)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton2))
-                        .addComponent(txtCodigoDane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addContainerGap(60, Short.MAX_VALUE))
+                        .addComponent(txtCodigoDane, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)))
+                .addGap(60, 60, 60))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,7 +133,7 @@ public class EditDepartamento extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,18 +143,18 @@ public class EditDepartamento extends javax.swing.JPanel {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         limpiarCampos();
-        Dashboard.ShowJPanel(new GestionDepartamentos());
+        Dashboard.ShowJPanel(new GestionDepartamentos(nombreRol));
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+
         if (departamentoActual == null) {
             JOptionPane.showMessageDialog(this, "No hay un Departamento cargado para actualizar.");
             return;
         }
-        
+
         if (txtCodigoDane.getText().trim().isEmpty()
-            || txtNombre.getText().trim().isEmpty()) {
+                || txtNombre.getText().trim().isEmpty()) {
 
             JOptionPane.showMessageDialog(this,
                     "Por favor, complete todos los campos antes de actualizar.",
@@ -172,7 +175,7 @@ public class EditDepartamento extends javax.swing.JPanel {
 
             if (actualizado) {
                 JOptionPane.showMessageDialog(this, "Departamento actualizado correctamente.");
-                Dashboard.ShowJPanel(new GestionDepartamentos());
+                Dashboard.ShowJPanel(new GestionDepartamentos(nombreRol));
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo actualizar el Departamento.");
             }

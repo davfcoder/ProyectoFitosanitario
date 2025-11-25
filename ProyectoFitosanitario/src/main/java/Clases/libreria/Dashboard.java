@@ -60,14 +60,13 @@ public class Dashboard extends javax.swing.JFrame {
     }
 
     public static void ShowJPanel(JPanel p) {
-        p.setSize(770, 480);
-        p.setLocation(0, 0);
-
         content.removeAll();
+        content.setLayout(new BorderLayout());
         content.add(p, BorderLayout.CENTER);
         content.revalidate();
         content.repaint();
     }
+
 
     /*ShowJPanel(new Principal());
 
@@ -185,7 +184,19 @@ public class Dashboard extends javax.swing.JFrame {
         );
 
         content.setBackground(new java.awt.Color(255, 255, 255));
-        content.setLayout(new java.awt.BorderLayout());
+        content.setMinimumSize(null);
+        content.setName(""); // NOI18N
+
+        javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
+        content.setLayout(contentLayout);
+        contentLayout.setHorizontalGroup(
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        contentLayout.setVerticalGroup(
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 654, Short.MAX_VALUE)
+        );
 
         jScrollPane1.setBackground(new java.awt.Color(27, 94, 32));
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -487,8 +498,8 @@ public class Dashboard extends javax.swing.JFrame {
                         .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(12, 12, 12))
                     .addGroup(backgroundLayout.createSequentialGroup()
-                        .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -510,8 +521,8 @@ public class Dashboard extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, 1040, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, 1040, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -639,7 +650,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGestionPredioActionPerformed
 
     private void btnGestionLugarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionLugarProdActionPerformed
-        ShowJPanel(new GestionLugaresProduccion(nombreRol)); // TODO add your handling code here:        // TODO add your handling code here:
+        ShowJPanel(new GestionLugaresProduccion()); // TODO add your handling code here:        // TODO add your handling code here:
 
     }//GEN-LAST:event_btnGestionLugarProdActionPerformed
 

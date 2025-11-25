@@ -21,7 +21,10 @@ public class UpMunicipio extends javax.swing.JPanel {
     /**
      * Creates new form Principal
      */
-    public UpMunicipio() {
+    private String nombreRol;
+
+    public UpMunicipio(String nombreRol) {
+        this.nombreRol = nombreRol;
         initComponents();
         cargarDepartamentos();
     }
@@ -134,7 +137,7 @@ public class UpMunicipio extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 459, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 464, Short.MAX_VALUE)
                         .addComponent(btnGuardar))
                     .addComponent(jBoxDepartamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtNombre)))
@@ -168,8 +171,8 @@ public class UpMunicipio extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 693, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 57, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
+                .addGap(57, 57, 57))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,7 +221,7 @@ public class UpMunicipio extends javax.swing.JPanel {
             if (guardado) {
                 JOptionPane.showMessageDialog(this, "Municipio guardado correctamente");
                 limpiarCampos();
-                Dashboard.ShowJPanel(new GestionMunicipios());
+                Dashboard.ShowJPanel(new GestionMunicipios(nombreRol));
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo guardar el Municipio");
             }
@@ -233,7 +236,7 @@ public class UpMunicipio extends javax.swing.JPanel {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         limpiarCampos();
-        Dashboard.ShowJPanel(new GestionMunicipios());
+        Dashboard.ShowJPanel(new GestionMunicipios(nombreRol));
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed

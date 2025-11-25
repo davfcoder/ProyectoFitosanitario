@@ -18,7 +18,10 @@ public class EditPlaga extends javax.swing.JPanel {
 
     private Plaga plagaActual;
 
-    public EditPlaga() {
+    private String nombreRol;
+
+    public EditPlaga(String nombreRol) {
+        this.nombreRol = nombreRol;
         initComponents();
     }
     
@@ -97,14 +100,14 @@ public class EditPlaga extends javax.swing.JPanel {
                     .addComponent(jLabel1)
                     .addComponent(jLabel4)
                     .addComponent(jLabel2)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addComponent(btnCancelar)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton2))
                         .addComponent(txtNomCientifico, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
                         .addComponent(txtNomComun, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addGap(60, 60, 60))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,7 +133,7 @@ public class EditPlaga extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,7 +143,7 @@ public class EditPlaga extends javax.swing.JPanel {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         limpiarCampos();
-        Dashboard.ShowJPanel(new GestionPlagas());
+        Dashboard.ShowJPanel(new GestionPlagas(nombreRol));
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -172,7 +175,7 @@ public class EditPlaga extends javax.swing.JPanel {
 
             if (actualizado) {
                 JOptionPane.showMessageDialog(this, "Plaga actualizada correctamente.");
-                Dashboard.ShowJPanel(new GestionPlagas());
+                Dashboard.ShowJPanel(new GestionPlagas(nombreRol));
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo actualizar la Plaga.");
             }

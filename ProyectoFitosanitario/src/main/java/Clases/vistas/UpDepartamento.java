@@ -19,7 +19,10 @@ public class UpDepartamento extends javax.swing.JPanel {
     /**
      * Creates new form Principal
      */
-    public UpDepartamento() {
+    private String nombreRol;
+
+    public UpDepartamento(String nombreRol) {
+        this.nombreRol = nombreRol;
         initComponents();
     }
 
@@ -108,7 +111,7 @@ public class UpDepartamento extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 434, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 438, Short.MAX_VALUE)
                         .addComponent(btnGuardar))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -136,8 +139,8 @@ public class UpDepartamento extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 693, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 57, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
+                .addGap(57, 57, 57))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,12 +150,12 @@ public class UpDepartamento extends javax.swing.JPanel {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         if (txtCodigoDane.getText().trim().isEmpty()
-            || txtNombre.getText().trim().isEmpty()) {
+                || txtNombre.getText().trim().isEmpty()) {
 
             JOptionPane.showMessageDialog(this,
-                "Por favor, complete todos los campos antes de guardar.",
-                "Campos incompletos",
-                JOptionPane.WARNING_MESSAGE);
+                    "Por favor, complete todos los campos antes de guardar.",
+                    "Campos incompletos",
+                    JOptionPane.WARNING_MESSAGE);
             return; // no continúa si falta información
         }
         try {
@@ -168,7 +171,7 @@ public class UpDepartamento extends javax.swing.JPanel {
             if (guardado) {
                 JOptionPane.showMessageDialog(this, "Departamento guardado correctamente");
                 limpiarCampos();
-                Dashboard.ShowJPanel(new GestionDepartamentos());
+                Dashboard.ShowJPanel(new GestionDepartamentos(nombreRol));
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo guardar el Departamento");
             }
@@ -181,7 +184,7 @@ public class UpDepartamento extends javax.swing.JPanel {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         limpiarCampos();
-        Dashboard.ShowJPanel(new GestionDepartamentos());
+        Dashboard.ShowJPanel(new GestionDepartamentos(nombreRol));
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed

@@ -19,7 +19,10 @@ public class UpPlaga extends javax.swing.JPanel {
     /**
      * Creates new form Principal
      */
-    public UpPlaga() {
+    private String nombreRol;
+
+    public UpPlaga(String nombreRol) {
+        this.nombreRol = nombreRol;
         initComponents();
     }
 
@@ -108,7 +111,7 @@ public class UpPlaga extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 483, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 489, Short.MAX_VALUE)
                         .addComponent(btnGuardar))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -136,8 +139,8 @@ public class UpPlaga extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 693, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 57, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
+                .addGap(57, 57, 57))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,7 +171,7 @@ public class UpPlaga extends javax.swing.JPanel {
             if (guardado) {
                 JOptionPane.showMessageDialog(this, "Plaga guardada correctamente");
                 limpiarCampos();
-                Dashboard.ShowJPanel(new GestionPlagas());
+                Dashboard.ShowJPanel(new GestionPlagas(nombreRol));
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo guardar la plaga");
             }
@@ -181,7 +184,7 @@ public class UpPlaga extends javax.swing.JPanel {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         limpiarCampos();
-        Dashboard.ShowJPanel(new GestionPlagas());
+        Dashboard.ShowJPanel(new GestionPlagas(nombreRol));
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtNomComunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomComunActionPerformed

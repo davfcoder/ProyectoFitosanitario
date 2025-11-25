@@ -209,7 +209,7 @@ public class GestionVariedadEspecies extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevaVariedadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaVariedadActionPerformed
-        Dashboard.ShowJPanel(new UpVariedadEspecie());
+        Dashboard.ShowJPanel(new UpVariedadEspecie(nombreRol));
     }//GEN-LAST:event_btnNuevaVariedadActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
@@ -289,7 +289,7 @@ public class GestionVariedadEspecies extends javax.swing.JPanel {
 
             if (variedadespecie != null) {
                 // Crear el panel EditVariedadEspecie y pasarle el variedad
-                EditVariedadEspecie panelEditar = new EditVariedadEspecie();
+                EditVariedadEspecie panelEditar = new EditVariedadEspecie(nombreRol);
                 panelEditar.setVariedadEspecie(variedadespecie);
 
                 // Mostrar el panel en el Dashboard

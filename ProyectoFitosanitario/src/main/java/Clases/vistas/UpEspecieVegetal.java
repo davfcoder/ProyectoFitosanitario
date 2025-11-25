@@ -19,7 +19,10 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
     /**
      * Creates new form Principal
      */
-    public UpEspecieVegetal() {
+    private String nombreRol;
+
+    public UpEspecieVegetal(String nombreRol) {
+        this.nombreRol = nombreRol;
         initComponents();
         cargarCiclos();
     }
@@ -121,7 +124,7 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
                             .addComponent(jLabel4))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtNomCientifico, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNomComun, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -129,7 +132,7 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 493, Short.MAX_VALUE)
                                 .addComponent(Continuar))
                             .addComponent(jBoxCiclos, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 20, Short.MAX_VALUE))))
+                        .addGap(20, 20, 20))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,7 +172,7 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         limpiarCampos();
-        Dashboard.ShowJPanel(new GestionEspeciesVegetales());
+        Dashboard.ShowJPanel(new GestionEspeciesVegetales(nombreRol));
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtNomComunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomComunActionPerformed
@@ -182,8 +185,8 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
 
     private void ContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContinuarActionPerformed
         if (txtNomCientifico.getText().trim().isEmpty()
-            || txtNomComun.getText().trim().isEmpty()
-            || jBoxCiclos.getSelectedItem() == null) {
+                || txtNomComun.getText().trim().isEmpty()
+                || jBoxCiclos.getSelectedItem() == null) {
 
             JOptionPane.showMessageDialog(this,
                     "Por favor, complete todos los campos antes de guardar.",
@@ -202,7 +205,6 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
             Clases.dao.EspecieVegetalDAO especievegetalDAO = new Clases.dao.EspecieVegetalDAO();
             String idGenerado = especievegetalDAO.insertar(especievegetal);
             especievegetal.setIdEspecie(idGenerado);
-            
 
             if (idGenerado != "0") {
                 JOptionPane.showMessageDialog(this, "Especie Vegetal guardada correctamente. A continuación, asocia las plagas a dicha especie");
@@ -216,7 +218,7 @@ public class UpEspecieVegetal extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Error al guardar: " + e.getMessage());
             e.printStackTrace();
         }
-       // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_ContinuarActionPerformed
 
 

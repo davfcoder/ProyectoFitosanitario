@@ -214,7 +214,7 @@ public class GestionPredios extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoPredioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoPredioActionPerformed
-        Dashboard.ShowJPanel(new UpPredio());
+        Dashboard.ShowJPanel(new UpPredio(nombreRol));
     }//GEN-LAST:event_btnNuevoPredioActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
@@ -296,7 +296,7 @@ public class GestionPredios extends javax.swing.JPanel {
 
             if (predio != null) {
                 // Crear el panel EditPredio y pasarle el predio
-                EditPredio panelEditar = new EditPredio();
+                EditPredio panelEditar = new EditPredio(nombreRol);
                 panelEditar.setPredio(predio);
 
                 // Mostrar el panel en el Dashboard

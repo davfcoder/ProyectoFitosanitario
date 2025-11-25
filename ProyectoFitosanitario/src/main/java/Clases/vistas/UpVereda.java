@@ -24,7 +24,10 @@ public class UpVereda extends javax.swing.JPanel {
     /**
      * Creates new form Principal
      */
-    public UpVereda() {
+    private String nombreRol;
+
+    public UpVereda(String nombreRol) {
+        this.nombreRol = nombreRol;
         initComponents();
         cargarDepartamentos();
         configurarMunicipioInactivo(); 
@@ -197,7 +200,7 @@ public class UpVereda extends javax.swing.JPanel {
                     .addComponent(txtNombre)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 476, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 479, Short.MAX_VALUE)
                         .addComponent(btnGuardar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,8 +245,8 @@ public class UpVereda extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 693, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 57, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
+                .addGap(57, 57, 57))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,7 +295,7 @@ public class UpVereda extends javax.swing.JPanel {
             if (guardado) {
                 JOptionPane.showMessageDialog(this, "Vereda guardada correctamente.");
                 limpiarCampos();
-                Dashboard.ShowJPanel(new GestionVeredas());
+                Dashboard.ShowJPanel(new GestionVeredas(nombreRol));
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo guardar la Vereda.");
             }
@@ -306,7 +309,7 @@ public class UpVereda extends javax.swing.JPanel {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         limpiarCampos();
-        Dashboard.ShowJPanel(new GestionVeredas());
+        Dashboard.ShowJPanel(new GestionVeredas(nombreRol));
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed

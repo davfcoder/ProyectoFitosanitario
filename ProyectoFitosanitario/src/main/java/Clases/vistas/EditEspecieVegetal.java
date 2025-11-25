@@ -18,7 +18,10 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
 
     private EspecieVegetal especievegetalActual;
 
-    public EditEspecieVegetal() {
+    private String nombreRol;
+
+    public EditEspecieVegetal(String nombreRol) {
+        this.nombreRol = nombreRol;
         initComponents();
         cargarCiclos();
     }
@@ -45,9 +48,8 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
         jBoxCiclos.addItem("Medio (menor de cinco años)");
         jBoxCiclos.addItem("Largo (mayor a cinco años)");
     }
-    
-    
-    private void mensajeCompletarCampos(){
+
+    private void mensajeCompletarCampos() {
         if (especievegetalActual == null) {
             JOptionPane.showMessageDialog(this, "No hay una Especie Vegetal cargada para actualizar.");
         }
@@ -62,7 +64,7 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
                     JOptionPane.WARNING_MESSAGE);
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -225,8 +227,8 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -236,7 +238,7 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         limpiarCampos();
-        Dashboard.ShowJPanel(new GestionEspeciesVegetales());
+        Dashboard.ShowJPanel(new GestionEspeciesVegetales(nombreRol));
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -256,7 +258,7 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
 
             if (actualizado) {
                 JOptionPane.showMessageDialog(this, "Especie Vegetal actualizada correctamente.");
-                Dashboard.ShowJPanel(new GestionEspeciesVegetales());
+                Dashboard.ShowJPanel(new GestionEspeciesVegetales(nombreRol));
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo actualizar la Especie Vegetal.");
             }
@@ -274,7 +276,7 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
 
     private void btnAsociarPlagasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsociarPlagasActionPerformed
         mensajeCompletarCampos();
-        
+
         try {
 
             // Actualizar los valores en el objeto usuarioActual
@@ -285,7 +287,7 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
             // Llamar al DAO para actualizar en BD
             EspecieVegetalDAO especievegetalDAO = new EspecieVegetalDAO();
             boolean actualizado = especievegetalDAO.actualizar(especievegetalActual);
-            
+
             if (actualizado) {
                 JOptionPane.showMessageDialog(this, "Especie Vegetal actualizada correctamente. A continuación, asocia las plagas a dicha especie");
                 Dashboard.ShowJPanel(new UpEspecieVegetalPlaga(especievegetalActual));
@@ -305,7 +307,7 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
 
     private void btnDesasociarPlagasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesasociarPlagasActionPerformed
         mensajeCompletarCampos();
-        
+
         try {
 
             // Actualizar los valores en el objeto usuarioActual
@@ -316,7 +318,7 @@ public class EditEspecieVegetal extends javax.swing.JPanel {
             // Llamar al DAO para actualizar en BD
             EspecieVegetalDAO especievegetalDAO = new EspecieVegetalDAO();
             boolean actualizado = especievegetalDAO.actualizar(especievegetalActual);
-            
+
             if (actualizado) {
                 JOptionPane.showMessageDialog(this, "Especie Vegetal actualizada correctamente. A continuación, desasocia las plagas de dicha especie");
                 Dashboard.ShowJPanel(new UpEliminarEspecieVegetalPlaga(especievegetalActual));

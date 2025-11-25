@@ -210,7 +210,7 @@ public class GestionMunicipios extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoMunicipioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoMunicipioActionPerformed
-        Dashboard.ShowJPanel(new UpMunicipio());
+        Dashboard.ShowJPanel(new UpMunicipio(nombreRol));
     }//GEN-LAST:event_btnNuevoMunicipioActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
@@ -292,7 +292,7 @@ public class GestionMunicipios extends javax.swing.JPanel {
 
             if (municipio != null) {
                 // Crear el panel EditMunicipio y pasarle el municipio
-                EditMunicipio panelEditar = new EditMunicipio();
+                EditMunicipio panelEditar = new EditMunicipio(nombreRol);
                 panelEditar.setMunicipio(municipio);
 
                 // Mostrar el panel en el Dashboard
