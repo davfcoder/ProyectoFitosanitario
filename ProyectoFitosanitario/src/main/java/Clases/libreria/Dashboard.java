@@ -110,6 +110,7 @@ public class Dashboard extends javax.swing.JFrame {
         btnGestionRol = new javax.swing.JButton();
         btnGestionUsuario = new javax.swing.JButton();
         jLabelUsers = new javax.swing.JLabel();
+        btnGestionReportesInspeccion = new javax.swing.JButton();
         cerrarSesion = new javax.swing.JPanel();
         btnCerrarSesion = new javax.swing.JButton();
 
@@ -374,6 +375,17 @@ public class Dashboard extends javax.swing.JFrame {
         jLabelUsers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/user.png"))); // NOI18N
         jLabelUsers.setText("Gestión de Usuarios:");
 
+        btnGestionReportesInspeccion.setBackground(new java.awt.Color(27, 94, 32));
+        btnGestionReportesInspeccion.setForeground(new java.awt.Color(255, 255, 255));
+        btnGestionReportesInspeccion.setText("Ver reportes");
+        btnGestionReportesInspeccion.setBorder(null);
+        btnGestionReportesInspeccion.setBorderPainted(false);
+        btnGestionReportesInspeccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGestionReportesInspeccionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
         menu.setLayout(menuLayout);
         menuLayout.setHorizontalGroup(
@@ -405,6 +417,7 @@ public class Dashboard extends javax.swing.JFrame {
                     .addComponent(jLabelTerritorial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelCatalogos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelInspec, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)))
+            .addComponent(btnGestionReportesInspeccion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         menuLayout.setVerticalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -450,7 +463,10 @@ public class Dashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelInspec, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGestionInspeccion, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnGestionInspeccion, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGestionReportesInspeccion, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jScrollPane1.setViewportView(menu);
@@ -678,6 +694,10 @@ public class Dashboard extends javax.swing.JFrame {
         ShowJPanel(new Principal());
     }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
+    private void btnGestionReportesInspeccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionReportesInspeccionActionPerformed
+        ShowJPanel(new GestionInspeccionesFitosanitarias(nombreRol)); // TODO add your handling code here:        // TODO add your handling code here:       // TODO add your handling code here:        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGestionReportesInspeccionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -703,6 +723,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JButton btnGestionMunicipio;
     private javax.swing.JButton btnGestionPlaga;
     private javax.swing.JButton btnGestionPredio;
+    private javax.swing.JButton btnGestionReportesInspeccion;
     private javax.swing.JButton btnGestionRol;
     private javax.swing.JButton btnGestionUsuario;
     private javax.swing.JButton btnGestionVariedad;

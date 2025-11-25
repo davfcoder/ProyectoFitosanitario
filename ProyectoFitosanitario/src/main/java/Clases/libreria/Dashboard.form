@@ -282,6 +282,7 @@
                               <Component id="jLabelInspec" alignment="1" pref="279" max="32767" attributes="0"/>
                           </Group>
                       </Group>
+                      <Component id="btnGestionReportesInspeccion" alignment="1" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -329,6 +330,9 @@
                           <Component id="jLabelInspec" min="-2" pref="24" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnGestionInspeccion" min="-2" pref="25" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnGestionReportesInspeccion" min="-2" pref="25" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -430,7 +434,7 @@
                     </Property>
                     <Property name="borderPainted" type="boolean" value="false"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Default Cursor"/>
+                      <Color id="Cursor Por defecto"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -508,7 +512,7 @@
                     </Property>
                     <Property name="borderPainted" type="boolean" value="false"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Default Cursor"/>
+                      <Color id="Cursor Por defecto"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -529,7 +533,7 @@
                     </Property>
                     <Property name="borderPainted" type="boolean" value="false"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Default Cursor"/>
+                      <Color id="Cursor Por defecto"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -621,7 +625,7 @@
                     </Property>
                     <Property name="borderPainted" type="boolean" value="false"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Default Cursor"/>
+                      <Color id="Cursor Por defecto"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -644,7 +648,7 @@
                     </Property>
                     <Property name="borderPainted" type="boolean" value="false"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Default Cursor"/>
+                      <Color id="Cursor Por defecto"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -664,6 +668,24 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de Usuarios:"/>
                   </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnGestionReportesInspeccion">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="20" green="5e" red="1b" type="rgb"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Ver reportes"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="null"/>
+                    </Property>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGestionReportesInspeccionActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
