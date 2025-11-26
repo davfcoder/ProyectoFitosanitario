@@ -3,7 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Clases.vistas;
-
+import Clases.libreria.ExcelExporter;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
 import Clases.dao.EspecieVegetalDAO;
 import Clases.dao.InspeccionFitosanitariaDAO;
 import Clases.dao.InspeccionPlagaDAO;
@@ -14,7 +17,6 @@ import Clases.modelo.InspeccionReporte;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -293,7 +295,7 @@ public class GestionReportesInspeccionesF extends javax.swing.JPanel {
         dateChooserHasta = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnExportarDetalles = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -347,7 +349,7 @@ public class GestionReportesInspeccionesF extends javax.swing.JPanel {
         jLabel11.setText("Tabla de inspecciones fitosanitarias:");
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel12.setText("Tabla de las plagas asociadas a las inspecciones fitosanitarias:");
+        jLabel12.setText("Tabla de las plagas asociadas a la inspección fitosanitaria seleccionada:");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 102, 0));
@@ -396,11 +398,21 @@ public class GestionReportesInspeccionesF extends javax.swing.JPanel {
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Exportar datos inspección");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
-        jButton4.setBackground(new java.awt.Color(153, 153, 153));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Exportar inspección y plagas");
+        btnExportarDetalles.setBackground(new java.awt.Color(153, 153, 153));
+        btnExportarDetalles.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnExportarDetalles.setForeground(new java.awt.Color(255, 255, 255));
+        btnExportarDetalles.setText("Exportar inspección y plagas");
+        btnExportarDetalles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarDetallesActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Selecciona UNA fila de la tabla superior, a continuación, presiona el botón \"Aplicar\" para mostrar las plagas asociadas a dicha inspección.");
 
@@ -452,7 +464,7 @@ public class GestionReportesInspeccionesF extends javax.swing.JPanel {
                 .addComponent(jButton3))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton4))
+                .addComponent(btnExportarDetalles))
             .addComponent(jScrollPane2)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
@@ -505,7 +517,7 @@ public class GestionReportesInspeccionesF extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
+                .addComponent(btnExportarDetalles)
                 .addGap(59, 59, 59))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -520,12 +532,12 @@ public class GestionReportesInspeccionesF extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 781, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -569,9 +581,83 @@ public class GestionReportesInspeccionesF extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnAplicarFiltrosActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if (tblInspecciones.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "No hay datos en la tabla para exportar.", "Tabla Vacía", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar Reporte General");
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos Excel (*.xlsx)", "xlsx"));
+        fileChooser.setSelectedFile(new File("Reporte_Inspecciones.xlsx")); // Nombre sugerido
+
+        int userSelection = fileChooser.showSaveDialog(this);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+
+            // Asegurar extensión .xlsx
+            if (!fileToSave.getAbsolutePath().endsWith(".xlsx")) {
+                fileToSave = new File(fileToSave.getAbsolutePath() + ".xlsx");
+            }
+
+            // Llamar al exportador
+            ExcelExporter exporter = new ExcelExporter();
+            boolean exito = exporter.exportarTablaGeneral(tblInspecciones, fileToSave);
+
+            if (exito) {
+                JOptionPane.showMessageDialog(this, "Reporte General exportado exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al guardar el archivo. Verifique que no esté abierto.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btnExportarDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarDetallesActionPerformed
+        int filaSeleccionada = tblInspecciones.getSelectedRow();
+
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una Inspección de la tabla superior primero.", "Sin Selección", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Opcional: Verificar si la tabla de plagas tiene datos, aunque podría exportarse vacía si no hubo plagas
+        /* if (tblPlagas.getRowCount() == 0) { ... } */
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar Reporte Detallado");
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos Excel (*.xlsx)", "xlsx"));
+
+        // Sugerir nombre con el ID de la inspección (asumiendo col 0 es ID)
+        String idInsp = tblInspecciones.getValueAt(filaSeleccionada, 0).toString();
+        fileChooser.setSelectedFile(new File("Reporte_Detalle_" + idInsp + ".xlsx"));
+
+        int userSelection = fileChooser.showSaveDialog(this);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+
+            if (!fileToSave.getAbsolutePath().endsWith(".xlsx")) {
+                fileToSave = new File(fileToSave.getAbsolutePath() + ".xlsx");
+            }
+
+            ExcelExporter exporter = new ExcelExporter();
+            // Le pasamos ambas tablas y el índice de la fila maestra
+            boolean exito = exporter.exportarReporteIndividual(tblInspecciones, filaSeleccionada, tblPlagas, fileToSave);
+
+            if (exito) {
+                JOptionPane.showMessageDialog(this, "Reporte Detallado exportado exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al guardar el archivo.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnExportarDetallesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAplicarFiltros;
+    private javax.swing.JButton btnExportarDetalles;
     private javax.swing.JButton btnLimpiarFiltros;
     private com.toedter.calendar.JDateChooser dateChooserDesde;
     private com.toedter.calendar.JDateChooser dateChooserHasta;
@@ -580,7 +666,6 @@ public class GestionReportesInspeccionesF extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> jBoxNomEspecie;
     private javax.swing.JComboBox<String> jBoxNumeroLote;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
