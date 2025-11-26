@@ -7,8 +7,15 @@
   <build>
     <plugins>
       <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version>
+        <configuration>
+          <release>${maven.compiler.release}</release>
+        </configuration>
+      </plugin>
+      <plugin>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.2.4</version>
+        <version>3.5.1</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -23,10 +30,22 @@
                     <exclude>META-INF/*.SF</exclude>
                     <exclude>META-INF/*.DSA</exclude>
                     <exclude>META-INF/*.RSA</exclude>
+                    <exclude>META-INF/MANIFEST.MF</exclude>
+                    <exclude>META-INF/LICENSE*</exclude>
+                    <exclude>META-INF/NOTICE*</exclude>
+                    <exclude>module-info.class</exclude>
+                    <exclude>META-INF/versions/**/module-info.class</exclude>
+                  </excludes>
+                </filter>
+                <filter>
+                  <artifact>org.apache.xmlbeans:xmlbeans</artifact>
+                  <excludes>
+                    <exclude>META-INF/maven/**</exclude>
                   </excludes>
                 </filter>
               </filters>
               <transformers>
+                <transformer />
                 <transformer>
                   <mainClass>${mainClass}</mainClass>
                 </transformer>
@@ -39,7 +58,7 @@
   </build>
   <properties>
     <maven.compiler.release>21</maven.compiler.release>
-    <mainClass>Clases.libreria.Login</mainClass>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <mainClass>Clases.libreria.Login</mainClass>
   </properties>
 </project>

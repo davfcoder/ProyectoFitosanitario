@@ -11,7 +11,7 @@
     <packaging>jar</packaging>
 
     <!-- ========================= -->
-    <!--        DEPENDENCIAS       -->
+    <!--          DEPENDENCIAS     -->
     <!-- ========================= -->
     <dependencies>
         <dependency>
@@ -43,6 +43,7 @@
             <artifactId>swingx</artifactId>
             <version>1.6.1</version>
         </dependency>
+
         <dependency>
             <groupId>com.toedter</groupId>
             <artifactId>jcalendar</artifactId>
@@ -51,7 +52,7 @@
     </dependencies>
 
     <!-- ========================= -->
-    <!--       PROPIEDADES          -->
+    <!--          PROPIEDADES      -->
     <!-- ========================= -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -66,12 +67,22 @@
     <!-- ========================= -->
     <build>
         <plugins>
-            <!-- Plugin para generar un FAT-JAR (incluye todas las dependencias) -->
+            
+            <!-- 1. PLUG-IN DE COMPILACIÓN (Asegura el uso de Java 21) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <release>${maven.compiler.release}</release>
+                </configuration>
+            </plugin>
+            
+            <!-- 2. PLUG-IN SHADE (Crea el JAR ejecutable e ignora warnings) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
-
+                <version>3.5.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -79,31 +90,48 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-
-                            <!-- Evita que exploten dependencias repetidas -->
                             <filters>
                                 <filter>
                                     <artifact>*:*</artifact>
                                     <excludes>
+                                        <!-- Evitar conflictos de firmas y metadata general -->
                                         <exclude>META-INF/*.SF</exclude>
                                         <exclude>META-INF/*.DSA</exclude>
                                         <exclude>META-INF/*.RSA</exclude>
+                                        <exclude>META-INF/MANIFEST.MF</exclude>
+                                        <exclude>META-INF/LICENSE*</exclude>
+                                        <exclude>META-INF/NOTICE*</exclude>
+
+                                        <!-- Evitar warnings de modularidad de Java 9+ (module-info) -->
+                                        <exclude>module-info.class</exclude>
+                                        <exclude>META-INF/versions/**/module-info.class</exclude>
+                                        
+                                        <!-- Esto cubre el overlapping resource: META-INF.versions.9.module-info -->
+                                    </excludes>
+                                </filter>
+
+                                <!-- Filtro para eliminar metadata de plugins de XMLBeans (evita el warning "conflicting coordinates") -->
+                                <filter>
+                                    <artifact>org.apache.xmlbeans:xmlbeans</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/maven/**</exclude>
                                     </excludes>
                                 </filter>
                             </filters>
 
-                            <!-- Aquí definimos el Main-Class del JAR -->
                             <transformers>
+                                <!-- FUSIONADOR CRÍTICO: Asegura que POI encuentre sus servicios para leer/escribir Excel -->
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+
+                                <!-- Definición de la clase principal para el JAR ejecutable -->
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>${mainClass}</mainClass>
                                 </transformer>
                             </transformers>
-
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
-
 </project>

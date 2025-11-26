@@ -59,7 +59,7 @@ public class InspeccionFitosanitariaDAO {
     
     public List<InspeccionReporte> listarInspeccionesReporte(
         java.util.Date fechaInicio, java.util.Date fechaFin, String idLugar, 
-        String idLote, String idEspecie) {
+        String idLote, String idEspecie, String estadoF) {
 
         List<InspeccionReporte> lista = new ArrayList<>();
         Connection con = null;
@@ -70,7 +70,7 @@ public class InspeccionFitosanitariaDAO {
             con = conexion.estableceConexion(); // Usando tu método de conexión
 
             // 1. Llamada a la Function de Reporte
-            String sql = "{ ? = call FUN_LISTAR_INSPECCIONES_REPOR(?, ?, ?, ?, ?) }";
+            String sql = "{ ? = call FUN_LISTAR_INSPECCIONES_REPOR(?, ?, ?, ?, ?, ?) }";
             cs = con.prepareCall(sql);
 
             // 2. Registrar el parámetro de salida (Cursor)
@@ -96,6 +96,9 @@ public class InspeccionFitosanitariaDAO {
 
             if (idEspecie == null || idEspecie.isEmpty()) cs.setNull(6, java.sql.Types.VARCHAR);
             else cs.setString(6, idEspecie);
+
+            if (estadoF == null || estadoF.isEmpty()) cs.setNull(7, java.sql.Types.VARCHAR);
+            else cs.setString(7, estadoF);
 
             // 4. Ejecutar y obtener el cursor
             cs.execute();

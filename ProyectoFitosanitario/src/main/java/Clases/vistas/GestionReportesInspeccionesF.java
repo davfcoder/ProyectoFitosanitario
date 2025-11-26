@@ -37,6 +37,9 @@ public class GestionReportesInspeccionesF extends javax.swing.JPanel {
         cargarEspecies();
         cargarLugarProduccion();
         configurarEnlaceTablas();
+        tblInspecciones.getColumnModel().getColumn(0).setMinWidth(0);
+        tblInspecciones.getColumnModel().getColumn(0).setMaxWidth(0);
+        tblInspecciones.getColumnModel().getColumn(0).setWidth(0);
     }
     
     private void configurarEnlaceTablas() {
@@ -97,13 +100,6 @@ public class GestionReportesInspeccionesF extends javax.swing.JPanel {
                     dto.getTotalPlagas(),
                     dto.getObservaciones()
                 });
-            }
-
-            // 2. Ocultar la columna ID_INSPECCION (columna índice 0)
-            if (tblInspecciones.getColumnModel().getColumnCount() > 0) {
-                 tblInspecciones.getColumnModel().getColumn(0).setMinWidth(0);
-                 tblInspecciones.getColumnModel().getColumn(0).setMaxWidth(0);
-                 tblInspecciones.getColumnModel().getColumn(0).setWidth(0);
             }
             
         } catch (Exception e) {
@@ -509,13 +505,13 @@ public class GestionReportesInspeccionesF extends javax.swing.JPanel {
                     .addComponent(jLabel11)
                     .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExportarDetalles)
                 .addGap(59, 59, 59))
@@ -536,7 +532,7 @@ public class GestionReportesInspeccionesF extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -561,16 +557,19 @@ public class GestionReportesInspeccionesF extends javax.swing.JPanel {
 
     private void btnAplicarFiltrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicarFiltrosActionPerformed
     try {
-        // 1. Obtener Fechas
         java.util.Date fechaInicio = dateChooserDesde.getDate();
         java.util.Date fechaFin = dateChooserHasta.getDate();
         String idLugar = new LugarProduccionDAO().obtenerIdPorNombre((String) jBoxLugarProd.getSelectedItem());
         String idLote = new LoteDAO().obtenerIdPorNombre((String) jBoxNumeroLote.getSelectedItem()); 
         String idEspecie = new EspecieVegetalDAO().obtenerIdPorNombre((String) jBoxNomEspecie.getSelectedItem());
+        String estadoF;
+        if (jBoxEstado.getSelectedIndex()==0) estadoF = null;
+        else estadoF = (String) jBoxEstado.getSelectedItem(); 
+            
         // 3. Llamar al DAO principal
         InspeccionFitosanitariaDAO inspDAO = new InspeccionFitosanitariaDAO();
         List<InspeccionReporte> resultados = inspDAO.listarInspeccionesReporte(
-                fechaInicio, fechaFin, idLugar, idLote, idEspecie);
+                fechaInicio, fechaFin, idLugar, idLote, idEspecie, estadoF);
 
         // 4. Llenar la Tabla Maestra (tblInspecciones)
         llenarTablaInspecciones(resultados);
