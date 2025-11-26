@@ -1,0 +1,11 @@
+Si deseas ejecutar el prototipo de software sin necesidad de descargar todos los archivos del proyecto, siga las siguientes indicaciones:
+
+1. Asegúrese de tener instalado Oracle Application Server 10g (o superior) en su computadora.
+2. Cree un usuario con nombre "proyectofitosanitario" y contraseña "col2025".
+3. Descargue e importe correctamente el archivo de base de datos (extensión .dmp) en dicho usuario.
+4. Asegúrese de tener instalado Java Runtime Environment (JRE) en su computadora.
+5. Descargue el archivo ejecutable .jar, luego haga doble clic, y seleccione la opción de abrir con Java.
+6. Una vez abierta la interfaz de inicio de sesión, ingrese los datos del usuario administrador, admin (usuario)  y admin (contraseña).
+7. Utilice y pruebe el programa.
+
+Si desea realizar cambios a su gusto, descargue libremente el código fuente del proyecto desde el repositorio.

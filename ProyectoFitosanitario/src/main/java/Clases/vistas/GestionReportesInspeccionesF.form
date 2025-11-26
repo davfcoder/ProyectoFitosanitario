@@ -109,9 +109,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="btnExportarDetalles" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel11" min="-2" pref="247" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="315" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="jButton3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="1" attributes="0">
@@ -554,7 +554,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Selecciona UNA fila de la tabla superior, a continuaci&#xf3;n, presiona el bot&#xf3;n &quot;Aplicar&quot; para mostrar las plagas asociadas a dicha inspecci&#xf3;n."/>
+            <Property name="text" type="java.lang.String" value="Selecciona UNA fila (una inspecci&#xf3;n) de la tabla superior, a continuaci&#xf3;n, se mostrar&#xe1;n las plagas asociadas a dicha inspecci&#xf3;n."/>
           </Properties>
         </Component>
       </SubComponents>
