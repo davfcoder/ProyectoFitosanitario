@@ -210,7 +210,7 @@ public class EditVereda extends javax.swing.JPanel {
                                 .addGap(0, 571, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnCancelar)
-                                .addGap(460, 460, 460)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton2)))
                         .addGap(60, 60, 60))))
         );

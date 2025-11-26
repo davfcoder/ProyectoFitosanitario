@@ -56,7 +56,7 @@ public class DepartamentoDAO {
         }
     }
 
-// 🔹 READ - Listar todos los departamentos usando FUNCTION almacenada
+// READ - Listar todos los departamentos usando FUNCTION almacenada
     public List<Departamento> listarTodos() {
         List<Departamento> lista = new ArrayList<>();
         Connection con = null;
@@ -66,20 +66,20 @@ public class DepartamentoDAO {
         try {
             con = conexion.estableceConexion();
 
-            // ✅ Llamar a la función que devuelve un SYS_REFCURSOR
+            // Llamar a la función que devuelve un SYS_REFCURSOR
             String sql = "{ ? = call fun_listarDepartamentos() }";
             cs = con.prepareCall(sql);
 
-            // ✅ Registrar el parámetro de salida (el valor retornado por la función)
+            // Registrar el parámetro de salida (el valor retornado por la función)
             cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
 
-            // ✅ Ejecutar la función
+            // Ejecutar la función
             cs.execute();
 
-            // ✅ Obtener el cursor como ResultSet
+            // Obtener el cursor como ResultSet
             rs = (ResultSet) cs.getObject(1);
 
-            // ✅ Recorrer los resultados
+            // Recorrer los resultados
             while (rs.next()) {
                 Departamento dep = new Departamento();
                 dep.setIdDepartamento(rs.getString("id_departamento"));
@@ -191,7 +191,7 @@ public class DepartamentoDAO {
         }
     }
 
-// 🔹 READ - Buscar departamento por ID usando FUNCTION almacenada para edit
+// READ - Buscar departamento por ID usando FUNCTION almacenada para edit
     public Departamento buscarPorId(String id) {
         Departamento dep = null;
         Connection con = null;
@@ -201,23 +201,23 @@ public class DepartamentoDAO {
         try {
             con = conexion.estableceConexion();
 
-            // ✅ Llamar a la función que devuelve un SYS_REFCURSOR
+            // Llamar a la función que devuelve un SYS_REFCURSOR
             String sql = "{ ? = call fun_buscarDepartamentoPorId(?) }";
             cs = con.prepareCall(sql);
 
-            // ✅ Registrar el parámetro de salida (el cursor devuelto por la función)
+            // Registrar el parámetro de salida (el cursor devuelto por la función)
             cs.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
 
-            // ✅ Establecer el parámetro de entrada (ID del departamento)
+            // Establecer el parámetro de entrada (ID del departamento)
             cs.setString(2, id);
 
-            // ✅ Ejecutar la función
+            // Ejecutar la función
             cs.execute();
 
-            // ✅ Recuperar el cursor como ResultSet
+            // Recuperar el cursor como ResultSet
             rs = (ResultSet) cs.getObject(1);
 
-            // ✅ Procesar los resultados
+            // Procesar los resultados
             if (rs.next()) {
                 dep = new Departamento();
                 dep.setIdDepartamento(rs.getString("id_departamento"));

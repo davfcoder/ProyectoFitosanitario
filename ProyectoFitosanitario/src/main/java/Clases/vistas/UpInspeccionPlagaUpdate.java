@@ -321,7 +321,7 @@ public class UpInspeccionPlagaUpdate extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEliminarPlagaActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        Dashboard.ShowJPanel(new GestionInspeccionesFitosanitarias("NombreRol"));
+        Dashboard.ShowJPanel(new GestionInspeccionesFitosanitarias());
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnEditarPlagaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarPlagaActionPerformed
