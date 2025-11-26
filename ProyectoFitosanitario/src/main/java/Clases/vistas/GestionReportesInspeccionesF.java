@@ -255,7 +255,6 @@ public class GestionReportesInspeccionesF extends javax.swing.JPanel {
         jBoxEstado.addItem("Fructificación");
         jBoxEstado.addItem("Maduración");
         jBoxEstado.addItem("Senescencia");
-
     }
 
     public GestionReportesInspeccionesF() {

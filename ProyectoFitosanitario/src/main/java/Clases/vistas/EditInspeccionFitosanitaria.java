@@ -181,7 +181,6 @@ public class EditInspeccionFitosanitaria extends javax.swing.JPanel {
         jBoxEstado.addItem("Fructificación");
         jBoxEstado.addItem("Maduración");
         jBoxEstado.addItem("Senescencia");
-        jBoxEstado.addItem("Vegetativo ");
 
     }
 
